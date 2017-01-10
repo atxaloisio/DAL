@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 
-namespace DAL.Repositorio
+namespace DAL
 {
     public interface IRepositorio<T> where T:class
     {

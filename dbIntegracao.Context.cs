@@ -26,6 +26,6 @@ namespace DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<Usuario> usuario { get; set; }
     }
 }

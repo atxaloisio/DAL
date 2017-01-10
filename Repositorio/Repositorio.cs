@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 
 
-namespace DAL.Repositorio
+namespace DAL
 {
     public class Repositorio<T> : IRepositorio<T>, IDisposable where T : class
     {

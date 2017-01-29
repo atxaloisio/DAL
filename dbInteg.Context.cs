@@ -27,5 +27,29 @@ namespace DAL
         }
     
         public virtual DbSet<Usuario> usuario { get; set; }
+        public virtual DbSet<ItemPedido> itemPedido { get; set; }
+        public virtual DbSet<ItemPedido_Imposto> itemPedido_Imposto { get; set; }
+        public virtual DbSet<ItemPedido_InfoAdic> itemPedido_InfoAdic { get; set; }
+        public virtual DbSet<ItemPedido_Produto> itemPedido_Produto { get; set; }
+        public virtual DbSet<Pedido> pedido { get; set; }
+        public virtual DbSet<Pedido_Frete> pedido_Frete { get; set; }
+        public virtual DbSet<Pedido_InfoAdic> pedido_InfoAdic { get; set; }
+        public virtual DbSet<Pedido_Observacoes> pedido_Observacoes { get; set; }
+        public virtual DbSet<Pedido_Parcelas> pedido_Parcelas { get; set; }
+        public virtual DbSet<Pedido_Total> pedido_Total { get; set; }
+        public virtual DbSet<Produto> produto { get; set; }
+        public virtual DbSet<Produto_Ibpt> produto_Ibpt { get; set; }
+        public virtual DbSet<Cliente> clientes { get; set; }
+        public virtual DbSet<Cliente_Tag> cliente_Tag { get; set; }
+        public virtual DbSet<Tag> tags { get; set; }
+        public virtual DbSet<Cliente_Parcela> cliente_Parcela { get; set; }
+        public virtual DbSet<Parcela> parcelas { get; set; }
+        public virtual DbSet<Cidade> cidades { get; set; }
+        public virtual DbSet<ItemPedido_Otica> itemPedido_Otica { get; set; }
+        public virtual DbSet<Motivo_Entrega> motivo_Entrega { get; set; }
+        public virtual DbSet<Pais> pais { get; set; }
+        public virtual DbSet<Pedido_Armacao> pedido_Armacao { get; set; }
+        public virtual DbSet<Pedido_Lente> pedido_Lente { get; set; }
+        public virtual DbSet<Pedido_Otica> pedido_Otica { get; set; }
     }
 }

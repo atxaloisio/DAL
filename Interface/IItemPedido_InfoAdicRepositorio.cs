@@ -7,7 +7,7 @@ using Model;
 
 namespace DAL
 {
-    interface IItemPedido_InfoAdicRepositorio : IRepositorio<ItemPedido_InfoAdic>
+    public interface IItemPedido_InfoAdicRepositorio : IRepositorio<ItemPedido_InfoAdic>
     {
     }
 }

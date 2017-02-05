@@ -7,7 +7,7 @@ using Model;
 
 namespace DAL
 {
-    interface IMotivo_EntregaRepositorio : IRepositorio<Motivo_Entrega>
+    public interface IMotivo_EntregaRepositorio : IRepositorio<Motivo_Entrega>
     {
     }
 }

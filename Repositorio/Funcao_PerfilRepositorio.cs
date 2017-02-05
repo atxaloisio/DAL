@@ -7,7 +7,7 @@ using Model;
 
 namespace DAL
 {
-    public interface IPedido_OticaRepositorio : IRepositorio<Pedido_Otica>
+    public class Funcao_PerfilRepositorio : Repositorio<Funcao_Perfil>, IFuncao_PerfilRepositorio
     {
     }
 }

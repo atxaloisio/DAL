@@ -7,7 +7,7 @@ using Model;
 
 namespace DAL
 {
-    interface ICliente_TagRepositorio : IRepositorio<Cliente_Tag>
+    public interface ICliente_TagRepositorio : IRepositorio<Cliente_Tag>
     {
     }
 }

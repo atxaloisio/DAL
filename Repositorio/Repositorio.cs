@@ -78,7 +78,7 @@ namespace DAL
         }
 
         public void Adicionar(T entity)
-        {
+        {            
             Context.Set<T>().Add(entity);
         }
 

@@ -7,7 +7,7 @@ using Model;
 
 namespace DAL
 {
-    interface ICidadeRepositorio : IRepositorio<Cidade>
+    public interface ICidadeRepositorio : IRepositorio<Cidade>
     {
     }
 }

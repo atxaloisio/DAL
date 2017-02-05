@@ -87,6 +87,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbIntegracao.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IFuncaoRepositorio.cs" />
+    <Compile Include="Interface\IFuncao_PerfilRepositorio.cs" />
+    <Compile Include="Interface\IPerfilRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\Cliente_ParcelaRepositorio.cs" />
     <Compile Include="Repositorio\Cliente_TagRepositorio.cs" />
@@ -115,6 +118,8 @@
     <Compile Include="Interface\IProduto_IbptRepositorio.cs" />
     <Compile Include="Interface\IRepositorio.cs" />
     <Compile Include="Interface\ITagRepositorio.cs" />
+    <Compile Include="Repositorio\Funcao_PerfilRepositorio.cs" />
+    <Compile Include="Repositorio\FuncaoRepositorio.cs" />
     <Compile Include="Repositorio\ItemPedidoRepositorio.cs" />
     <Compile Include="Repositorio\ItemPedido_ImpostoRepositorio.cs" />
     <Compile Include="Repositorio\ItemPedido_InfoAdicRepositorio.cs" />
@@ -133,6 +138,7 @@
     <Compile Include="Repositorio\Pedido_OticaRepositorio.cs" />
     <Compile Include="Repositorio\Pedido_ParcelasRepositorio.cs" />
     <Compile Include="Repositorio\Pedido_TotalRepositorio.cs" />
+    <Compile Include="Repositorio\PerfilRepositorio.cs" />
     <Compile Include="Repositorio\ProdutoRepositorio.cs" />
     <Compile Include="Repositorio\Produto_IbptRepositorio.cs" />
     <Compile Include="Repositorio\Repositorio.cs" />

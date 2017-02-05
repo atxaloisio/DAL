@@ -7,7 +7,7 @@ using Model;
 
 namespace DAL
 {
-    interface IPedido_FreteRepositorio : IRepositorio<Pedido_Frete>
+    public interface IPedido_FreteRepositorio : IRepositorio<Pedido_Frete>
     {
     }
 }

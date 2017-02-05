@@ -9,5 +9,6 @@ namespace DAL
 {
     public interface IUsuarioRepositorio : IRepositorio<Usuario>
     {
+        Usuario GetUsuarioPorLoginSenha(Usuario usuario);
     }
 }

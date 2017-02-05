@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Model;
 
+
 namespace DAL
 {
-    public interface IPedido_OticaRepositorio : IRepositorio<Pedido_Otica>
+    public interface IPerfilRepositorio : IRepositorio<Perfil>
     {
     }
 }

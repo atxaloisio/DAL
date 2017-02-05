@@ -17,7 +17,7 @@ namespace DAL
     public partial class MySQLEntities : DbContext
     {
         public MySQLEntities()
-            : base("name=MySQL")
+            : base("name=MySQLEntities")
         {
         }
     
@@ -26,30 +26,34 @@ namespace DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Usuario> usuario { get; set; }
-        public virtual DbSet<ItemPedido> itemPedido { get; set; }
-        public virtual DbSet<ItemPedido_Imposto> itemPedido_Imposto { get; set; }
-        public virtual DbSet<ItemPedido_InfoAdic> itemPedido_InfoAdic { get; set; }
-        public virtual DbSet<ItemPedido_Produto> itemPedido_Produto { get; set; }
-        public virtual DbSet<Pedido> pedido { get; set; }
-        public virtual DbSet<Pedido_Frete> pedido_Frete { get; set; }
-        public virtual DbSet<Pedido_InfoAdic> pedido_InfoAdic { get; set; }
-        public virtual DbSet<Pedido_Observacoes> pedido_Observacoes { get; set; }
-        public virtual DbSet<Pedido_Parcelas> pedido_Parcelas { get; set; }
-        public virtual DbSet<Pedido_Total> pedido_Total { get; set; }
-        public virtual DbSet<Produto> produto { get; set; }
-        public virtual DbSet<Produto_Ibpt> produto_Ibpt { get; set; }
-        public virtual DbSet<Cliente> clientes { get; set; }
-        public virtual DbSet<Cliente_Tag> cliente_Tag { get; set; }
-        public virtual DbSet<Tag> tags { get; set; }
-        public virtual DbSet<Cliente_Parcela> cliente_Parcela { get; set; }
-        public virtual DbSet<Parcela> parcelas { get; set; }
-        public virtual DbSet<Cidade> cidades { get; set; }
-        public virtual DbSet<ItemPedido_Otica> itemPedido_Otica { get; set; }
-        public virtual DbSet<Motivo_Entrega> motivo_Entrega { get; set; }
-        public virtual DbSet<Pais> pais { get; set; }
-        public virtual DbSet<Pedido_Armacao> pedido_Armacao { get; set; }
-        public virtual DbSet<Pedido_Lente> pedido_Lente { get; set; }
-        public virtual DbSet<Pedido_Otica> pedido_Otica { get; set; }
+        public virtual DbSet<ItemPedido> ItemPedidoes1 { get; set; }
+        public virtual DbSet<ItemPedido_Imposto> ItemPedido_Imposto1 { get; set; }
+        public virtual DbSet<ItemPedido_InfoAdic> ItemPedido_InfoAdic1 { get; set; }
+        public virtual DbSet<ItemPedido_Produto> ItemPedido_Produto1 { get; set; }
+        public virtual DbSet<Pedido> Pedidoes1 { get; set; }
+        public virtual DbSet<Pedido_Frete> Pedido_Frete1 { get; set; }
+        public virtual DbSet<Pedido_Observacoes> Pedido_Observacoes1 { get; set; }
+        public virtual DbSet<Pedido_Parcelas> Pedido_Parcelas1 { get; set; }
+        public virtual DbSet<Pedido_Total> Pedido_Total1 { get; set; }
+        public virtual DbSet<Produto> Produtoes1 { get; set; }
+        public virtual DbSet<Produto_Ibpt> Produto_Ibpt1 { get; set; }
+        public virtual DbSet<Cliente> Clientes1 { get; set; }
+        public virtual DbSet<Cliente_Tag> Cliente_Tag1 { get; set; }
+        public virtual DbSet<Tag> Tags1 { get; set; }
+        public virtual DbSet<Cliente_Parcela> Cliente_Parcela1 { get; set; }
+        public virtual DbSet<Parcela> Parcelas1 { get; set; }
+        public virtual DbSet<Cidade> Cidades1 { get; set; }
+        public virtual DbSet<ItemPedido_Otica> ItemPedido_Otica { get; set; }
+        public virtual DbSet<Motivo_Entrega> Motivo_Entrega1 { get; set; }
+        public virtual DbSet<Pais> Pais1 { get; set; }
+        public virtual DbSet<Pedido_Armacao> Pedido_Armacao1 { get; set; }
+        public virtual DbSet<Pedido_Lente> Pedido_Lente1 { get; set; }
+        public virtual DbSet<Pedido_Otica> Pedido_Otica1 { get; set; }
+        public virtual DbSet<Funcao> Funcaos1 { get; set; }
+        public virtual DbSet<Perfil> Perfils1 { get; set; }
+        public virtual DbSet<Usuario> Usuarios1 { get; set; }
+        public virtual DbSet<Conta_Corrente> Conta_Corrente1 { get; set; }
+        public virtual DbSet<Funcao_Perfil> Funcao_Perfil1 { get; set; }
+        public virtual DbSet<Pedido_InfoAdic> Pedido_InfoAdic1 { get; set; }
     }
 }

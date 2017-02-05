@@ -7,7 +7,7 @@ using Model;
 
 namespace DAL
 {
-    interface IProduto_IbptRepositorio : IRepositorio<Produto_Ibpt>
+    public interface IProduto_IbptRepositorio : IRepositorio<Produto_Ibpt>
     {
     }
 }

@@ -13,10 +13,12 @@ namespace DAL
     {
         //Para alterar para o sqlcompact mudar aqui.
         protected MySQLEntities Context;
+        protected MySQLEntitiesRemote ContextRemote;
 
         protected Repositorio()
         {
             Context = new MySQLEntities();
+            ContextRemote = new MySQLEntitiesRemote();
         }
 
         public IQueryable<T> GetTodos()
@@ -80,6 +82,8 @@ namespace DAL
         public void Adicionar(T entity)
         {            
             Context.Set<T>().Add(entity);
+            //Context.Database.Log
+            //ContextRemote.Set<T>().Add(entity);
         }
 
         public void Atualizar(T entity)

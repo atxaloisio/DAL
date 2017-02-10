@@ -5,25 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="dbintegracaoModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="categoria">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codigo" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="descricao" Type="varchar" MaxLength="40" />
-          <Property Name="descricao_padrao" Type="varchar" MaxLength="40" />
-          <Property Name="conta_inativa" Type="char" MaxLength="1" />
-          <Property Name="definida_pelo_usuario" Type="char" MaxLength="1" />
-          <Property Name="id_conta_contabil" Type="int" />
-          <Property Name="tag_conta_contabil" Type="varchar" MaxLength="20" />
-          <Property Name="conta_despesa" Type="char" MaxLength="1" />
-          <Property Name="nao_exibir" Type="char" MaxLength="1" />
-          <Property Name="natureza" Type="varchar" MaxLength="40" />
-          <Property Name="conta_receita" Type="char" MaxLength="1" />
-          <Property Name="totalizadora" Type="char" MaxLength="1" />
-          <Property Name="transferencia" Type="char" MaxLength="1" />
-        </EntityType>
         <EntityType Name="cidade">
           <Key>
             <PropertyRef Name="Id" />
@@ -40,7 +21,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codigo_cliente_omie" Type="bigint" Nullable="false" />
+          <Property Name="codigo_cliente_omie" Type="bigint" />
           <Property Name="codigo_cliente_integracao" Type="varchar" MaxLength="20" />
           <Property Name="cnpj_cpf" Type="varchar" MaxLength="20" />
           <Property Name="razao_social" Type="varchar" MaxLength="60" />
@@ -424,7 +405,6 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_Pedido" Type="bigint" Nullable="false" />
-          <Property Name="Id_conta_corrente" Type="bigint" Nullable="false" />
           <Property Name="codigo_categoria" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="codigo_conta_corrente" Type="int" Nullable="false" />
           <Property Name="numero_pedido_cliente" Type="varchar" MaxLength="20" />
@@ -571,7 +551,6 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codigo_produto" Type="int" Nullable="false" />
           <Property Name="codigo_produto_integracao" Type="varchar" MaxLength="20" />
           <Property Name="codigo" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="descricao" Type="varchar" MaxLength="100" Nullable="false" />
@@ -635,14 +614,6 @@
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
-        </EntityType>
-        <EntityType Name="unidade">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codigo" Type="varchar" MaxLength="20" />
-          <Property Name="descricao" Type="varchar" MaxLength="40" />
         </EntityType>
         <EntityType Name="usuario">
           <Key>
@@ -863,18 +834,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_pedido_infoadic_conta_corrente">
-          <End Role="conta_corrente" Type="Self.conta_corrente" Multiplicity="1" />
-          <End Role="pedido_infoadic" Type="Self.pedido_infoadic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="conta_corrente">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="pedido_infoadic">
-              <PropertyRef Name="Id_conta_corrente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_pedido_infoadic_conta_corrente' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_pedido_infoadic_conta_corrente" />-->
         <Association Name="FK_pedido_infoadic_pedido">
           <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
           <End Role="pedido_infoadic" Type="Self.pedido_infoadic" Multiplicity="*" />
@@ -986,7 +948,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="dbintegracaoModelStoreContainer">
-          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cidade" EntityType="Self.cidade" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cliente_parcela" EntityType="Self.cliente_parcela" Schema="dbintegracao" store:Type="Tables" />
@@ -1015,7 +976,6 @@
           <EntitySet Name="produto" EntityType="Self.produto" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="produto_ibpt" EntityType="Self.produto_ibpt" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="tag" EntityType="Self.tag" Schema="dbintegracao" store:Type="Tables" />
-          <EntitySet Name="unidade" EntityType="Self.unidade" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbintegracao" store:Type="Tables" />
           <AssociationSet Name="FK_cliente_parcela_cliente" Association="Self.FK_cliente_parcela_cliente">
             <End Role="cliente" EntitySet="cliente" />
@@ -1085,10 +1045,6 @@
             <End Role="pedido" EntitySet="pedido" />
             <End Role="pedido_frete" EntitySet="pedido_frete" />
           </AssociationSet>
-          <AssociationSet Name="FK_pedido_infoadic_conta_corrente" Association="Self.FK_pedido_infoadic_conta_corrente">
-            <End Role="conta_corrente" EntitySet="conta_corrente" />
-            <End Role="pedido_infoadic" EntitySet="pedido_infoadic" />
-          </AssociationSet>
           <AssociationSet Name="FK_pedido_infoadic_pedido" Association="Self.FK_pedido_infoadic_pedido">
             <End Role="pedido" EntitySet="pedido" />
             <End Role="pedido_infoadic" EntitySet="pedido_infoadic" />
@@ -1130,7 +1086,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbintegracaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="MySQLEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MySQLEntitiesRemote" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ItemPedidoes1" EntityType="dbintegracaoModel.ItemPedido" />
           <EntitySet Name="ItemPedido_Imposto1" EntityType="dbintegracaoModel.ItemPedido_Imposto" />
           <EntitySet Name="ItemPedido_InfoAdic1" EntityType="dbintegracaoModel.ItemPedido_InfoAdic" />
@@ -1263,12 +1219,6 @@
           <AssociationSet Name="FK_pedido_infoadic_pedido" Association="dbintegracaoModel.FK_pedido_infoadic_pedido">
             <End Role="Pedido" EntitySet="Pedidoes1" />
             <End Role="pedido_infoadic" EntitySet="Pedido_InfoAdic1" />
-          </AssociationSet>
-          <EntitySet Name="Categorias1" EntityType="dbintegracaoModel.Categoria" />
-          <EntitySet Name="Unidades1" EntityType="dbintegracaoModel.Unidade" />
-          <AssociationSet Name="FK_pedido_infoadic_conta_corrente" Association="dbintegracaoModel.FK_pedido_infoadic_conta_corrente">
-            <End Role="Conta_Corrente" EntitySet="Conta_Corrente1" />
-            <End Role="Pedido_InfoAdic" EntitySet="Pedido_InfoAdic1" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ItemPedido">
@@ -1577,7 +1527,6 @@
           <Property Name="alteracao" Type="DateTime" />
           <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="itempedido_otica" Relationship="dbintegracaoModel.FK_itempedido_otica_produto" FromRole="Produto" ToRole="itempedido_otica" />
-          <Property Name="codigo_produto" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Produto_Ibpt">
           <Key>
@@ -1721,7 +1670,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codigo_cliente_omie" Type="Int64" Nullable="false" />
+          <Property Name="codigo_cliente_omie" Type="Int64" />
           <Property Name="codigo_cliente_integracao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="cnpj_cpf" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="razao_social" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
@@ -2182,7 +2131,6 @@
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="alteracao" Type="DateTime" />
           <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="pedido_infoadic" Relationship="dbintegracaoModel.FK_pedido_infoadic_conta_corrente" FromRole="Conta_Corrente" ToRole="Pedido_InfoAdic" />
         </EntityType>
         <EntityType Name="Funcao_Perfil">
           <Key>
@@ -2249,8 +2197,6 @@
           <Property Name="alteracao" Type="DateTime" />
           <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="pedido" Relationship="dbintegracaoModel.FK_pedido_infoadic_pedido" FromRole="pedido_infoadic" ToRole="Pedido" />
-          <Property Name="Id_conta_corrente" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="conta_corrente" Relationship="dbintegracaoModel.FK_pedido_infoadic_conta_corrente" FromRole="Pedido_InfoAdic" ToRole="Conta_Corrente" />
         </EntityType>
         <Association Name="FK_pedido_infoadic_pedido">
           <End Type="dbintegracaoModel.Pedido" Role="Pedido" Multiplicity="1" />
@@ -2264,51 +2210,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Categoria">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="descricao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="descricao_padrao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="conta_inativa" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="definida_pelo_usuario" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="id_conta_contabil" Type="Int32" />
-          <Property Name="tag_conta_contabil" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="conta_despesa" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="nao_exibir" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="natureza" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="conta_receita" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="totalizadora" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="transferencia" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Unidade">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="descricao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FK_pedido_infoadic_conta_corrente">
-          <End Type="dbintegracaoModel.Conta_Corrente" Role="Conta_Corrente" Multiplicity="1" />
-          <End Type="dbintegracaoModel.Pedido_InfoAdic" Role="Pedido_InfoAdic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conta_Corrente">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pedido_InfoAdic">
-              <PropertyRef Name="Id_conta_corrente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="dbintegracaoModelStoreContainer" CdmEntityContainer="MySQLEntities">
+        <EntityContainerMapping StorageEntityContainer="dbintegracaoModelStoreContainer" CdmEntityContainer="MySQLEntitiesRemote">
           <EntitySetMapping Name="ItemPedidoes1">
             <EntityTypeMapping TypeName="dbintegracaoModel.ItemPedido">
               <MappingFragment StoreEntitySet="itempedido">
@@ -2563,7 +2470,6 @@
           <EntitySetMapping Name="Produtoes1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Produto">
               <MappingFragment StoreEntitySet="produto">
-                <ScalarProperty Name="codigo_produto" ColumnName="codigo_produto" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
                 <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
@@ -2944,7 +2850,6 @@
           <EntitySetMapping Name="Pedido_InfoAdic1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Pedido_InfoAdic">
               <MappingFragment StoreEntitySet="pedido_infoadic">
-                <ScalarProperty Name="Id_conta_corrente" ColumnName="Id_conta_corrente" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
                 <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
@@ -2961,35 +2866,6 @@
                 <ScalarProperty Name="codigo_conta_corrente" ColumnName="codigo_conta_corrente" />
                 <ScalarProperty Name="codigo_categoria" ColumnName="codigo_categoria" />
                 <ScalarProperty Name="Id_Pedido" ColumnName="Id_Pedido" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Categorias1">
-            <EntityTypeMapping TypeName="dbintegracaoModel.Categoria">
-              <MappingFragment StoreEntitySet="categoria">
-                <ScalarProperty Name="transferencia" ColumnName="transferencia" />
-                <ScalarProperty Name="totalizadora" ColumnName="totalizadora" />
-                <ScalarProperty Name="conta_receita" ColumnName="conta_receita" />
-                <ScalarProperty Name="natureza" ColumnName="natureza" />
-                <ScalarProperty Name="nao_exibir" ColumnName="nao_exibir" />
-                <ScalarProperty Name="conta_despesa" ColumnName="conta_despesa" />
-                <ScalarProperty Name="tag_conta_contabil" ColumnName="tag_conta_contabil" />
-                <ScalarProperty Name="id_conta_contabil" ColumnName="id_conta_contabil" />
-                <ScalarProperty Name="definida_pelo_usuario" ColumnName="definida_pelo_usuario" />
-                <ScalarProperty Name="conta_inativa" ColumnName="conta_inativa" />
-                <ScalarProperty Name="descricao_padrao" ColumnName="descricao_padrao" />
-                <ScalarProperty Name="descricao" ColumnName="descricao" />
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Unidades1">
-            <EntityTypeMapping TypeName="dbintegracaoModel.Unidade">
-              <MappingFragment StoreEntitySet="unidade">
-                <ScalarProperty Name="descricao" ColumnName="descricao" />
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

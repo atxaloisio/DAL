@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="Diagram1" ZoomLevel="75">
+      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="Diagram1">
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido" Width="1.5" PointX="1.75" PointY="9.25" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_Imposto" Width="1.5" PointX="0.5" PointY="13.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_InfoAdic" Width="2.125" PointX="3.75" PointY="13.375" />
@@ -12,8 +12,8 @@
         <EntityTypeShape EntityType="dbintegracaoModel.Pedido" Width="1.5" PointX="6" PointY="0.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Frete" Width="1.5" PointX="6.25" PointY="10.875" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Observacoes" Width="2" PointX="3.5" PointY="6.25" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Parcelas" Width="1.5" PointX="10.25" PointY="7.5" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Total" Width="1.5" PointX="8.625" PointY="2.125" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Parcelas" Width="1.5" PointX="9.625" PointY="6.375" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Total" Width="1.5" PointX="9.625" PointY="1.625" />
         <EntityTypeShape EntityType="dbintegracaoModel.Produto" Width="1.5" PointX="8.5" PointY="16.5" />
         <EntityTypeShape EntityType="dbintegracaoModel.Produto_Ibpt" Width="1.5" PointX="10.875" PointY="16.5" />
         <AssociationConnector Association="dbintegracaoModel.FK_itempedido_imposto_itempedido" ManuallyRouted="true" >
@@ -30,7 +30,7 @@
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_parcelas_pedido" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_total_pedido" />
         <AssociationConnector Association="dbintegracaoModel.FK_produto_ibpt_produto" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Cliente" Width="2.25" PointX="11.875" PointY="0.75" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Cliente" Width="1.5" PointX="11.875" PointY="0.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.Cliente_Tag" Width="1.5" PointX="14.75" PointY="0.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.Tag" Width="1.5" PointX="14.75" PointY="4.625" />
         <AssociationConnector Association="dbintegracaoModel.FK_cliente_tag_cliente" />
@@ -40,7 +40,7 @@
         <EntityTypeShape EntityType="dbintegracaoModel.Parcela" Width="1.5" PointX="11.75" PointY="11.125" />
         <AssociationConnector Association="dbintegracaoModel.FK_cliente_parcela_cliente" />
         <AssociationConnector Association="dbintegracaoModel.FK_cliente_parcela_parcela" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Cidade" Width="1.5" PointX="2.5" PointY="0.75" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Cidade" Width="1.5" PointX="2.25" PointY="0.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_Otica" Width="1.875" PointX="19.375" PointY="11.5" />
         <EntityTypeShape EntityType="dbintegracaoModel.Motivo_Entrega" Width="1.5" PointX="16.875" PointY="12.875" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pais" Width="1.5" PointX="4.25" PointY="0.75" />
@@ -64,9 +64,6 @@
         <AssociationConnector Association="dbintegracaoModel.FK_funcao_perfil_perfil" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pedido_InfoAdic" Width="1.5" PointX="8.25" PointY="26.75" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_infoadic_pedido" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Categoria" Width="1.5" PointX="2.5" PointY="3.125" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Unidade" Width="1.5" PointX="18.375" PointY="16.75" />
-        <AssociationConnector Association="dbintegracaoModel.FK_pedido_infoadic_conta_corrente" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

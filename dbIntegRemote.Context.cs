@@ -14,10 +14,10 @@ namespace DAL
     using System.Data.Entity.Infrastructure;
     using Model;
     
-    public partial class MySQLEntities : DbContext
+    public partial class MySQLEntitiesRemote : DbContext
     {
-        public MySQLEntities()
-            : base("name=MySQLEntities")
+        public MySQLEntitiesRemote()
+            : base("name=MySQLEntitiesRemote")
         {
         }
     
@@ -55,7 +55,5 @@ namespace DAL
         public virtual DbSet<Conta_Corrente> Conta_Corrente1 { get; set; }
         public virtual DbSet<Funcao_Perfil> Funcao_Perfil1 { get; set; }
         public virtual DbSet<Pedido_InfoAdic> Pedido_InfoAdic1 { get; set; }
-        public virtual DbSet<Categoria> Categorias1 { get; set; }
-        public virtual DbSet<Unidade> Unidades1 { get; set; }
     }
 }

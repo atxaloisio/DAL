@@ -59,6 +59,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,6 +68,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dbIntegRemote.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbIntegRemote.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbIntegRemote.Designer.cs">
+      <DependentUpon>dbIntegRemote.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="dbInteg.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,7 +101,9 @@
     <Compile Include="Interface\IFuncaoRepositorio.cs" />
     <Compile Include="Interface\IFuncao_PerfilRepositorio.cs" />
     <Compile Include="Interface\IPerfilRepositorio.cs" />
+    <Compile Include="Interface\Produto_IbptBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorio\ClienteRepositorio.cs" />
     <Compile Include="Repositorio\Cliente_ParcelaRepositorio.cs" />
     <Compile Include="Repositorio\Cliente_TagRepositorio.cs" />
     <Compile Include="Interface\ICidadeRepositorio.cs" />
@@ -155,6 +168,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbInteg.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="dbIntegRemote.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbIntegRemote.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="dbIntegRemote.edmx.diagram">
+      <DependentUpon>dbIntegRemote.edmx</DependentUpon>
+    </None>
     <None Include="dbInteg.edmx.diagram">
       <DependentUpon>dbInteg.edmx</DependentUpon>
     </None>
@@ -173,6 +193,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>dbIntegracao.Context.cs</LastGenOutput>
       <DependentUpon>dbIntegracao.edmx</DependentUpon>
+    </Content>
+    <Content Include="dbIntegRemote.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>dbIntegRemote.Context.cs</LastGenOutput>
+      <DependentUpon>dbIntegRemote.edmx</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

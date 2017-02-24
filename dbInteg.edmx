@@ -132,6 +132,15 @@
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
         </EntityType>
+        <EntityType Name="formaspagvendas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cCodigo" Type="varchar" MaxLength="3" />
+          <Property Name="nQtdeParc" Type="int" />
+          <Property Name="cDescricao" Type="varchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="funcao">
           <Key>
             <PropertyRef Name="codigo" />
@@ -483,6 +492,7 @@
           <Property Name="date_previsao_entrega" Type="date" />
           <Property Name="hora_previsao_entrega" Type="time" Precision="0" />
           <Property Name="id_motivo_entrega" Type="bigint" />
+          <Property Name="Id_transportadora" Type="bigint" />
           <Property Name="od_gl_esf" Type="varchar" MaxLength="6" />
           <Property Name="od_gl_cil" Type="varchar" MaxLength="6" />
           <Property Name="od_eixo" Type="int" />
@@ -992,6 +1002,7 @@
           <EntitySet Name="cliente_parcela" EntityType="Self.cliente_parcela" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cliente_tag" EntityType="Self.cliente_tag" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="conta_corrente" EntityType="Self.conta_corrente" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="formaspagvendas" EntityType="Self.formaspagvendas" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="funcao" EntityType="Self.funcao" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="funcao_perfil" EntityType="Self.funcao_perfil" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="itempedido" EntityType="Self.itempedido" Schema="dbintegracao" store:Type="Tables" />
@@ -1270,6 +1281,7 @@
             <End Role="Conta_Corrente" EntitySet="Conta_Corrente1" />
             <End Role="Pedido_InfoAdic" EntitySet="Pedido_InfoAdic1" />
           </AssociationSet>
+          <EntitySet Name="FormasPagVendas1" EntityType="dbintegracaoModel.FormasPagVenda" />
           </EntityContainer>
         <EntityType Name="ItemPedido">
           <Key>
@@ -2017,6 +2029,7 @@
           <NavigationProperty Name="pedido" Relationship="dbintegracaoModel.FK_pedido_otica_pedido" FromRole="pedido_otica" ToRole="Pedido" />
           <NavigationProperty Name="pedido_armacao" Relationship="dbintegracaoModel.FK_pedido_armacao_pedido_otica" FromRole="pedido_otica" ToRole="pedido_armacao" />
           <NavigationProperty Name="pedido_lente" Relationship="dbintegracaoModel.FK_pedido_lentes_pedido_otica" FromRole="pedido_otica" ToRole="pedido_lente" />
+          <Property Name="Id_transportadora" Type="Int64" />
         </EntityType>
         <Association Name="FK_pedido_otica_cliente_cliente">
           <End Type="dbintegracaoModel.Cliente" Role="Cliente" Multiplicity="0..1" />
@@ -2303,6 +2316,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FormasPagVenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cCodigo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="nQtdeParc" Type="Int32" />
+          <Property Name="cDescricao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2807,6 +2829,7 @@
           <EntitySetMapping Name="Pedido_Otica1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Pedido_Otica">
               <MappingFragment StoreEntitySet="pedido_otica">
+                <ScalarProperty Name="Id_transportadora" ColumnName="Id_transportadora" />
                 <ScalarProperty Name="base_calculada" ColumnName="base_calculada" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
@@ -2990,6 +3013,16 @@
               <MappingFragment StoreEntitySet="unidade">
                 <ScalarProperty Name="descricao" ColumnName="descricao" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormasPagVendas1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.FormasPagVenda">
+              <MappingFragment StoreEntitySet="formaspagvendas">
+                <ScalarProperty Name="cDescricao" ColumnName="cDescricao" />
+                <ScalarProperty Name="nQtdeParc" ColumnName="nQtdeParc" />
+                <ScalarProperty Name="cCodigo" ColumnName="cCodigo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

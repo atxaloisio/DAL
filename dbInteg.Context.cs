@@ -57,5 +57,6 @@ namespace DAL
         public virtual DbSet<Pedido_InfoAdic> Pedido_InfoAdic1 { get; set; }
         public virtual DbSet<Categoria> Categorias1 { get; set; }
         public virtual DbSet<Unidade> Unidades1 { get; set; }
+        public virtual DbSet<FormasPagVenda> FormasPagVendas1 { get; set; }
     }
 }

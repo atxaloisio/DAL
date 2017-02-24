@@ -88,21 +88,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbInteg.edmx</DependentUpon>
     </Compile>
-    <Compile Include="dbIntegracao.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbIntegracao.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="dbIntegracao.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbIntegracao.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Interface\ICategoriaRepositorio.cs" />
+    <Compile Include="Interface\IConta_CorrenteRepositorio.cs" />
+    <Compile Include="Interface\IFormasPagVendaRepositorio.cs" />
     <Compile Include="Interface\IFuncaoRepositorio.cs" />
     <Compile Include="Interface\IFuncao_PerfilRepositorio.cs" />
     <Compile Include="Interface\IPerfilRepositorio.cs" />
-    <Compile Include="Interface\Produto_IbptBLL.cs" />
+    <Compile Include="Interface\IUnidadeRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorio\CategoriaRepositorio.cs" />
+    <Compile Include="Repositorio\CidadeRepositorio.cs" />
     <Compile Include="Repositorio\ClienteRepositorio.cs" />
     <Compile Include="Repositorio\Cliente_ParcelaRepositorio.cs" />
     <Compile Include="Repositorio\Cliente_TagRepositorio.cs" />
@@ -131,8 +126,10 @@
     <Compile Include="Interface\IProduto_IbptRepositorio.cs" />
     <Compile Include="Interface\IRepositorio.cs" />
     <Compile Include="Interface\ITagRepositorio.cs" />
+    <Compile Include="Repositorio\FormasPagVendaRepositorio.cs" />
     <Compile Include="Repositorio\Funcao_PerfilRepositorio.cs" />
     <Compile Include="Repositorio\FuncaoRepositorio.cs" />
+    <Compile Include="Repositorio\Conta_CorrenteRepositorio.cs" />
     <Compile Include="Repositorio\ItemPedidoRepositorio.cs" />
     <Compile Include="Repositorio\ItemPedido_ImpostoRepositorio.cs" />
     <Compile Include="Repositorio\ItemPedido_InfoAdicRepositorio.cs" />
@@ -156,14 +153,11 @@
     <Compile Include="Repositorio\Produto_IbptRepositorio.cs" />
     <Compile Include="Repositorio\Repositorio.cs" />
     <Compile Include="Repositorio\TagRepositorio.cs" />
+    <Compile Include="Repositorio\UnidadeRepositorio.cs" />
     <Compile Include="Repositorio\UsuarioRepositorio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="dbIntegracao.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>dbIntegracao.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="dbInteg.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbInteg.Designer.cs</LastGenOutput>
@@ -178,9 +172,6 @@
     <None Include="dbInteg.edmx.diagram">
       <DependentUpon>dbInteg.edmx</DependentUpon>
     </None>
-    <None Include="dbIntegracaoedmx.diagram">
-      <DependentUpon>dbIntegracao.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -188,11 +179,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbInteg.edmx</DependentUpon>
       <LastGenOutput>dbInteg.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="dbIntegracao.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dbIntegracao.Context.cs</LastGenOutput>
-      <DependentUpon>dbIntegracao.edmx</DependentUpon>
     </Content>
     <Content Include="dbIntegRemote.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

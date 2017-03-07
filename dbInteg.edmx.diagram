@@ -68,6 +68,7 @@
         <EntityTypeShape EntityType="dbintegracaoModel.Unidade" Width="1.5" PointX="18.375" PointY="16.75" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_infoadic_conta_corrente" />
         <EntityTypeShape EntityType="dbintegracaoModel.FormasPagVenda" Width="1.5" PointX="18.375" PointY="20.125" />
+        <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_formaspagvendas" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

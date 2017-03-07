@@ -482,6 +482,7 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_cliente" Type="bigint" />
+          <Property Name="codigo" Type="bigint" />
           <Property Name="codigo_cliente" Type="varchar" MaxLength="20" />
           <Property Name="Id_pedido" Type="bigint" />
           <Property Name="codigo_pedido" Type="varchar" MaxLength="20" />
@@ -742,7 +743,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_itempedido_imposto_itempedido">
-          <End Role="itempedido" Type="Self.itempedido" Multiplicity="1" />
+          <End Role="itempedido" Type="Self.itempedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="itempedido_imposto" Type="Self.itempedido_imposto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="itempedido">
@@ -754,7 +757,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_itempedido_infoadic_itempedido">
-          <End Role="itempedido" Type="Self.itempedido" Multiplicity="1" />
+          <End Role="itempedido" Type="Self.itempedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="itempedido_infoadic" Type="Self.itempedido_infoadic" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="itempedido">
@@ -766,7 +771,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_itempedido_otica_pedido_otica">
-          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="1" />
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="itempedido_otica" Type="Self.itempedido_otica" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido_otica">
@@ -790,7 +797,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_itempedido_pedido">
-          <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="itempedido" Type="Self.itempedido" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido">
@@ -802,7 +811,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_itempedido_produto_itempedido">
-          <End Role="itempedido" Type="Self.itempedido" Multiplicity="1" />
+          <End Role="itempedido" Type="Self.itempedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="itempedido_produto" Type="Self.itempedido_produto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="itempedido">
@@ -826,7 +837,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_observacoes_pedido_pedido">
-          <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="pedido_observacoes" Type="Self.pedido_observacoes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido">
@@ -838,7 +851,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pedido_armacao_pedido_otica">
-          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="1" />
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="pedido_armacao" Type="Self.pedido_armacao" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido_otica">
@@ -862,7 +877,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pedido_frete_pedido">
-          <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="pedido_frete" Type="Self.pedido_frete" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido">
@@ -886,7 +903,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pedido_infoadic_pedido">
-          <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="pedido_infoadic" Type="Self.pedido_infoadic" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido">
@@ -898,7 +917,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pedido_lentes_pedido_otica">
-          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="1" />
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="pedido_lente" Type="Self.pedido_lente" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido_otica">
@@ -918,6 +939,18 @@
             </Principal>
             <Dependent Role="pedido_otica">
               <PropertyRef Name="Id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_otica_formaspagvendas">
+          <End Role="formaspagvendas" Type="Self.formaspagvendas" Multiplicity="0..1" />
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formaspagvendas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pedido_otica">
+              <PropertyRef Name="condicao_pagamento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -946,7 +979,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pedido_parcelas_pedido">
-          <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="pedido_parcelas" Type="Self.pedido_parcelas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido">
@@ -958,7 +993,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pedido_total_pedido">
-          <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="pedido_total" Type="Self.pedido_total" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido">
@@ -1110,6 +1147,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_pedido_otica_cliente_cliente" Association="Self.FK_pedido_otica_cliente_cliente">
             <End Role="cliente" EntitySet="cliente" />
+            <End Role="pedido_otica" EntitySet="pedido_otica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_otica_formaspagvendas" Association="Self.FK_pedido_otica_formaspagvendas">
+            <End Role="formaspagvendas" EntitySet="formaspagvendas" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
           </AssociationSet>
           <AssociationSet Name="FK_pedido_otica_motivo_entrega" Association="Self.FK_pedido_otica_motivo_entrega">
@@ -1282,6 +1323,10 @@
             <End Role="Pedido_InfoAdic" EntitySet="Pedido_InfoAdic1" />
           </AssociationSet>
           <EntitySet Name="FormasPagVendas1" EntityType="dbintegracaoModel.FormasPagVenda" />
+          <AssociationSet Name="FK_pedido_otica_formaspagvendas" Association="dbintegracaoModel.FK_pedido_otica_formaspagvendas">
+            <End Role="FormasPagVenda" EntitySet="FormasPagVendas1" />
+            <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ItemPedido">
           <Key>
@@ -2030,6 +2075,8 @@
           <NavigationProperty Name="pedido_armacao" Relationship="dbintegracaoModel.FK_pedido_armacao_pedido_otica" FromRole="pedido_otica" ToRole="pedido_armacao" />
           <NavigationProperty Name="pedido_lente" Relationship="dbintegracaoModel.FK_pedido_lentes_pedido_otica" FromRole="pedido_otica" ToRole="pedido_lente" />
           <Property Name="Id_transportadora" Type="Int64" />
+          <Property Name="codigo" Type="Int64" />
+          <NavigationProperty Name="formaspagvenda" Relationship="dbintegracaoModel.FK_pedido_otica_formaspagvendas" FromRole="Pedido_Otica" ToRole="FormasPagVenda" />
         </EntityType>
         <Association Name="FK_pedido_otica_cliente_cliente">
           <End Type="dbintegracaoModel.Cliente" Role="Cliente" Multiplicity="0..1" />
@@ -2324,7 +2371,20 @@
           <Property Name="cCodigo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="nQtdeParc" Type="Int32" />
           <Property Name="cDescricao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.FK_pedido_otica_formaspagvendas" FromRole="FormasPagVenda" ToRole="Pedido_Otica" />
         </EntityType>
+        <Association Name="FK_pedido_otica_formaspagvendas">
+          <End Type="dbintegracaoModel.FormasPagVenda" Role="FormasPagVenda" Multiplicity="0..1" />
+          <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormasPagVenda">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedido_Otica">
+              <PropertyRef Name="condicao_pagamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2829,6 +2889,7 @@
           <EntitySetMapping Name="Pedido_Otica1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Pedido_Otica">
               <MappingFragment StoreEntitySet="pedido_otica">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="Id_transportadora" ColumnName="Id_transportadora" />
                 <ScalarProperty Name="base_calculada" ColumnName="base_calculada" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />

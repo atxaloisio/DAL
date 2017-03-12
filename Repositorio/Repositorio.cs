@@ -65,7 +65,7 @@ namespace DAL
         }
 
         public virtual int getTotalRegistros()
-        {
+        {            
             return Context.Set<T>().Count();
         }
 
@@ -86,14 +86,14 @@ namespace DAL
             //ContextRemote.Set<T>().Add(entity);
         }
 
-        public void Atualizar(T entity)
-        {
-            Context.Entry(entity).State = EntityState.Modified;
+        public virtual void Atualizar(T entity)
+        {            
+            Context.Entry(entity).State = EntityState.Modified;            
         }
 
         public void Deletar(Func<T, bool> predicate)
         {
-            Context.Set<T>().Where(predicate).ToList().ForEach(del => Context.Set<T>().Remove(del));
+            Context.Set<T>().Where(predicate).ToList().ForEach(del => Context.Set<T>().Remove(del));            
         }
 
         public void Commit()

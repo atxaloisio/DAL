@@ -23,6 +23,7 @@
           <Property Name="conta_receita" Type="char" MaxLength="1" />
           <Property Name="totalizadora" Type="char" MaxLength="1" />
           <Property Name="transferencia" Type="char" MaxLength="1" />
+          <Property Name="controle" Type="int" />
         </EntityType>
         <EntityType Name="cidade">
           <Key>
@@ -2091,7 +2092,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_itempedido_otica_pedido_otica">
-          <End Type="dbintegracaoModel.Pedido_Otica" Role="pedido_otica" Multiplicity="1" />
+          <End Type="dbintegracaoModel.Pedido_Otica" Role="pedido_otica" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="dbintegracaoModel.ItemPedido_Otica" Role="itempedido_otica" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pedido_otica">
@@ -2342,6 +2345,7 @@
           <Property Name="conta_receita" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="totalizadora" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="transferencia" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="controle" Type="Int32" />
         </EntityType>
         <EntityType Name="Unidade">
           <Key>
@@ -3052,6 +3056,7 @@
           <EntitySetMapping Name="Categorias1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Categoria">
               <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="controle" ColumnName="controle" />
                 <ScalarProperty Name="transferencia" ColumnName="transferencia" />
                 <ScalarProperty Name="totalizadora" ColumnName="totalizadora" />
                 <ScalarProperty Name="conta_receita" ColumnName="conta_receita" />

@@ -18,6 +18,7 @@ namespace DAL
         protected Repositorio()
         {
             Context = new MySQLEntities();
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             ContextRemote = new MySQLEntitiesRemote();
         }
 

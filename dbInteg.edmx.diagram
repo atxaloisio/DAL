@@ -39,10 +39,9 @@
         <EntityTypeShape EntityType="dbintegracaoModel.Cliente_Parcela" Width="1.5" PointX="14.25" PointY="9.375" />
         <EntityTypeShape EntityType="dbintegracaoModel.Parcela" Width="1.5" PointX="11.75" PointY="11.125" />
         <AssociationConnector Association="dbintegracaoModel.FK_cliente_parcela_cliente" />
-        <AssociationConnector Association="dbintegracaoModel.FK_cliente_parcela_parcela" />
         <EntityTypeShape EntityType="dbintegracaoModel.Cidade" Width="1.5" PointX="2.5" PointY="0.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_Otica" Width="1.875" PointX="19.375" PointY="11.5" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Motivo_Entrega" Width="1.5" PointX="16.875" PointY="12.875" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Motivo_Entrega" Width="1.5" PointX="17.125" PointY="13.625" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pais" Width="1.5" PointX="4.25" PointY="0.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Armacao" Width="1.875" PointX="19.375" PointY="2.25" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Lente" Width="1.5" PointX="19.375" PointY="6.875" />
@@ -67,8 +66,16 @@
         <EntityTypeShape EntityType="dbintegracaoModel.Categoria" Width="1.5" PointX="1.25" PointY="3.125" />
         <EntityTypeShape EntityType="dbintegracaoModel.Unidade" Width="1.5" PointX="18.375" PointY="16.75" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_infoadic_conta_corrente" />
-        <EntityTypeShape EntityType="dbintegracaoModel.FormasPagVenda" Width="1.5" PointX="18.375" PointY="20.125" />
-        <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_formaspagvendas" />
+        <EntityTypeShape EntityType="dbintegracaoModel.FormasPagVenda" Width="1.5" PointX="14.375" PointY="13.5" />
+        <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_formaspagvendas" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="dbintegracaoModel.FK_cliente_formaspagvendas" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Rota" Width="1.5" PointX="22" PointY="0.5" />
+        <AssociationConnector Association="dbintegracaoModel.fk_rota_cidade" />
+        <AssociationConnector Association="dbintegracaoModel.fk_rota_cliente" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Cliente_Transportadora" Width="1.5" PointX="14.875" PointY="26.75" />
+        <AssociationConnector Association="dbintegracaoModel.fk_cliente_transportadora_cliente" />
+        <AssociationConnector Association="dbintegracaoModel.fk_cliente_transportadora_transportadora" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -23,7 +23,7 @@ namespace DAL
         }
 
         public IQueryable<T> GetTodos()
-        {
+        {            
             return Context.Set<T>();
         }
 
@@ -113,9 +113,5 @@ namespace DAL
                 GC.SuppressFinalize(this);
             }
         }
-
-
-
-
     }
 }

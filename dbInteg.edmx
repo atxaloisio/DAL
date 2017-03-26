@@ -19,7 +19,7 @@
           <Property Name="tag_conta_contabil" Type="varchar" MaxLength="20" />
           <Property Name="conta_despesa" Type="char" MaxLength="1" />
           <Property Name="nao_exibir" Type="char" MaxLength="1" />
-          <Property Name="natureza" Type="varchar" MaxLength="40" />
+          <Property Name="natureza" Type="varchar" MaxLength="120" />
           <Property Name="conta_receita" Type="char" MaxLength="1" />
           <Property Name="totalizadora" Type="char" MaxLength="1" />
           <Property Name="transferencia" Type="char" MaxLength="1" />
@@ -220,7 +220,7 @@
           <Property Name="aliq_icms_opprop" Type="decimal" Precision="10" Scale="2" />
           <Property Name="cod_sit_trib_ipi" Type="varchar" MaxLength="2" />
           <Property Name="tipo_calculo_ipi" Type="varchar" MaxLength="1" />
-          <Property Name="enquadramento_ipi" Type="varchar" MaxLength="1" />
+          <Property Name="enquadramento_ipi" Type="varchar" MaxLength="3" />
           <Property Name="base_ipi" Type="decimal" Precision="10" Scale="2" />
           <Property Name="aliq_ipi" Type="decimal" Precision="10" Scale="2" />
           <Property Name="qtde_unid_trib_ipi" Type="decimal" Precision="10" Scale="2" />
@@ -315,6 +315,7 @@
           <Property Name="Id_itempedido" Type="bigint" Nullable="false" />
           <Property Name="Id_produto" Type="bigint" Nullable="false" />
           <Property Name="ordem" Type="int" />
+          <Property Name="codigo_produto" Type="int" />
           <Property Name="codigo_produto_integracao" Type="varchar" MaxLength="20" />
           <Property Name="codigo" Type="varchar" MaxLength="20" />
           <Property Name="descricao" Type="varchar" MaxLength="100" />
@@ -360,7 +361,7 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="codigo" Type="varchar" MaxLength="3" />
-          <Property Name="descricao" Type="varchar" MaxLength="30" />
+          <Property Name="descricao" Type="varchar" MaxLength="200" />
           <Property Name="parcelas" Type="int" />
           <Property Name="inclusao" Type="date" />
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
@@ -645,6 +646,60 @@
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
         </EntityType>
+        <EntityType Name="produto_imposto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nCodProd" Type="int" />
+          <Property Name="cCodIntProd" Type="varchar" MaxLength="20" />
+          <Property Name="cCodIntImp" Type="varchar" MaxLength="20" />
+          <Property Name="cCupomFiscal" Type="varchar" MaxLength="1" />
+          <Property Name="cUfOrigem" Type="varchar" MaxLength="50" />
+          <Property Name="cUfDestino" Type="varchar" MaxLength="50" />
+          <Property Name="cCFOP" Type="varchar" MaxLength="20" />
+          <Property Name="cCNAECliente" Type="varchar" MaxLength="50" />
+          <Property Name="cContribICMS" Type="varchar" MaxLength="1" />
+          <Property Name="cCSTCOFINS" Type="varchar" MaxLength="20" />
+          <Property Name="cTpCalcCOFINS" Type="varchar" MaxLength="20" />
+          <Property Name="nValUnTribCOFINS" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nAliqCOFINS" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="cECFNaoTrib" Type="varchar" MaxLength="20" />
+          <Property Name="cECFSubstTrib" Type="varchar" MaxLength="20" />
+          <Property Name="cECFIsento" Type="varchar" MaxLength="20" />
+          <Property Name="cCSTICMS" Type="varchar" MaxLength="20" />
+          <Property Name="cOrigemICMS" Type="varchar" MaxLength="20" />
+          <Property Name="cModBCICMS" Type="varchar" MaxLength="20" />
+          <Property Name="nRedBCICMS" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nAliqICMS" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nPercDifICMS" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nPercFCP" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nAlIntUFDest" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nAlInterestUFs" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nPercICMSIE" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="cCSOSNICMS_SN" Type="varchar" MaxLength="20" />
+          <Property Name="cOrigemICMS_SN" Type="varchar" MaxLength="20" />
+          <Property Name="cModBCICMS_SN" Type="varchar" MaxLength="20" />
+          <Property Name="nAlCredICMS_SN" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nRedBCICMS_SN" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nAliqICMS_SN" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="cModBCICMSST" Type="varchar" MaxLength="20" />
+          <Property Name="nMargValAdICMSST" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nRedBCICMSST" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nAliqICMSST" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nAliqOPICMSST" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="cCEST" Type="varchar" MaxLength="20" />
+          <Property Name="cCSTIPI" Type="varchar" MaxLength="20" />
+          <Property Name="cTpCalcIPI" Type="varchar" MaxLength="20" />
+          <Property Name="nAliqIPI" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nValUnTribIPI" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="cEnqIPI" Type="varchar" MaxLength="20" />
+          <Property Name="cCSTPIS" Type="varchar" MaxLength="20" />
+          <Property Name="cTpCalcPIS" Type="varchar" MaxLength="20" />
+          <Property Name="nAliqPIS" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="nValUnTribPIS" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="cInfAdicNF" Type="varchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="rota">
           <Key>
             <PropertyRef Name="id" />
@@ -687,20 +742,6 @@
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
           <Property Name="inativo" Type="char" MaxLength="1" />
         </EntityType>
-        <Association Name="FK_cliente_formaspagvendas">
-          <End Role="formaspagvendas" Type="Self.formaspagvendas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="cliente_parcela" Type="Self.cliente_parcela" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="formaspagvendas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="cliente_parcela">
-              <PropertyRef Name="Id_parcela" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_cliente_parcela_cliente">
           <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
           <End Role="cliente_parcela" Type="Self.cliente_parcela" Multiplicity="*" />
@@ -710,6 +751,18 @@
             </Principal>
             <Dependent Role="cliente_parcela">
               <PropertyRef Name="Id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cliente_parcela_parcela">
+          <End Role="parcela" Type="Self.parcela" Multiplicity="1" />
+          <End Role="cliente_parcela" Type="Self.cliente_parcela" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parcela">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cliente_parcela">
+              <PropertyRef Name="Id_parcela" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -989,18 +1042,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_pedido_otica_formaspagvendas">
-          <End Role="formaspagvendas" Type="Self.formaspagvendas" Multiplicity="0..1" />
-          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="formaspagvendas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="pedido_otica">
-              <PropertyRef Name="condicao_pagamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_pedido_otica_motivo_entrega">
           <End Role="motivo_entrega" Type="Self.motivo_entrega" Multiplicity="0..1" />
           <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
@@ -1010,6 +1051,18 @@
             </Principal>
             <Dependent Role="pedido_otica">
               <PropertyRef Name="id_motivo_entrega" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_otica_parcela">
+          <End Role="parcela" Type="Self.parcela" Multiplicity="0..1" />
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parcela">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pedido_otica">
+              <PropertyRef Name="condicao_pagamento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1138,16 +1191,17 @@
           <EntitySet Name="perfil" EntityType="Self.perfil" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="produto" EntityType="Self.produto" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="produto_ibpt" EntityType="Self.produto_ibpt" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="produto_imposto" EntityType="Self.produto_imposto" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="rota" EntityType="Self.rota" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="tag" EntityType="Self.tag" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="unidade" EntityType="Self.unidade" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbintegracao" store:Type="Tables" />
-          <AssociationSet Name="FK_cliente_formaspagvendas" Association="Self.FK_cliente_formaspagvendas">
-            <End Role="formaspagvendas" EntitySet="formaspagvendas" />
-            <End Role="cliente_parcela" EntitySet="cliente_parcela" />
-          </AssociationSet>
           <AssociationSet Name="FK_cliente_parcela_cliente" Association="Self.FK_cliente_parcela_cliente">
             <End Role="cliente" EntitySet="cliente" />
+            <End Role="cliente_parcela" EntitySet="cliente_parcela" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cliente_parcela_parcela" Association="Self.FK_cliente_parcela_parcela">
+            <End Role="parcela" EntitySet="parcela" />
             <End Role="cliente_parcela" EntitySet="cliente_parcela" />
           </AssociationSet>
           <AssociationSet Name="FK_cliente_tag_cliente" Association="Self.FK_cliente_tag_cliente">
@@ -1234,12 +1288,12 @@
             <End Role="cliente" EntitySet="cliente" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
           </AssociationSet>
-          <AssociationSet Name="FK_pedido_otica_formaspagvendas" Association="Self.FK_pedido_otica_formaspagvendas">
-            <End Role="formaspagvendas" EntitySet="formaspagvendas" />
-            <End Role="pedido_otica" EntitySet="pedido_otica" />
-          </AssociationSet>
           <AssociationSet Name="FK_pedido_otica_motivo_entrega" Association="Self.FK_pedido_otica_motivo_entrega">
             <End Role="motivo_entrega" EntitySet="motivo_entrega" />
+            <End Role="pedido_otica" EntitySet="pedido_otica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_otica_parcela" Association="Self.FK_pedido_otica_parcela">
+            <End Role="parcela" EntitySet="parcela" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
           </AssociationSet>
           <AssociationSet Name="FK_pedido_otica_pedido" Association="Self.FK_pedido_otica_pedido">
@@ -1412,14 +1466,6 @@
             <End Role="Pedido_InfoAdic" EntitySet="Pedido_InfoAdic1" />
           </AssociationSet>
           <EntitySet Name="FormasPagVendas1" EntityType="dbintegracaoModel.FormasPagVenda" />
-          <AssociationSet Name="FK_pedido_otica_formaspagvendas" Association="dbintegracaoModel.FK_pedido_otica_formaspagvendas">
-            <End Role="FormasPagVenda" EntitySet="FormasPagVendas1" />
-            <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
-          </AssociationSet>
-          <AssociationSet Name="FK_cliente_formaspagvendas" Association="dbintegracaoModel.FK_cliente_formaspagvendas">
-            <End Role="FormasPagVenda" EntitySet="FormasPagVendas1" />
-            <End Role="Cliente_Parcela" EntitySet="Cliente_Parcela1" />
-          </AssociationSet>
           <EntitySet Name="Rotas1" EntityType="dbintegracaoModel.Rota" />
           <AssociationSet Name="fk_rota_cidade" Association="dbintegracaoModel.fk_rota_cidade">
             <End Role="Cidade" EntitySet="Cidades1" />
@@ -1437,6 +1483,15 @@
           <AssociationSet Name="fk_cliente_transportadora_transportadora" Association="dbintegracaoModel.fk_cliente_transportadora_transportadora">
             <End Role="Cliente" EntitySet="Clientes1" />
             <End Role="cliente_transportadora" EntitySet="Cliente_Transportadora1" />
+          </AssociationSet>
+          <EntitySet Name="Produto_Imposto1" EntityType="dbintegracaoModel.Produto_Imposto" />
+          <AssociationSet Name="FK_cliente_parcela_parcela" Association="dbintegracaoModel.FK_cliente_parcela_parcela">
+            <End Role="Parcela" EntitySet="Parcelas1" />
+            <End Role="Cliente_Parcela" EntitySet="Cliente_Parcela1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_otica_parcela" Association="dbintegracaoModel.FK_pedido_otica_parcela">
+            <End Role="Parcela" EntitySet="Parcelas1" />
+            <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ItemPedido">
@@ -1488,7 +1543,7 @@
           <Property Name="aliq_icms_opprop" Type="Decimal" />
           <Property Name="cod_sit_trib_ipi" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="tipo_calculo_ipi" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="enquadramento_ipi" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="enquadramento_ipi" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="base_ipi" Type="Decimal" />
           <Property Name="aliq_ipi" Type="Decimal" />
           <Property Name="qtde_unid_trib_ipi" Type="Decimal" />
@@ -1588,6 +1643,7 @@
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="alteracao" Type="DateTime" />
           <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_produto" Type="Int32" />
         </EntityType>
         <EntityType Name="Pedido">
           <Key>
@@ -2008,7 +2064,7 @@
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="alteracao" Type="DateTime" />
           <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="formaspagvenda" Relationship="dbintegracaoModel.FK_cliente_formaspagvendas" FromRole="Cliente_Parcela" ToRole="FormasPagVenda" />
+          <NavigationProperty Name="parcela" Relationship="dbintegracaoModel.FK_cliente_parcela_parcela" FromRole="Cliente_Parcela" ToRole="Parcela" />
         </EntityType>
         <EntityType Name="Parcela">
           <Key>
@@ -2016,12 +2072,14 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="codigo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="descricao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="parcelas" Type="Int32" />
           <Property Name="inclusao" Type="DateTime" />
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="alteracao" Type="DateTime" />
           <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cliente_parcela" Relationship="dbintegracaoModel.FK_cliente_parcela_parcela" FromRole="Parcela" ToRole="Cliente_Parcela" />
+          <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.FK_pedido_otica_parcela" FromRole="Parcela" ToRole="Pedido_Otica" />
         </EntityType>
         <Association Name="FK_cliente_parcela_cliente">
           <End Type="dbintegracaoModel.Cliente" Role="Cliente" Multiplicity="1" />
@@ -2178,7 +2236,7 @@
           <NavigationProperty Name="pedido_lente" Relationship="dbintegracaoModel.FK_pedido_lentes_pedido_otica" FromRole="pedido_otica" ToRole="pedido_lente" />
           <Property Name="Id_transportadora" Type="Int64" />
           <Property Name="codigo" Type="Int64" />
-          <NavigationProperty Name="formaspagvenda" Relationship="dbintegracaoModel.FK_pedido_otica_formaspagvendas" FromRole="Pedido_Otica" ToRole="FormasPagVenda" />
+          <NavigationProperty Name="parcela" Relationship="dbintegracaoModel.FK_pedido_otica_parcela" FromRole="Pedido_Otica" ToRole="Parcela" />
         </EntityType>
         <Association Name="FK_pedido_otica_cliente_cliente">
           <End Type="dbintegracaoModel.Cliente" Role="Cliente" Multiplicity="0..1" />
@@ -2434,15 +2492,15 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="descricao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="descricao_padrao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="descricao_padrao" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="conta_inativa" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="definida_pelo_usuario" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="id_conta_contabil" Type="Int32" />
           <Property Name="tag_conta_contabil" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="conta_despesa" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="nao_exibir" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="natureza" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="natureza" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="conta_receita" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="totalizadora" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="transferencia" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
@@ -2476,35 +2534,7 @@
           <Property Name="cCodigo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="nQtdeParc" Type="Int32" />
           <Property Name="cDescricao" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.FK_pedido_otica_formaspagvendas" FromRole="FormasPagVenda" ToRole="Pedido_Otica" />
-          <NavigationProperty Name="cliente_parcela" Relationship="dbintegracaoModel.FK_cliente_formaspagvendas" FromRole="FormasPagVenda" ToRole="Cliente_Parcela" />
         </EntityType>
-        <Association Name="FK_pedido_otica_formaspagvendas">
-          <End Type="dbintegracaoModel.FormasPagVenda" Role="FormasPagVenda" Multiplicity="0..1" />
-          <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FormasPagVenda">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pedido_Otica">
-              <PropertyRef Name="condicao_pagamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_cliente_formaspagvendas">
-          <End Type="dbintegracaoModel.FormasPagVenda" Role="FormasPagVenda" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="dbintegracaoModel.Cliente_Parcela" Role="Cliente_Parcela" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FormasPagVenda">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Cliente_Parcela">
-              <PropertyRef Name="Id_parcela" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Rota">
           <Key>
             <PropertyRef Name="id" />
@@ -2578,6 +2608,84 @@
             </Principal>
             <Dependent Role="cliente_transportadora">
               <PropertyRef Name="Id_transportadora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Produto_Imposto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nCodProd" Type="Int32" />
+          <Property Name="cCodIntProd" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cCodIntImp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cCupomFiscal" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="cUfOrigem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cUfDestino" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cCFOP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cCNAECliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cContribICMS" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="cCSTCOFINS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cTpCalcCOFINS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nValUnTribCOFINS" Type="Decimal" />
+          <Property Name="nAliqCOFINS" Type="Decimal" />
+          <Property Name="cECFNaoTrib" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cECFSubstTrib" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cECFIsento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cCSTICMS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cOrigemICMS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cModBCICMS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nRedBCICMS" Type="Decimal" />
+          <Property Name="nAliqICMS" Type="Decimal" />
+          <Property Name="nPercDifICMS" Type="Decimal" />
+          <Property Name="nPercFCP" Type="Decimal" />
+          <Property Name="nAlIntUFDest" Type="Decimal" />
+          <Property Name="nAlInterestUFs" Type="Decimal" />
+          <Property Name="nPercICMSIE" Type="Decimal" />
+          <Property Name="cCSOSNICMS_SN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cOrigemICMS_SN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cModBCICMS_SN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nAlCredICMS_SN" Type="Decimal" />
+          <Property Name="nRedBCICMS_SN" Type="Decimal" />
+          <Property Name="nAliqICMS_SN" Type="Decimal" />
+          <Property Name="cModBCICMSST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nMargValAdICMSST" Type="Decimal" />
+          <Property Name="nRedBCICMSST" Type="Decimal" />
+          <Property Name="nAliqICMSST" Type="Decimal" />
+          <Property Name="nAliqOPICMSST" Type="Decimal" />
+          <Property Name="cCEST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cCSTIPI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cTpCalcIPI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nAliqIPI" Type="Decimal" />
+          <Property Name="nValUnTribIPI" Type="Decimal" />
+          <Property Name="cEnqIPI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cCSTPIS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cTpCalcPIS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nAliqPIS" Type="Decimal" />
+          <Property Name="nValUnTribPIS" Type="Decimal" />
+          <Property Name="cInfAdicNF" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_cliente_parcela_parcela">
+          <End Type="dbintegracaoModel.Parcela" Role="Parcela" Multiplicity="1" />
+          <End Type="dbintegracaoModel.Cliente_Parcela" Role="Cliente_Parcela" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parcela">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cliente_Parcela">
+              <PropertyRef Name="Id_parcela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_otica_parcela">
+          <End Type="dbintegracaoModel.Parcela" Role="Parcela" Multiplicity="0..1" />
+          <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parcela">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedido_Otica">
+              <PropertyRef Name="condicao_pagamento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2707,6 +2815,7 @@
           <EntitySetMapping Name="ItemPedido_Produto1">
             <EntityTypeMapping TypeName="dbintegracaoModel.ItemPedido_Produto">
               <MappingFragment StoreEntitySet="itempedido_produto">
+                <ScalarProperty Name="codigo_produto" ColumnName="codigo_produto" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
                 <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
@@ -3299,6 +3408,61 @@
               <MappingFragment StoreEntitySet="cliente_transportadora">
                 <ScalarProperty Name="Id_transportadora" ColumnName="Id_transportadora" />
                 <ScalarProperty Name="Id_cliente" ColumnName="Id_cliente" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produto_Imposto1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Produto_Imposto">
+              <MappingFragment StoreEntitySet="produto_imposto">
+                <ScalarProperty Name="cInfAdicNF" ColumnName="cInfAdicNF" />
+                <ScalarProperty Name="nValUnTribPIS" ColumnName="nValUnTribPIS" />
+                <ScalarProperty Name="nAliqPIS" ColumnName="nAliqPIS" />
+                <ScalarProperty Name="cTpCalcPIS" ColumnName="cTpCalcPIS" />
+                <ScalarProperty Name="cCSTPIS" ColumnName="cCSTPIS" />
+                <ScalarProperty Name="cEnqIPI" ColumnName="cEnqIPI" />
+                <ScalarProperty Name="nValUnTribIPI" ColumnName="nValUnTribIPI" />
+                <ScalarProperty Name="nAliqIPI" ColumnName="nAliqIPI" />
+                <ScalarProperty Name="cTpCalcIPI" ColumnName="cTpCalcIPI" />
+                <ScalarProperty Name="cCSTIPI" ColumnName="cCSTIPI" />
+                <ScalarProperty Name="cCEST" ColumnName="cCEST" />
+                <ScalarProperty Name="nAliqOPICMSST" ColumnName="nAliqOPICMSST" />
+                <ScalarProperty Name="nAliqICMSST" ColumnName="nAliqICMSST" />
+                <ScalarProperty Name="nRedBCICMSST" ColumnName="nRedBCICMSST" />
+                <ScalarProperty Name="nMargValAdICMSST" ColumnName="nMargValAdICMSST" />
+                <ScalarProperty Name="cModBCICMSST" ColumnName="cModBCICMSST" />
+                <ScalarProperty Name="nAliqICMS_SN" ColumnName="nAliqICMS_SN" />
+                <ScalarProperty Name="nRedBCICMS_SN" ColumnName="nRedBCICMS_SN" />
+                <ScalarProperty Name="nAlCredICMS_SN" ColumnName="nAlCredICMS_SN" />
+                <ScalarProperty Name="cModBCICMS_SN" ColumnName="cModBCICMS_SN" />
+                <ScalarProperty Name="cOrigemICMS_SN" ColumnName="cOrigemICMS_SN" />
+                <ScalarProperty Name="cCSOSNICMS_SN" ColumnName="cCSOSNICMS_SN" />
+                <ScalarProperty Name="nPercICMSIE" ColumnName="nPercICMSIE" />
+                <ScalarProperty Name="nAlInterestUFs" ColumnName="nAlInterestUFs" />
+                <ScalarProperty Name="nAlIntUFDest" ColumnName="nAlIntUFDest" />
+                <ScalarProperty Name="nPercFCP" ColumnName="nPercFCP" />
+                <ScalarProperty Name="nPercDifICMS" ColumnName="nPercDifICMS" />
+                <ScalarProperty Name="nAliqICMS" ColumnName="nAliqICMS" />
+                <ScalarProperty Name="nRedBCICMS" ColumnName="nRedBCICMS" />
+                <ScalarProperty Name="cModBCICMS" ColumnName="cModBCICMS" />
+                <ScalarProperty Name="cOrigemICMS" ColumnName="cOrigemICMS" />
+                <ScalarProperty Name="cCSTICMS" ColumnName="cCSTICMS" />
+                <ScalarProperty Name="cECFIsento" ColumnName="cECFIsento" />
+                <ScalarProperty Name="cECFSubstTrib" ColumnName="cECFSubstTrib" />
+                <ScalarProperty Name="cECFNaoTrib" ColumnName="cECFNaoTrib" />
+                <ScalarProperty Name="nAliqCOFINS" ColumnName="nAliqCOFINS" />
+                <ScalarProperty Name="nValUnTribCOFINS" ColumnName="nValUnTribCOFINS" />
+                <ScalarProperty Name="cTpCalcCOFINS" ColumnName="cTpCalcCOFINS" />
+                <ScalarProperty Name="cCSTCOFINS" ColumnName="cCSTCOFINS" />
+                <ScalarProperty Name="cContribICMS" ColumnName="cContribICMS" />
+                <ScalarProperty Name="cCNAECliente" ColumnName="cCNAECliente" />
+                <ScalarProperty Name="cCFOP" ColumnName="cCFOP" />
+                <ScalarProperty Name="cUfDestino" ColumnName="cUfDestino" />
+                <ScalarProperty Name="cUfOrigem" ColumnName="cUfOrigem" />
+                <ScalarProperty Name="cCupomFiscal" ColumnName="cCupomFiscal" />
+                <ScalarProperty Name="cCodIntImp" ColumnName="cCodIntImp" />
+                <ScalarProperty Name="cCodIntProd" ColumnName="cCodIntProd" />
+                <ScalarProperty Name="nCodProd" ColumnName="nCodProd" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

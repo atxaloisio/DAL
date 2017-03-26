@@ -60,5 +60,6 @@ namespace DAL
         public virtual DbSet<FormasPagVenda> FormasPagVendas1 { get; set; }
         public virtual DbSet<Rota> Rotas1 { get; set; }
         public virtual DbSet<Cliente_Transportadora> Cliente_Transportadora1 { get; set; }
+        public virtual DbSet<Produto_Imposto> Produto_Imposto1 { get; set; }
     }
 }

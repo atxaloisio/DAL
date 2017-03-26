@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Model;
+
+namespace DAL
+{
+    public interface IProduto_ImpostoRepositorio : IRepositorio<Produto_Imposto>
+    {
+    }
+}

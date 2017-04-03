@@ -163,7 +163,9 @@
     <Compile Include="Repositorio\UsuarioRepositorio.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="dbInteg.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbInteg.Designer.cs</LastGenOutput>

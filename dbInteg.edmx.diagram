@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="Diagram1" ZoomLevel="75">
+      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="Diagram1" ZoomLevel="100">
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido" Width="1.5" PointX="1.75" PointY="9.25" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_Imposto" Width="1.5" PointX="0.5" PointY="13.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_InfoAdic" Width="2.125" PointX="3.75" PointY="13.375" />
@@ -41,7 +41,7 @@
         <AssociationConnector Association="dbintegracaoModel.FK_cliente_parcela_cliente" />
         <EntityTypeShape EntityType="dbintegracaoModel.Cidade" Width="1.5" PointX="2.5" PointY="0.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_Otica" Width="1.875" PointX="19.375" PointY="11.5" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Motivo_Entrega" Width="1.5" PointX="17.125" PointY="13.625" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Motivo_Entrega" Width="1.5" PointX="21.875" PointY="13.625" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pais" Width="1.5" PointX="4.25" PointY="0.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Armacao" Width="1.875" PointX="19.375" PointY="2.25" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Lente" Width="1.5" PointX="19.375" PointY="6.875" />
@@ -76,6 +76,17 @@
         <EntityTypeShape EntityType="dbintegracaoModel.Produto_Imposto" Width="1.875" PointX="18.375" PointY="19.75" />
         <AssociationConnector Association="dbintegracaoModel.FK_cliente_parcela_parcela" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_parcela" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Vendedor" Width="1.5" PointX="2.5" PointY="33.375" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Vendedor_Localidade" Width="1.875" PointX="3.5" PointY="3.875" />
+        <AssociationConnector Association="dbintegracaoModel.FK_vendedor_localidade_cidade" />
+        <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_vendedor" />
+        <AssociationConnector Association="dbintegracaoModel.FK_vendedor_localidade_vendedor" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Cliente_Vendedor" Width="1.5" PointX="20.875" PointY="16.625" />
+        <AssociationConnector Association="dbintegracaoModel.FK_cliente_vendedor_cliente" />
+        <AssociationConnector Association="dbintegracaoModel.FK_cliente_vendedor_vendedor" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Caixa" Width="1.5" PointX="21.375" PointY="7.75" />
+        <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_transportadora" />
+        <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_caixa" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

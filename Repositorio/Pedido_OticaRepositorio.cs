@@ -32,6 +32,16 @@ namespace DAL
                 
             }
 
+            foreach (Pedido_Armacao item in entity.pedido_armacao)
+            {
+                Context.Entry(item).State = EntityState.Modified;
+            }
+
+            foreach (Pedido_Lente item in entity.pedido_lente)
+            {
+                Context.Entry(item).State = EntityState.Modified;
+            }
+
             foreach (ItemPedido_Otica item in lstRemItemPedido_Otica)
             {
                 entity.itempedido_otica.Remove(item);

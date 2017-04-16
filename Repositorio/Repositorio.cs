@@ -24,7 +24,7 @@ namespace DAL
 
         public IQueryable<T> GetTodos()
         {            
-            return Context.Set<T>();
+            return Context.Set<T>().AsNoTracking();
         }
 
         public IQueryable<T> GetTodos(Expression<Func<T, string>> ordem, bool desc, int page, int pageSize)
@@ -33,11 +33,11 @@ namespace DAL
 
             if (desc)
             {
-                return Context.Set<T>().OrderByDescending(ordem).Skip(page).Take(pageSize);
+                return Context.Set<T>().AsNoTracking().OrderByDescending(ordem).Skip(page).Take(pageSize);
             }
             else
             {
-                return Context.Set<T>().OrderBy(ordem).Skip(page).Take(pageSize);
+                return Context.Set<T>().AsNoTracking().OrderBy(ordem).Skip(page).Take(pageSize);
             }
         }
 
@@ -46,28 +46,104 @@ namespace DAL
             return Context.Set<T>().Where(predicate);
         }
 
+        public IQueryable<T> GetNT(Expression<Func<T, bool>> predicate)
+        {
+            return Context.Set<T>().Where(predicate).AsNoTracking();
+        }
+
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate, Expression<Func<T, string>> ordem, bool desc, int page, int pageSize)
         {
             //int skipRows = (page - 1) * pageSize;
 
             if (desc)
             {
-                return Context.Set<T>().Where(predicate).OrderByDescending(ordem).Skip(page).Take(pageSize);
+                return Context.Set<T>().Where(predicate).AsNoTracking().OrderByDescending(ordem).Skip(page).Take(pageSize);
             }
             else
             {
-                return Context.Set<T>().Where(predicate).OrderBy(ordem).Skip(page).Take(pageSize);
+                return Context.Set<T>().Where(predicate).AsNoTracking().OrderBy(ordem).Skip(page).Take(pageSize);
             }
+        }
+
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate, Expression<Func<T, string>>[] ordem, bool desc, int page, int pageSize)
+        {
+            IQueryable<T> Qry;
+
+            if (desc)
+            {
+                var Query = Context.Set<T>().Where(predicate).AsNoTracking().OrderByDescending(ordem.First());
+                
+                if (ordem.Length > 1)
+                {
+                    for (int i = 1; i < ordem.Length; i++)
+                    {
+                        Query.ThenBy(ordem[i]);
+                    }                    
+                }
+                Query.Skip(page).Take(pageSize);
+
+                Qry = Query;
+            }
+            else
+            {
+                var Query = Context.Set<T>().Where(predicate).AsNoTracking().OrderBy(ordem.First());
+                if (ordem.Length > 1)
+                {
+                    for (int i = 1; i < ordem.Length; i++)
+                    {
+                        Query.ThenBy(ordem[i]);
+                    }
+                }
+                Query.Skip(page).Take(pageSize);
+
+                Qry = Query;
+            }
+
+            return Qry;
+        }
+
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate, Expression<Func<T, string>>[] ordem, bool desc)
+        {
+            //int skipRows = (page - 1) * pageSize;
+            IQueryable<T> Qry; 
+
+            if (desc)
+            {
+                var Query = Context.Set<T>().Where(predicate).AsNoTracking().OrderByDescending(ordem.First());
+                if (ordem.Length > 1)
+                {
+                    for (int i = 1; i < ordem.Length; i++)
+                    {
+                        Query.ThenBy(ordem[i]);
+                    }
+                }
+                Qry = Query;
+
+            }
+            else
+            {
+                var Query = Context.Set<T>().Where(predicate).AsNoTracking().OrderBy(ordem.First());
+                if (ordem.Length > 1)
+                {
+                    for (int i = 1; i < ordem.Length; i++)
+                    {
+                        Query.ThenBy(ordem[i]);
+                    }
+                }
+                Qry = Query;
+            }
+
+            return Qry;
         }
 
         public virtual int getTotalRegistros(Expression<Func<T, bool>> predicate)
         {
-            return Context.Set<T>().Where(predicate).Count();
+            return Context.Set<T>().Where(predicate).AsNoTracking().Count();
         }
 
         public virtual int getTotalRegistros()
         {            
-            return Context.Set<T>().Count();
+            return Context.Set<T>().AsNoTracking().Count();
         }
 
         public T Find(params object[] key)

@@ -58,8 +58,12 @@ namespace DAL
         public virtual DbSet<Categoria> Categorias1 { get; set; }
         public virtual DbSet<Unidade> Unidades1 { get; set; }
         public virtual DbSet<FormasPagVenda> FormasPagVendas1 { get; set; }
-        public virtual DbSet<Rota> Rotas1 { get; set; }
+        public virtual DbSet<Rota> Rotas { get; set; }
         public virtual DbSet<Cliente_Transportadora> Cliente_Transportadora1 { get; set; }
         public virtual DbSet<Produto_Imposto> Produto_Imposto1 { get; set; }
+        public virtual DbSet<Vendedor> Vendedors1 { get; set; }
+        public virtual DbSet<Vendedor_Localidade> Vendedor_Localidade1 { get; set; }
+        public virtual DbSet<Cliente_Vendedor> Cliente_Vendedor1 { get; set; }
+        public virtual DbSet<Caixa> Caixas { get; set; }
     }
 }

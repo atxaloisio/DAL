@@ -5,21 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="dbintegracaoModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="caixa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="inativo" Type="char" MaxLength="1" />
+        </EntityType>
         <EntityType Name="categoria">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="codigo" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="descricao" Type="varchar" MaxLength="40" />
-          <Property Name="descricao_padrao" Type="varchar" MaxLength="40" />
+          <Property Name="descricao" Type="varchar" MaxLength="120" />
+          <Property Name="descricao_padrao" Type="varchar" MaxLength="120" />
           <Property Name="conta_inativa" Type="char" MaxLength="1" />
           <Property Name="definida_pelo_usuario" Type="char" MaxLength="1" />
           <Property Name="id_conta_contabil" Type="int" />
           <Property Name="tag_conta_contabil" Type="varchar" MaxLength="20" />
           <Property Name="conta_despesa" Type="char" MaxLength="1" />
           <Property Name="nao_exibir" Type="char" MaxLength="1" />
-          <Property Name="natureza" Type="varchar" MaxLength="120" />
+          <Property Name="natureza" Type="varchar" MaxLength="512" />
           <Property Name="conta_receita" Type="char" MaxLength="1" />
           <Property Name="totalizadora" Type="char" MaxLength="1" />
           <Property Name="transferencia" Type="char" MaxLength="1" />
@@ -110,6 +118,14 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_cliente" Type="bigint" Nullable="false" />
           <Property Name="Id_transportadora" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cliente_vendedor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_cliente" Type="bigint" Nullable="false" />
+          <Property Name="Id_Vendedor" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="conta_corrente">
           <Key>
@@ -532,10 +548,15 @@
           <Property Name="numero_caixa" Type="varchar" MaxLength="10" />
           <Property Name="status" Type="int" />
           <Property Name="agrupado" Type="char" MaxLength="1" />
+          <Property Name="Id_vendedor" Type="bigint" />
+          <Property Name="cancelado" Type="char" MaxLength="1" />
+          <Property Name="motivo_cancelamento" Type="varchar" MaxLength="256" />
           <Property Name="inclusao" Type="date" />
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
+          <Property Name="data_cancelamento" Type="date" />
+          <Property Name="Id_caixa" Type="int" />
         </EntityType>
         <EntityType Name="pedido_parcelas">
           <Key>
@@ -742,6 +763,24 @@
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
           <Property Name="inativo" Type="char" MaxLength="1" />
         </EntityType>
+        <EntityType Name="vendedor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="bigint" />
+          <Property Name="codInt" Type="varchar" MaxLength="20" />
+          <Property Name="nome" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="inativo" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="vendedor_localidade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_vendedor" Type="bigint" Nullable="false" />
+          <Property Name="Id_localidade" Type="bigint" Nullable="false" />
+        </EntityType>
         <Association Name="FK_cliente_parcela_cliente">
           <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
           <End Role="cliente_parcela" Type="Self.cliente_parcela" Multiplicity="*" />
@@ -815,6 +854,30 @@
             </Principal>
             <Dependent Role="cliente_transportadora">
               <PropertyRef Name="Id_transportadora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cliente_vendedor_cliente">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="cliente_vendedor" Type="Self.cliente_vendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cliente_vendedor">
+              <PropertyRef Name="Id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cliente_vendedor_vendedor">
+          <End Role="vendedor" Type="Self.vendedor" Multiplicity="1" />
+          <End Role="cliente_vendedor" Type="Self.cliente_vendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cliente_vendedor">
+              <PropertyRef Name="Id_Vendedor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1030,6 +1093,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_pedido_otica_caixa">
+          <End Role="caixa" Type="Self.caixa" Multiplicity="0..1" />
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="caixa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pedido_otica">
+              <PropertyRef Name="Id_caixa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_pedido_otica_cliente_cliente">
           <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
           <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
@@ -1075,6 +1150,30 @@
             </Principal>
             <Dependent Role="pedido_otica">
               <PropertyRef Name="Id_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_otica_transportadora">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pedido_otica">
+              <PropertyRef Name="Id_transportadora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_otica_vendedor">
+          <End Role="vendedor" Type="Self.vendedor" Multiplicity="0..1" />
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pedido_otica">
+              <PropertyRef Name="Id_vendedor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1160,13 +1259,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_vendedor_localidade_cidade">
+          <End Role="cidade" Type="Self.cidade" Multiplicity="1" />
+          <End Role="vendedor_localidade" Type="Self.vendedor_localidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cidade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="vendedor_localidade">
+              <PropertyRef Name="Id_localidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vendedor_localidade_vendedor">
+          <End Role="vendedor" Type="Self.vendedor" Multiplicity="1" />
+          <End Role="vendedor_localidade" Type="Self.vendedor_localidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="vendedor_localidade">
+              <PropertyRef Name="Id_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="dbintegracaoModelStoreContainer">
+          <EntitySet Name="caixa" EntityType="Self.caixa" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cidade" EntityType="Self.cidade" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cliente_parcela" EntityType="Self.cliente_parcela" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cliente_tag" EntityType="Self.cliente_tag" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cliente_transportadora" EntityType="Self.cliente_transportadora" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="cliente_vendedor" EntityType="Self.cliente_vendedor" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="conta_corrente" EntityType="Self.conta_corrente" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="formaspagvendas" EntityType="Self.formaspagvendas" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="funcao" EntityType="Self.funcao" Schema="dbintegracao" store:Type="Tables" />
@@ -1196,6 +1321,8 @@
           <EntitySet Name="tag" EntityType="Self.tag" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="unidade" EntityType="Self.unidade" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="vendedor" EntityType="Self.vendedor" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="vendedor_localidade" EntityType="Self.vendedor_localidade" Schema="dbintegracao" store:Type="Tables" />
           <AssociationSet Name="FK_cliente_parcela_cliente" Association="Self.FK_cliente_parcela_cliente">
             <End Role="cliente" EntitySet="cliente" />
             <End Role="cliente_parcela" EntitySet="cliente_parcela" />
@@ -1219,6 +1346,14 @@
           <AssociationSet Name="fk_cliente_transportadora_transportadora" Association="Self.fk_cliente_transportadora_transportadora">
             <End Role="cliente" EntitySet="cliente" />
             <End Role="cliente_transportadora" EntitySet="cliente_transportadora" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cliente_vendedor_cliente" Association="Self.FK_cliente_vendedor_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="cliente_vendedor" EntitySet="cliente_vendedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cliente_vendedor_vendedor" Association="Self.FK_cliente_vendedor_vendedor">
+            <End Role="vendedor" EntitySet="vendedor" />
+            <End Role="cliente_vendedor" EntitySet="cliente_vendedor" />
           </AssociationSet>
           <AssociationSet Name="FK_funcao_perfil_funcao" Association="Self.FK_funcao_perfil_funcao">
             <End Role="funcao" EntitySet="funcao" />
@@ -1284,6 +1419,10 @@
             <End Role="pedido_otica" EntitySet="pedido_otica" />
             <End Role="pedido_lente" EntitySet="pedido_lente" />
           </AssociationSet>
+          <AssociationSet Name="FK_pedido_otica_caixa" Association="Self.FK_pedido_otica_caixa">
+            <End Role="caixa" EntitySet="caixa" />
+            <End Role="pedido_otica" EntitySet="pedido_otica" />
+          </AssociationSet>
           <AssociationSet Name="FK_pedido_otica_cliente_cliente" Association="Self.FK_pedido_otica_cliente_cliente">
             <End Role="cliente" EntitySet="cliente" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
@@ -1298,6 +1437,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_pedido_otica_pedido" Association="Self.FK_pedido_otica_pedido">
             <End Role="pedido" EntitySet="pedido" />
+            <End Role="pedido_otica" EntitySet="pedido_otica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_otica_transportadora" Association="Self.FK_pedido_otica_transportadora">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="pedido_otica" EntitySet="pedido_otica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_otica_vendedor" Association="Self.FK_pedido_otica_vendedor">
+            <End Role="vendedor" EntitySet="vendedor" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
           </AssociationSet>
           <AssociationSet Name="FK_pedido_parcelas_pedido" Association="Self.FK_pedido_parcelas_pedido">
@@ -1323,6 +1470,14 @@
           <AssociationSet Name="FK_usuario_perfil" Association="Self.FK_usuario_perfil">
             <End Role="perfil" EntitySet="perfil" />
             <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vendedor_localidade_cidade" Association="Self.FK_vendedor_localidade_cidade">
+            <End Role="cidade" EntitySet="cidade" />
+            <End Role="vendedor_localidade" EntitySet="vendedor_localidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vendedor_localidade_vendedor" Association="Self.FK_vendedor_localidade_vendedor">
+            <End Role="vendedor" EntitySet="vendedor" />
+            <End Role="vendedor_localidade" EntitySet="vendedor_localidade" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1466,14 +1621,14 @@
             <End Role="Pedido_InfoAdic" EntitySet="Pedido_InfoAdic1" />
           </AssociationSet>
           <EntitySet Name="FormasPagVendas1" EntityType="dbintegracaoModel.FormasPagVenda" />
-          <EntitySet Name="Rotas1" EntityType="dbintegracaoModel.Rota" />
+          <EntitySet Name="Rotas" EntityType="dbintegracaoModel.Rota" />
           <AssociationSet Name="fk_rota_cidade" Association="dbintegracaoModel.fk_rota_cidade">
             <End Role="Cidade" EntitySet="Cidades1" />
-            <End Role="rota" EntitySet="Rotas1" />
+            <End Role="rota" EntitySet="Rotas" />
           </AssociationSet>
           <AssociationSet Name="fk_rota_cliente" Association="dbintegracaoModel.fk_rota_cliente">
             <End Role="Cliente" EntitySet="Clientes1" />
-            <End Role="rota" EntitySet="Rotas1" />
+            <End Role="rota" EntitySet="Rotas" />
           </AssociationSet>
           <EntitySet Name="Cliente_Transportadora1" EntityType="dbintegracaoModel.Cliente_Transportadora" />
           <AssociationSet Name="fk_cliente_transportadora_cliente" Association="dbintegracaoModel.fk_cliente_transportadora_cliente">
@@ -1491,6 +1646,38 @@
           </AssociationSet>
           <AssociationSet Name="FK_pedido_otica_parcela" Association="dbintegracaoModel.FK_pedido_otica_parcela">
             <End Role="Parcela" EntitySet="Parcelas1" />
+            <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
+          </AssociationSet>
+          <EntitySet Name="Vendedors1" EntityType="dbintegracaoModel.Vendedor" />
+          <EntitySet Name="Vendedor_Localidade1" EntityType="dbintegracaoModel.Vendedor_Localidade" />
+          <AssociationSet Name="FK_vendedor_localidade_cidade" Association="dbintegracaoModel.FK_vendedor_localidade_cidade">
+            <End Role="Cidade" EntitySet="Cidades1" />
+            <End Role="vendedor_localidade" EntitySet="Vendedor_Localidade1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_otica_vendedor" Association="dbintegracaoModel.FK_pedido_otica_vendedor">
+            <End Role="vendedor" EntitySet="Vendedors1" />
+            <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vendedor_localidade_vendedor" Association="dbintegracaoModel.FK_vendedor_localidade_vendedor">
+            <End Role="vendedor" EntitySet="Vendedors1" />
+            <End Role="vendedor_localidade" EntitySet="Vendedor_Localidade1" />
+          </AssociationSet>
+          <EntitySet Name="Cliente_Vendedor1" EntityType="dbintegracaoModel.Cliente_Vendedor" />
+          <AssociationSet Name="FK_cliente_vendedor_cliente" Association="dbintegracaoModel.FK_cliente_vendedor_cliente">
+            <End Role="Cliente" EntitySet="Clientes1" />
+            <End Role="cliente_vendedor" EntitySet="Cliente_Vendedor1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cliente_vendedor_vendedor" Association="dbintegracaoModel.FK_cliente_vendedor_vendedor">
+            <End Role="vendedor" EntitySet="Vendedors1" />
+            <End Role="cliente_vendedor" EntitySet="Cliente_Vendedor1" />
+          </AssociationSet>
+          <EntitySet Name="Caixas" EntityType="dbintegracaoModel.Caixa" />
+          <AssociationSet Name="FK_pedido_otica_transportadora" Association="dbintegracaoModel.FK_pedido_otica_transportadora">
+            <End Role="Cliente" EntitySet="Clientes1" />
+            <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_otica_caixa" Association="dbintegracaoModel.FK_pedido_otica_caixa">
+            <End Role="caixa" EntitySet="Caixas" />
             <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
           </AssociationSet>
           </EntityContainer>
@@ -1968,7 +2155,7 @@
           <Property Name="fax_numero" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="homepage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="observacao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="observacao" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="inscricao_municipal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="inscricao_estadual" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="inscricao_suframa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -1987,6 +2174,8 @@
           <NavigationProperty Name="rotas" Relationship="dbintegracaoModel.fk_rota_cliente" FromRole="Cliente" ToRole="rota" />
           <NavigationProperty Name="cliente_transportadora" Relationship="dbintegracaoModel.fk_cliente_transportadora_cliente" FromRole="Cliente" ToRole="cliente_transportadora" />
           <NavigationProperty Name="cliente_transportadora1" Relationship="dbintegracaoModel.fk_cliente_transportadora_transportadora" FromRole="Cliente" ToRole="cliente_transportadora" />
+          <NavigationProperty Name="cliente_vendedor" Relationship="dbintegracaoModel.FK_cliente_vendedor_cliente" FromRole="Cliente" ToRole="cliente_vendedor" />
+          <NavigationProperty Name="pedido_otica1" Relationship="dbintegracaoModel.FK_pedido_otica_transportadora" FromRole="Cliente" ToRole="Pedido_Otica" />
         </EntityType>
         <EntityType Name="Cliente_Tag">
           <Key>
@@ -1995,7 +2184,7 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Id_cliente" Type="Int64" Nullable="false" />
           <Property Name="Id_tag" Type="Int64" Nullable="false" />
-          <Property Name="tag" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="tag" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="cliente" Relationship="dbintegracaoModel.FK_cliente_tag_cliente" FromRole="cliente_tag" ToRole="cliente" />
           <NavigationProperty Name="Tags" Relationship="dbintegracaoModel.FK_cliente_tag_tag" FromRole="cliente_tag" ToRole="tag" />
           <Property Name="inclusao" Type="DateTime" />
@@ -2008,7 +2197,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tag1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="tag1" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="cliente_tag" Relationship="dbintegracaoModel.FK_cliente_tag_tag" FromRole="tag" ToRole="cliente_tag" />
           <Property Name="inclusao" Type="DateTime" />
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
@@ -2104,6 +2293,7 @@
           <Property Name="nCodIBGE" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
           <Property Name="nCodSIAFI" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="rotas" Relationship="dbintegracaoModel.fk_rota_cidade" FromRole="Cidade" ToRole="rota" />
+          <NavigationProperty Name="vendedor_localidade" Relationship="dbintegracaoModel.FK_vendedor_localidade_cidade" FromRole="Cidade" ToRole="vendedor_localidade" />
         </EntityType>
         <EntityType Name="ItemPedido_Otica">
           <Key>
@@ -2186,6 +2376,7 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Id_cliente" Type="Int64" />
+          <Property Name="codigo" Type="Int64" />
           <Property Name="codigo_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Id_pedido" Type="Int64" />
           <Property Name="codigo_pedido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -2196,6 +2387,7 @@
           <Property Name="date_previsao_entrega" Type="DateTime" />
           <Property Name="hora_previsao_entrega" Type="Time" />
           <Property Name="id_motivo_entrega" Type="Int64" />
+          <Property Name="Id_transportadora" Type="Int64" />
           <Property Name="od_gl_esf" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="od_gl_cil" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="od_eixo" Type="Int32" />
@@ -2224,6 +2416,11 @@
           <Property Name="numero_caixa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="Int32" />
           <Property Name="agrupado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Id_vendedor" Type="Int64" />
+          <Property Name="Id_caixa" Type="Int32" />
+          <Property Name="cancelado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="data_cancelamento" Type="DateTime" />
+          <Property Name="motivo_cancelamento" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="inclusao" Type="DateTime" />
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="alteracao" Type="DateTime" />
@@ -2234,9 +2431,10 @@
           <NavigationProperty Name="pedido" Relationship="dbintegracaoModel.FK_pedido_otica_pedido" FromRole="pedido_otica" ToRole="Pedido" />
           <NavigationProperty Name="pedido_armacao" Relationship="dbintegracaoModel.FK_pedido_armacao_pedido_otica" FromRole="pedido_otica" ToRole="pedido_armacao" />
           <NavigationProperty Name="pedido_lente" Relationship="dbintegracaoModel.FK_pedido_lentes_pedido_otica" FromRole="pedido_otica" ToRole="pedido_lente" />
-          <Property Name="Id_transportadora" Type="Int64" />
-          <Property Name="codigo" Type="Int64" />
           <NavigationProperty Name="parcela" Relationship="dbintegracaoModel.FK_pedido_otica_parcela" FromRole="Pedido_Otica" ToRole="Parcela" />
+          <NavigationProperty Name="vendedor" Relationship="dbintegracaoModel.FK_pedido_otica_vendedor" FromRole="Pedido_Otica" ToRole="vendedor" />
+          <NavigationProperty Name="transportadora" Relationship="dbintegracaoModel.FK_pedido_otica_transportadora" FromRole="Pedido_Otica" ToRole="Cliente" />
+          <NavigationProperty Name="caixa" Relationship="dbintegracaoModel.FK_pedido_otica_caixa" FromRole="Pedido_Otica" ToRole="caixa" />
         </EntityType>
         <Association Name="FK_pedido_otica_cliente_cliente">
           <End Type="dbintegracaoModel.Cliente" Role="Cliente" Multiplicity="0..1" />
@@ -2686,6 +2884,132 @@
             </Principal>
             <Dependent Role="Pedido_Otica">
               <PropertyRef Name="condicao_pagamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Vendedor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="Int64" />
+          <Property Name="codInt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="inativo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.FK_pedido_otica_vendedor" FromRole="vendedor" ToRole="Pedido_Otica" />
+          <NavigationProperty Name="vendedor_localidade" Relationship="dbintegracaoModel.FK_vendedor_localidade_vendedor" FromRole="vendedor" ToRole="vendedor_localidade" />
+          <NavigationProperty Name="cliente_vendedor" Relationship="dbintegracaoModel.FK_cliente_vendedor_vendedor" FromRole="vendedor" ToRole="cliente_vendedor" />
+          </EntityType>
+        <EntityType Name="Vendedor_Localidade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_vendedor" Type="Int64" Nullable="false" />
+          <Property Name="Id_localidade" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="cidade" Relationship="dbintegracaoModel.FK_vendedor_localidade_cidade" FromRole="vendedor_localidade" ToRole="Cidade" />
+          <NavigationProperty Name="vendedor" Relationship="dbintegracaoModel.FK_vendedor_localidade_vendedor" FromRole="vendedor_localidade" ToRole="vendedor" />
+        </EntityType>
+        <Association Name="FK_vendedor_localidade_cidade">
+          <End Type="dbintegracaoModel.Cidade" Role="Cidade" Multiplicity="1" />
+          <End Type="dbintegracaoModel.Vendedor_Localidade" Role="vendedor_localidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="vendedor_localidade">
+              <PropertyRef Name="Id_localidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_otica_vendedor">
+          <End Type="dbintegracaoModel.Vendedor" Role="vendedor" Multiplicity="0..1" />
+          <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedido_Otica">
+              <PropertyRef Name="Id_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vendedor_localidade_vendedor">
+          <End Type="dbintegracaoModel.Vendedor" Role="vendedor" Multiplicity="1" />
+          <End Type="dbintegracaoModel.Vendedor_Localidade" Role="vendedor_localidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="vendedor_localidade">
+              <PropertyRef Name="Id_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cliente_Vendedor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_cliente" Type="Int64" Nullable="false" />
+          <Property Name="Id_Vendedor" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="dbintegracaoModel.FK_cliente_vendedor_cliente" FromRole="cliente_vendedor" ToRole="Cliente" />
+          <NavigationProperty Name="vendedor" Relationship="dbintegracaoModel.FK_cliente_vendedor_vendedor" FromRole="cliente_vendedor" ToRole="vendedor" />
+        </EntityType>
+        <Association Name="FK_cliente_vendedor_cliente">
+          <End Type="dbintegracaoModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="dbintegracaoModel.Cliente_Vendedor" Role="cliente_vendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cliente_vendedor">
+              <PropertyRef Name="Id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cliente_vendedor_vendedor">
+          <End Type="dbintegracaoModel.Vendedor" Role="vendedor" Multiplicity="1" />
+          <End Type="dbintegracaoModel.Cliente_Vendedor" Role="cliente_vendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cliente_vendedor">
+              <PropertyRef Name="Id_Vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Caixa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="inativo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.FK_pedido_otica_caixa" FromRole="caixa" ToRole="Pedido_Otica" />
+        </EntityType>
+        <Association Name="FK_pedido_otica_transportadora">
+          <End Type="dbintegracaoModel.Cliente" Role="Cliente" Multiplicity="0..1" />
+          <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedido_Otica">
+              <PropertyRef Name="Id_transportadora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_otica_caixa">
+          <End Type="dbintegracaoModel.Caixa" Role="caixa" Multiplicity="0..1" />
+          <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="caixa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedido_Otica">
+              <PropertyRef Name="Id_caixa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3194,6 +3518,11 @@
           <EntitySetMapping Name="Pedido_Otica1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Pedido_Otica">
               <MappingFragment StoreEntitySet="pedido_otica">
+                <ScalarProperty Name="Id_caixa" ColumnName="Id_caixa" />
+                <ScalarProperty Name="motivo_cancelamento" ColumnName="motivo_cancelamento" />
+                <ScalarProperty Name="data_cancelamento" ColumnName="data_cancelamento" />
+                <ScalarProperty Name="cancelado" ColumnName="cancelado" />
+                <ScalarProperty Name="Id_vendedor" ColumnName="Id_vendedor" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="Id_transportadora" ColumnName="Id_transportadora" />
                 <ScalarProperty Name="base_calculada" ColumnName="base_calculada" />
@@ -3394,7 +3723,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Rotas1">
+          <EntitySetMapping Name="Rotas">
             <EntityTypeMapping TypeName="dbintegracaoModel.Rota">
               <MappingFragment StoreEntitySet="rota">
                 <ScalarProperty Name="id_cidade" ColumnName="id_cidade" />
@@ -3467,6 +3796,44 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Vendedors1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Vendedor">
+              <MappingFragment StoreEntitySet="vendedor">
+                <ScalarProperty Name="inativo" ColumnName="inativo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="codInt" ColumnName="codInt" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendedor_Localidade1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Vendedor_Localidade">
+              <MappingFragment StoreEntitySet="vendedor_localidade">
+                <ScalarProperty Name="Id_localidade" ColumnName="Id_localidade" />
+                <ScalarProperty Name="Id_vendedor" ColumnName="Id_vendedor" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente_Vendedor1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Cliente_Vendedor">
+              <MappingFragment StoreEntitySet="cliente_vendedor">
+                <ScalarProperty Name="Id_Vendedor" ColumnName="Id_Vendedor" />
+                <ScalarProperty Name="Id_cliente" ColumnName="Id_cliente" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caixas">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Caixa">
+              <MappingFragment StoreEntitySet="caixa">
+                <ScalarProperty Name="inativo" ColumnName="inativo" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3485,6 +3852,8 @@
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="DDLGenerationTemplate" Value="$(VSEFTools)\DBGen\SSDLToMySQL.tt" />
+        <DesignerProperty Name="DefaultDatabaseSchema" Value="dbintegracao" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

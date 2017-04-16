@@ -88,8 +88,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbInteg.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Interface\ICaixaRepositorio.cs" />
     <Compile Include="Interface\ICategoriaRepositorio.cs" />
     <Compile Include="Interface\ICliente_TransportadoraRepositorio.cs" />
+    <Compile Include="Interface\ICliente_Vendedor.cs" />
     <Compile Include="Interface\IConta_CorrenteRepositorio.cs" />
     <Compile Include="Interface\IFormasPagVendaRepositorio.cs" />
     <Compile Include="Interface\IFuncaoRepositorio.cs" />
@@ -98,7 +100,10 @@
     <Compile Include="Interface\IProduto_ImpostoRepositorio.cs" />
     <Compile Include="Interface\IRotaRepositoriocs.cs" />
     <Compile Include="Interface\IUnidadeRepositorio.cs" />
+    <Compile Include="Interface\IVendedorRepositorio.cs" />
+    <Compile Include="Interface\IVendedor_LocalidadeRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorio\CaixaRepositorio.cs" />
     <Compile Include="Repositorio\CategoriaRepositorio.cs" />
     <Compile Include="Repositorio\CidadeRepositorio.cs" />
     <Compile Include="Repositorio\ClienteRepositorio.cs" />
@@ -130,6 +135,7 @@
     <Compile Include="Interface\IRepositorio.cs" />
     <Compile Include="Interface\ITagRepositorio.cs" />
     <Compile Include="Repositorio\Cliente_TransportadoraRepositorio.cs" />
+    <Compile Include="Repositorio\Cliente_VendedorRepositorio.cs" />
     <Compile Include="Repositorio\FormasPagVendaRepositorio.cs" />
     <Compile Include="Repositorio\Funcao_PerfilRepositorio.cs" />
     <Compile Include="Repositorio\FuncaoRepositorio.cs" />
@@ -161,6 +167,8 @@
     <Compile Include="Repositorio\TagRepositorio.cs" />
     <Compile Include="Repositorio\UnidadeRepositorio.cs" />
     <Compile Include="Repositorio\UsuarioRepositorio.cs" />
+    <Compile Include="Repositorio\VendedorRepositorio.cs" />
+    <Compile Include="Repositorio\Vendedor_LocalidadeRepositorio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

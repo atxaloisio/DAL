@@ -72,7 +72,7 @@
           <Property Name="fax_numero" Type="varchar" MaxLength="15" />
           <Property Name="email" Type="varchar" MaxLength="100" />
           <Property Name="homepage" Type="varchar" MaxLength="100" />
-          <Property Name="observacao" Type="varchar" MaxLength="100" />
+          <Property Name="observacao" Type="varchar" MaxLength="512" />
           <Property Name="inscricao_municipal" Type="varchar" MaxLength="20" />
           <Property Name="inscricao_estadual" Type="varchar" MaxLength="20" />
           <Property Name="inscricao_suframa" Type="varchar" MaxLength="20" />
@@ -105,7 +105,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_cliente" Type="bigint" Nullable="false" />
           <Property Name="Id_tag" Type="bigint" Nullable="false" />
-          <Property Name="tag" Type="varchar" MaxLength="20" />
+          <Property Name="tag" Type="varchar" MaxLength="40" />
           <Property Name="inclusao" Type="date" />
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
@@ -181,6 +181,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_perfil" Type="bigint" Nullable="false" />
           <Property Name="codigo_funcao" Type="int" Nullable="false" />
+          <Property Name="cancelar" Type="char" MaxLength="1" />
           <Property Name="consultar" Type="char" MaxLength="1" />
           <Property Name="editar" Type="char" MaxLength="1" />
           <Property Name="excluir" Type="char" MaxLength="1" />
@@ -549,14 +550,14 @@
           <Property Name="status" Type="int" />
           <Property Name="agrupado" Type="char" MaxLength="1" />
           <Property Name="Id_vendedor" Type="bigint" />
-          <Property Name="cancelado" Type="char" MaxLength="1" />
-          <Property Name="motivo_cancelamento" Type="varchar" MaxLength="256" />
           <Property Name="inclusao" Type="date" />
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
-          <Property Name="data_cancelamento" Type="date" />
           <Property Name="Id_caixa" Type="int" />
+          <Property Name="cancelado" Type="char" MaxLength="1" />
+          <Property Name="motivo_cancelamento" Type="varchar" MaxLength="256" />
+          <Property Name="data_cancelamento" Type="date" />
         </EntityType>
         <EntityType Name="pedido_parcelas">
           <Key>
@@ -567,7 +568,7 @@
           <Property Name="numero_parcela" Type="int" />
           <Property Name="valor" Type="decimal" Precision="10" Scale="2" />
           <Property Name="percentual" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="data_vencimento" Type="varchar" MaxLength="8" />
+          <Property Name="data_vencimento" Type="varchar" MaxLength="10" />
           <Property Name="quantidade_dias" Type="int" />
         </EntityType>
         <EntityType Name="pedido_total">
@@ -734,7 +735,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="tag" Type="varchar" MaxLength="30" />
+          <Property Name="tag" Type="varchar" MaxLength="40" />
           <Property Name="inclusao" Type="date" />
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
@@ -1165,7 +1166,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_pedido_otica_vendedor">
+        <Association Name="FK_pedido_otica_venedor">
           <End Role="vendedor" Type="Self.vendedor" Multiplicity="0..1" />
           <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1443,7 +1444,7 @@
             <End Role="cliente" EntitySet="cliente" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
           </AssociationSet>
-          <AssociationSet Name="FK_pedido_otica_vendedor" Association="Self.FK_pedido_otica_vendedor">
+          <AssociationSet Name="FK_pedido_otica_venedor" Association="Self.FK_pedido_otica_venedor">
             <End Role="vendedor" EntitySet="vendedor" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
           </AssociationSet>
@@ -1558,7 +1559,6 @@
             <End Role="cliente_parcela" EntitySet="Cliente_Parcela1" />
           </AssociationSet>
           <EntitySet Name="Cidades1" EntityType="dbintegracaoModel.Cidade" />
-          <EntitySet Name="ItemPedido_Otica" EntityType="dbintegracaoModel.ItemPedido_Otica" />
           <EntitySet Name="Motivo_Entrega1" EntityType="dbintegracaoModel.Motivo_Entrega" />
           <EntitySet Name="Pais1" EntityType="dbintegracaoModel.Pais" />
           <EntitySet Name="Pedido_Armacao1" EntityType="dbintegracaoModel.Pedido_Armacao" />
@@ -1680,6 +1680,7 @@
             <End Role="caixa" EntitySet="Caixas" />
             <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
           </AssociationSet>
+          <EntitySet Name="ItemPedido_Otica" EntityType="dbintegracaoModel.ItemPedido_Otica" />
           </EntityContainer>
         <EntityType Name="ItemPedido">
           <Key>
@@ -1913,7 +1914,7 @@
           <Property Name="numero_parcela" Type="Int32" />
           <Property Name="valor" Type="Decimal" />
           <Property Name="percentual" Type="Decimal" />
-          <Property Name="data_vencimento" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="data_vencimento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="quantidade_dias" Type="Int32" />
           <NavigationProperty Name="pedido" Relationship="dbintegracaoModel.FK_pedido_parcelas_pedido" FromRole="pedido_parcelas" ToRole="pedido" />
         </EntityType>
@@ -2611,6 +2612,7 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Id_perfil" Type="Int64" Nullable="false" />
           <Property Name="codigo_funcao" Type="Int32" Nullable="false" />
+          <Property Name="cancelar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="consultar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="editar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="excluir" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
@@ -3440,25 +3442,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ItemPedido_Otica">
-            <EntityTypeMapping TypeName="dbintegracaoModel.ItemPedido_Otica">
-              <MappingFragment StoreEntitySet="itempedido_otica">
-                <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
-                <ScalarProperty Name="alteracao" ColumnName="alteracao" />
-                <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
-                <ScalarProperty Name="inclusao" ColumnName="inclusao" />
-                <ScalarProperty Name="valor_total" ColumnName="valor_total" />
-                <ScalarProperty Name="valor_desconto" ColumnName="valor_desconto" />
-                <ScalarProperty Name="percentual_desconto" ColumnName="percentual_desconto" />
-                <ScalarProperty Name="valor_unitario" ColumnName="valor_unitario" />
-                <ScalarProperty Name="unidade" ColumnName="unidade" />
-                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
-                <ScalarProperty Name="Id_produto" ColumnName="Id_produto" />
-                <ScalarProperty Name="Id_pedido_otica" ColumnName="Id_pedido_otica" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Motivo_Entrega1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Motivo_Entrega">
               <MappingFragment StoreEntitySet="motivo_entrega">
@@ -3644,6 +3627,7 @@
           <EntitySetMapping Name="Funcao_Perfil1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Funcao_Perfil">
               <MappingFragment StoreEntitySet="funcao_perfil">
+                <ScalarProperty Name="cancelar" ColumnName="cancelar" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
                 <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
@@ -3831,6 +3815,25 @@
                 <ScalarProperty Name="inativo" ColumnName="inativo" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemPedido_Otica">
+            <EntityTypeMapping TypeName="IsTypeOf(dbintegracaoModel.ItemPedido_Otica)" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+              <MappingFragment StoreEntitySet="itempedido_otica">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_pedido_otica" ColumnName="Id_pedido_otica" />
+                <ScalarProperty Name="Id_produto" ColumnName="Id_produto" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="unidade" ColumnName="unidade" />
+                <ScalarProperty Name="valor_unitario" ColumnName="valor_unitario" />
+                <ScalarProperty Name="percentual_desconto" ColumnName="percentual_desconto" />
+                <ScalarProperty Name="valor_desconto" ColumnName="valor_desconto" />
+                <ScalarProperty Name="valor_total" ColumnName="valor_total" />
+                <ScalarProperty Name="inclusao" ColumnName="inclusao" />
+                <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
+                <ScalarProperty Name="alteracao" ColumnName="alteracao" />
+                <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

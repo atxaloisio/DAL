@@ -9,5 +9,6 @@ namespace DAL
 {
     public interface ICaixaRepositorio : IRepositorio<Caixa>
     {
+        IQueryable<Caixa> GetCaixaJoin(StatusPedido status);
     }
 }

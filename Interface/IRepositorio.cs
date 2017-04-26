@@ -14,8 +14,8 @@ namespace DAL
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
         IQueryable<T> GetNT(Expression<Func<T, bool>> predicate);
         IQueryable<T> Get(Expression<Func<T, bool>> predicate,Expression<Func<T, string>> ordem, bool desc, int page, int pageSize);
-        IQueryable<T> Get(Expression<Func<T, bool>> predicate, Expression<Func<T, string>>[] ordem, bool desc, int page, int pageSize);
-        IQueryable<T> Get(Expression<Func<T, bool>> predicate, Expression<Func<T, string>>[] ordem, bool desc);
+        IQueryable<T> Get(Expression<Func<T, bool>> predicate,bool desc, int page, int pageSize, params Expression<Func<T, string>>[] ordem);
+        IQueryable<T> Get(Expression<Func<T, bool>> predicate, bool desc, params Expression<Func<T, string>>[] ordem);
         int getTotalRegistros(Expression<Func<T, bool>> predicate);
         int getTotalRegistros();
         T Find(params object[] key);

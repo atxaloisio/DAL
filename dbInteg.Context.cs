@@ -43,7 +43,6 @@ namespace DAL
         public virtual DbSet<Cliente_Parcela> Cliente_Parcela1 { get; set; }
         public virtual DbSet<Parcela> Parcelas1 { get; set; }
         public virtual DbSet<Cidade> Cidades1 { get; set; }
-        public virtual DbSet<ItemPedido_Otica> ItemPedido_Otica { get; set; }
         public virtual DbSet<Motivo_Entrega> Motivo_Entrega1 { get; set; }
         public virtual DbSet<Pais> Pais1 { get; set; }
         public virtual DbSet<Pedido_Armacao> Pedido_Armacao1 { get; set; }
@@ -65,5 +64,6 @@ namespace DAL
         public virtual DbSet<Vendedor_Localidade> Vendedor_Localidade1 { get; set; }
         public virtual DbSet<Cliente_Vendedor> Cliente_Vendedor1 { get; set; }
         public virtual DbSet<Caixa> Caixas { get; set; }
+        public virtual DbSet<ItemPedido_Otica> ItemPedido_Otica { get; set; }
     }
 }

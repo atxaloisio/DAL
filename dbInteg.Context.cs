@@ -65,5 +65,7 @@ namespace DAL
         public virtual DbSet<Cliente_Vendedor> Cliente_Vendedor1 { get; set; }
         public virtual DbSet<Caixa> Caixas { get; set; }
         public virtual DbSet<ItemPedido_Otica> ItemPedido_Otica { get; set; }
+        public virtual DbSet<CNAE> CNAEs1 { get; set; }
+        public virtual DbSet<Familia_Produto> Familia_Produto1 { get; set; }
     }
 }

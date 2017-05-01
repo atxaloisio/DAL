@@ -87,6 +87,9 @@
         <EntityTypeShape EntityType="dbintegracaoModel.Caixa" Width="1.5" PointX="21.375" PointY="7.75" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_transportadora" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_caixa" />
+        <EntityTypeShape EntityType="dbintegracaoModel.CNAE" Width="1.5" PointX="21.375" PointY="19.75" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Familia_Produto" Width="1.5" PointX="22.375" PointY="3.75" />
+        <AssociationConnector Association="dbintegracaoModel.fk_produto_familia" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

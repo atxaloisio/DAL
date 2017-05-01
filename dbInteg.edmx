@@ -80,10 +80,12 @@
           <Property Name="optante_simples_nacional" Type="char" MaxLength="1" />
           <Property Name="bloqueado" Type="char" MaxLength="1" />
           <Property Name="importado_api" Type="char" MaxLength="1" />
+          <Property Name="cnae" Type="varchar" MaxLength="10" />
           <Property Name="inclusao" Type="date" />
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
+          <Property Name="sincronizar" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="cliente_parcela">
           <Key>
@@ -127,6 +129,14 @@
           <Property Name="Id_cliente" Type="bigint" Nullable="false" />
           <Property Name="Id_Vendedor" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="cnae">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="conta_corrente">
           <Key>
             <PropertyRef Name="Id" />
@@ -156,6 +166,18 @@
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="familia_produto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="int" />
+          <Property Name="codInt" Type="varchar" MaxLength="10" />
+          <Property Name="codFamilia" Type="varchar" MaxLength="10" />
+          <Property Name="nomeFamilia" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="inativo" Type="char" MaxLength="1" />
+          <Property Name="sincronizar" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="formaspagvendas">
           <Key>
@@ -635,6 +657,7 @@
           <Property Name="aliquota_cofins" Type="decimal" Precision="10" Scale="2" />
           <Property Name="bloqueado" Type="char" MaxLength="1" />
           <Property Name="importado_api" Type="char" MaxLength="1" />
+          <Property Name="id_familia" Type="bigint" />
           <Property Name="codigo_familia" Type="int" />
           <Property Name="codInt_familia" Type="varchar" MaxLength="20" />
           <Property Name="descricao_familia" Type="varchar" MaxLength="50" />
@@ -651,6 +674,7 @@
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
+          <Property Name="sincronizar" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="produto_ibpt">
           <Key>
@@ -1206,6 +1230,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_produto_familia">
+          <End Role="familia_produto" Type="Self.familia_produto" Multiplicity="0..1" />
+          <End Role="produto" Type="Self.produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="familia_produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="produto">
+              <PropertyRef Name="id_familia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_produto_ibpt_produto">
           <End Role="produto" Type="Self.produto" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1293,7 +1329,9 @@
           <EntitySet Name="cliente_tag" EntityType="Self.cliente_tag" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cliente_transportadora" EntityType="Self.cliente_transportadora" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cliente_vendedor" EntityType="Self.cliente_vendedor" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="cnae" EntityType="Self.cnae" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="conta_corrente" EntityType="Self.conta_corrente" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="familia_produto" EntityType="Self.familia_produto" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="formaspagvendas" EntityType="Self.formaspagvendas" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="funcao" EntityType="Self.funcao" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="funcao_perfil" EntityType="Self.funcao_perfil" Schema="dbintegracao" store:Type="Tables" />
@@ -1455,6 +1493,10 @@
           <AssociationSet Name="FK_pedido_total_pedido" Association="Self.FK_pedido_total_pedido">
             <End Role="pedido" EntitySet="pedido" />
             <End Role="pedido_total" EntitySet="pedido_total" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produto_familia" Association="Self.fk_produto_familia">
+            <End Role="familia_produto" EntitySet="familia_produto" />
+            <End Role="produto" EntitySet="produto" />
           </AssociationSet>
           <AssociationSet Name="FK_produto_ibpt_produto" Association="Self.FK_produto_ibpt_produto">
             <End Role="produto" EntitySet="produto" />
@@ -1681,6 +1723,12 @@
             <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
           </AssociationSet>
           <EntitySet Name="ItemPedido_Otica" EntityType="dbintegracaoModel.ItemPedido_Otica" />
+          <EntitySet Name="CNAEs1" EntityType="dbintegracaoModel.CNAE" />
+          <EntitySet Name="Familia_Produto1" EntityType="dbintegracaoModel.Familia_Produto" />
+          <AssociationSet Name="fk_produto_familia" Association="dbintegracaoModel.fk_produto_familia">
+            <End Role="Familia_Produto" EntitySet="Familia_Produto1" />
+            <End Role="Produto" EntitySet="Produtoes1" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ItemPedido">
           <Key>
@@ -1990,6 +2038,9 @@
           <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="itempedido_otica" Relationship="dbintegracaoModel.FK_itempedido_otica_produto" FromRole="Produto" ToRole="itempedido_otica" />
           <Property Name="codigo_produto" Type="Int32" Nullable="false" />
+          <Property Name="sincronizar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="id_familia" Type="Int64" />
+          <NavigationProperty Name="familia_produto" Relationship="dbintegracaoModel.fk_produto_familia" FromRole="Produto" ToRole="Familia_Produto" />
         </EntityType>
         <EntityType Name="Produto_Ibpt">
           <Key>
@@ -2167,6 +2218,7 @@
           <NavigationProperty Name="cliente_tag" Relationship="dbintegracaoModel.FK_cliente_tag_cliente" FromRole="cliente" ToRole="cliente_tag" />
           <NavigationProperty Name="pedidoes" Relationship="dbintegracaoModel.FK_pedido_cliente" FromRole="cliente" ToRole="Pedido" />
           <NavigationProperty Name="cliente_parcela" Relationship="dbintegracaoModel.FK_cliente_parcela_cliente" FromRole="Cliente" ToRole="cliente_parcela" />
+          <Property Name="cnae" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="inclusao" Type="DateTime" />
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="alteracao" Type="DateTime" />
@@ -2177,6 +2229,7 @@
           <NavigationProperty Name="cliente_transportadora1" Relationship="dbintegracaoModel.fk_cliente_transportadora_transportadora" FromRole="Cliente" ToRole="cliente_transportadora" />
           <NavigationProperty Name="cliente_vendedor" Relationship="dbintegracaoModel.FK_cliente_vendedor_cliente" FromRole="Cliente" ToRole="cliente_vendedor" />
           <NavigationProperty Name="pedido_otica1" Relationship="dbintegracaoModel.FK_pedido_otica_transportadora" FromRole="Cliente" ToRole="Pedido_Otica" />
+          <Property Name="sincronizar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Cliente_Tag">
           <Key>
@@ -3015,6 +3068,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CNAE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Familia_Produto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="Int32" />
+          <Property Name="codInt" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codFamilia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nomeFamilia" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="inativo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="sincronizar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="produtoes" Relationship="dbintegracaoModel.fk_produto_familia" FromRole="Familia_Produto" ToRole="Produto" />
+        </EntityType>
+        <Association Name="fk_produto_familia">
+          <End Type="dbintegracaoModel.Familia_Produto" Role="Familia_Produto" Multiplicity="0..1" />
+          <End Type="dbintegracaoModel.Produto" Role="Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Familia_Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="id_familia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3276,6 +3362,8 @@
           <EntitySetMapping Name="Produtoes1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Produto">
               <MappingFragment StoreEntitySet="produto">
+                <ScalarProperty Name="id_familia" ColumnName="id_familia" />
+                <ScalarProperty Name="sincronizar" ColumnName="sincronizar" />
                 <ScalarProperty Name="codigo_produto" ColumnName="codigo_produto" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
@@ -3337,6 +3425,8 @@
           <EntitySetMapping Name="Clientes1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Cliente">
               <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="cnae" ColumnName="cnae" />
+                <ScalarProperty Name="sincronizar" ColumnName="sincronizar" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
                 <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
@@ -3834,6 +3924,28 @@
                 <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CNAEs1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.CNAE">
+              <MappingFragment StoreEntitySet="cnae">
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Familia_Produto1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Familia_Produto">
+              <MappingFragment StoreEntitySet="familia_produto">
+                <ScalarProperty Name="sincronizar" ColumnName="sincronizar" />
+                <ScalarProperty Name="inativo" ColumnName="inativo" />
+                <ScalarProperty Name="nomeFamilia" ColumnName="nomeFamilia" />
+                <ScalarProperty Name="codFamilia" ColumnName="codFamilia" />
+                <ScalarProperty Name="codInt" ColumnName="codInt" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -67,5 +67,9 @@ namespace DAL
         public virtual DbSet<ItemPedido_Otica> ItemPedido_Otica { get; set; }
         public virtual DbSet<CNAE> CNAEs1 { get; set; }
         public virtual DbSet<Familia_Produto> Familia_Produto1 { get; set; }
+        public virtual DbSet<Empresa> Empresas1 { get; set; }
+        public virtual DbSet<Pedido_Otica_InfoAdic> Pedido_Otica_InfoAdic1 { get; set; }
+        public virtual DbSet<Pedido_Otica_Parcelas> Pedido_Otica_Parcelas1 { get; set; }
+        public virtual DbSet<Movimento> Movimentoes1 { get; set; }
     }
 }

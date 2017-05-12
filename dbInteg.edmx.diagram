@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="Diagram1" ZoomLevel="74">
+      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="sistema" ZoomLevel="83">
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido" Width="1.5" PointX="1.75" PointY="9.25" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_Imposto" Width="1.5" PointX="0.5" PointY="13.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_InfoAdic" Width="2.125" PointX="3.75" PointY="13.375" />
@@ -53,14 +53,7 @@
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_pedido" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_armacao_pedido_otica" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_lentes_pedido_otica" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Funcao" Width="1.5" PointX="13.375" PointY="16.375" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Perfil" Width="1.5" PointX="13.375" PointY="19.25" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Usuario" Width="1.5" PointX="15.625" PointY="22.375" />
-        <AssociationConnector Association="dbintegracaoModel.FK_usuario_perfil" />
         <EntityTypeShape EntityType="dbintegracaoModel.Conta_Corrente" Width="1.5" PointX="8.375" PointY="9.75" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Funcao_Perfil" Width="1.5" PointX="15.625" PointY="17.375" />
-        <AssociationConnector Association="dbintegracaoModel.FK_funcao_perfil_funcao" />
-        <AssociationConnector Association="dbintegracaoModel.FK_funcao_perfil_perfil" />
         <EntityTypeShape EntityType="dbintegracaoModel.Pedido_InfoAdic" Width="1.5" PointX="8.25" PointY="26.75" />
         <AssociationConnector Association="dbintegracaoModel.FK_pedido_infoadic_pedido" />
         <EntityTypeShape EntityType="dbintegracaoModel.Categoria" Width="1.5" PointX="1.25" PointY="3.625" />
@@ -90,7 +83,23 @@
         <EntityTypeShape EntityType="dbintegracaoModel.CNAE" Width="1.5" PointX="21.375" PointY="19.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.Familia_Produto" Width="1.5" PointX="22.375" PointY="3.75" />
         <AssociationConnector Association="dbintegracaoModel.fk_produto_familia" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Empresa" Width="1.5" PointX="11.375" PointY="23.25" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Otica_InfoAdic" Width="1.875" PointX="24.125" PointY="1" />
+        <AssociationConnector Association="dbintegracaoModel.fk_pedido_otica_infoadic" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Pedido_Otica_Parcelas" Width="2" PointX="18.875" PointY="32.125" />
+        <AssociationConnector Association="dbintegracaoModel.FK_pedido_otica_parcelas_pedido" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Movimento" Width="1.5" PointX="10.75" PointY="31.75" />
+        <AssociationConnector Association="dbintegracaoModel.fk_movimento_produto" />
         </Diagram>
+      <Diagram DiagramId="4e59f3d5d0b5427fa5bc47a1ed72db6a" Name="controle_acesso" ZoomLevel="84" >
+        <EntityTypeShape EntityType="dbintegracaoModel.Perfil" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Usuario" Width="1.5" PointX="6.75" PointY="4.25" />
+        <AssociationConnector Association="dbintegracaoModel.FK_usuario_perfil" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Funcao" Width="1.5" PointX="6.5" PointY="1.5" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Funcao_Perfil" Width="1.5" PointX="4.25" PointY="0.75" />
+        <AssociationConnector Association="dbintegracaoModel.FK_funcao_perfil_funcao" />
+        <AssociationConnector Association="dbintegracaoModel.FK_funcao_perfil_perfil" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -42,6 +42,41 @@ namespace DAL
                 Context.Entry(item).State = EntityState.Modified;
             }
 
+            foreach (Pedido_Otica_InfoAdic item in entity.pedido_otica_infoadic)
+            {
+                if (item.Id > 0)
+                {
+                    Context.Entry(item).State = EntityState.Modified;
+                }
+                else
+                {
+                    Context.Entry(item).State = EntityState.Added;
+                }
+                
+            }
+
+            foreach (Pedido_Otica_Parcelas item in entity.pedido_otica_parcelas)
+            {
+                if (item.Id > 0)
+                {
+                    Context.Entry(item).State = EntityState.Modified;
+                }
+                else
+                {
+                    Context.Entry(item).State = EntityState.Added;
+                    item.Id_pedido_otica = entity.Id;
+                }
+            }
+
+            Pedido_Otica_ParcelasRepositorio pop = new Pedido_Otica_ParcelasRepositorio();
+            List<Pedido_Otica_Parcelas> popList = pop.GetNT(p => p.Id_pedido_otica == entity.Id).ToList();
+
+            foreach (Pedido_Otica_Parcelas item in popList)
+            {
+                Context.Entry(item).State = EntityState.Deleted;
+                entity.pedido_otica_parcelas.Remove(item);
+            }
+
             foreach (ItemPedido_Otica item in lstRemItemPedido_Otica)
             {
                 entity.itempedido_otica.Remove(item);

@@ -57,7 +57,7 @@
           <Property Name="logradouro" Type="varchar" MaxLength="6" />
           <Property Name="endereco" Type="varchar" MaxLength="60" />
           <Property Name="endereco_numero" Type="varchar" MaxLength="10" />
-          <Property Name="complemento" Type="varchar" MaxLength="30" />
+          <Property Name="complemento" Type="varchar" MaxLength="60" />
           <Property Name="bairro" Type="varchar" MaxLength="30" />
           <Property Name="cidade" Type="varchar" MaxLength="40" />
           <Property Name="estado" Type="char" MaxLength="2" />
@@ -72,7 +72,7 @@
           <Property Name="fax_numero" Type="varchar" MaxLength="15" />
           <Property Name="email" Type="varchar" MaxLength="100" />
           <Property Name="homepage" Type="varchar" MaxLength="100" />
-          <Property Name="observacao" Type="varchar" MaxLength="512" />
+          <Property Name="observacao" Type="varchar" MaxLength="1024" />
           <Property Name="inscricao_municipal" Type="varchar" MaxLength="20" />
           <Property Name="inscricao_estadual" Type="varchar" MaxLength="20" />
           <Property Name="inscricao_suframa" Type="varchar" MaxLength="20" />
@@ -166,6 +166,44 @@
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="empresa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo_empresa" Type="bigint" />
+          <Property Name="codigo_empresa_integracao" Type="varchar" MaxLength="20" />
+          <Property Name="cnpj" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="razao_social" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="nome_fantasia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="logradouro" Type="varchar" MaxLength="6" />
+          <Property Name="endereco" Type="varchar" MaxLength="60" />
+          <Property Name="endereco_numero" Type="varchar" MaxLength="10" />
+          <Property Name="complemento" Type="varchar" MaxLength="60" />
+          <Property Name="bairro" Type="varchar" MaxLength="30" />
+          <Property Name="cidade" Type="varchar" MaxLength="40" />
+          <Property Name="estado" Type="char" MaxLength="2" />
+          <Property Name="cep" Type="varchar" MaxLength="10" />
+          <Property Name="codigo_pais" Type="varchar" MaxLength="4" />
+          <Property Name="data_adesao_sn" Type="date" />
+          <Property Name="telefone1_ddd" Type="varchar" MaxLength="5" />
+          <Property Name="telefone1_numero" Type="varchar" MaxLength="15" />
+          <Property Name="telefone2_ddd" Type="varchar" MaxLength="5" />
+          <Property Name="telefone2_numero" Type="varchar" MaxLength="15" />
+          <Property Name="fax_ddd" Type="varchar" MaxLength="5" />
+          <Property Name="fax_numero" Type="varchar" MaxLength="15" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="website" Type="varchar" MaxLength="100" />
+          <Property Name="cnae" Type="varchar" MaxLength="10" />
+          <Property Name="cnae_municipal" Type="varchar" MaxLength="10" />
+          <Property Name="inscricao_estadual" Type="varchar" MaxLength="20" />
+          <Property Name="inscricao_municipal" Type="varchar" MaxLength="20" />
+          <Property Name="inscricao_suframa" Type="varchar" MaxLength="20" />
+          <Property Name="regime_tributario" Type="tinyint" />
+          <Property Name="inativa" Type="char" MaxLength="1" />
+          <Property Name="gera_nfse" Type="char" MaxLength="1" />
+          <Property Name="optante_simples_nacional" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="familia_produto">
           <Key>
@@ -386,6 +424,19 @@
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
         </EntityType>
+        <EntityType Name="movimento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_produto" Type="bigint" Nullable="false" />
+          <Property Name="data" Type="date" Nullable="false" />
+          <Property Name="tipo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="quantidade" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="valor_unitario" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="valor_total" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="observacao" Type="varchar" MaxLength="512" />
+        </EntityType>
         <EntityType Name="pais">
           <Key>
             <PropertyRef Name="Id" />
@@ -581,6 +632,33 @@
           <Property Name="motivo_cancelamento" Type="varchar" MaxLength="256" />
           <Property Name="data_cancelamento" Type="date" />
         </EntityType>
+        <EntityType Name="pedido_otica_infoadic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_pedido_otica" Type="bigint" Nullable="false" />
+          <Property Name="nome_medico" Type="varchar" MaxLength="100" />
+          <Property Name="crm_medico" Type="int" />
+          <Property Name="laboratorio" Type="varchar" MaxLength="100" />
+          <Property Name="telefone_laboratorio" Type="varchar" MaxLength="14" />
+        </EntityType>
+        <EntityType Name="pedido_otica_parcelas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_pedido_otica" Type="bigint" Nullable="false" />
+          <Property Name="numero_parcela" Type="int" />
+          <Property Name="valor" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="percentual" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="data_vencimento" Type="varchar" MaxLength="10" />
+          <Property Name="quantidade_dias" Type="int" />
+          <Property Name="pago" Type="char" MaxLength="1" />
+          <Property Name="data_pagamento" Type="date" />
+          <Property Name="forma_pagamento" Type="varchar" MaxLength="20" />
+          <Property Name="usuario_pagamento" Type="varchar" MaxLength="60" />
+        </EntityType>
         <EntityType Name="pedido_parcelas">
           <Key>
             <PropertyRef Name="Id" />
@@ -641,7 +719,7 @@
           <Property Name="codigo" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="descricao" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ean" Type="varchar" MaxLength="14" />
-          <Property Name="ncm" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ncm" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="quantidade_estoque" Type="decimal" Precision="10" Scale="0" />
           <Property Name="csosn_icms" Type="varchar" MaxLength="3" />
           <Property Name="unidade" Type="varchar" MaxLength="6" Nullable="false" />
@@ -665,8 +743,8 @@
           <Property Name="id_dadosIbpt" Type="int" />
           <Property Name="cest" Type="varchar" MaxLength="9" />
           <Property Name="cfop" Type="varchar" MaxLength="10" />
-          <Property Name="peso_liq" Type="decimal" Precision="10" Scale="0" />
-          <Property Name="peso_bruto" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="peso_liq" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="peso_bruto" Type="decimal" Precision="10" Scale="2" />
           <Property Name="estoque_minimo" Type="decimal" Precision="10" Scale="0" />
           <Property Name="descr_detalhada" Type="char" MaxLength="1" />
           <Property Name="obs_internas" Type="char" MaxLength="1" />
@@ -797,6 +875,7 @@
           <Property Name="codInt" Type="varchar" MaxLength="20" />
           <Property Name="nome" Type="varchar" MaxLength="120" Nullable="false" />
           <Property Name="inativo" Type="char" MaxLength="1" />
+          <Property Name="sincronizar" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="vendedor_localidade">
           <Key>
@@ -1024,6 +1103,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_movimento_produto">
+          <End Role="produto" Type="Self.produto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="movimento" Type="Self.movimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movimento">
+              <PropertyRef Name="id_produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_observacoes_pedido_pedido">
           <End Role="pedido" Type="Self.pedido" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1142,6 +1235,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_pedido_otica_infoadic">
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido_otica_infoadic" Type="Self.pedido_otica_infoadic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedido_otica">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pedido_otica_infoadic">
+              <PropertyRef Name="id_pedido_otica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_pedido_otica_motivo_entrega">
           <End Role="motivo_entrega" Type="Self.motivo_entrega" Multiplicity="0..1" />
           <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="*" />
@@ -1163,6 +1270,20 @@
             </Principal>
             <Dependent Role="pedido_otica">
               <PropertyRef Name="condicao_pagamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_otica_parcelas_pedido">
+          <End Role="pedido_otica" Type="Self.pedido_otica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido_otica_parcelas" Type="Self.pedido_otica_parcelas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedido_otica">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pedido_otica_parcelas">
+              <PropertyRef Name="Id_pedido_otica" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1331,6 +1452,7 @@
           <EntitySet Name="cliente_vendedor" EntityType="Self.cliente_vendedor" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="cnae" EntityType="Self.cnae" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="conta_corrente" EntityType="Self.conta_corrente" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="empresa" EntityType="Self.empresa" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="familia_produto" EntityType="Self.familia_produto" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="formaspagvendas" EntityType="Self.formaspagvendas" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="funcao" EntityType="Self.funcao" Schema="dbintegracao" store:Type="Tables" />
@@ -1341,6 +1463,7 @@
           <EntitySet Name="itempedido_otica" EntityType="Self.itempedido_otica" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="itempedido_produto" EntityType="Self.itempedido_produto" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="motivo_entrega" EntityType="Self.motivo_entrega" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="movimento" EntityType="Self.movimento" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="pais" EntityType="Self.pais" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="parcela" EntityType="Self.parcela" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="pedido" EntityType="Self.pedido" Schema="dbintegracao" store:Type="Tables" />
@@ -1350,6 +1473,8 @@
           <EntitySet Name="pedido_lente" EntityType="Self.pedido_lente" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="pedido_observacoes" EntityType="Self.pedido_observacoes" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="pedido_otica" EntityType="Self.pedido_otica" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="pedido_otica_infoadic" EntityType="Self.pedido_otica_infoadic" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="pedido_otica_parcelas" EntityType="Self.pedido_otica_parcelas" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="pedido_parcelas" EntityType="Self.pedido_parcelas" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="pedido_total" EntityType="Self.pedido_total" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="perfil" EntityType="Self.perfil" Schema="dbintegracao" store:Type="Tables" />
@@ -1430,6 +1555,10 @@
             <End Role="produto" EntitySet="produto" />
             <End Role="itempedido_produto" EntitySet="itempedido_produto" />
           </AssociationSet>
+          <AssociationSet Name="fk_movimento_produto" Association="Self.fk_movimento_produto">
+            <End Role="produto" EntitySet="produto" />
+            <End Role="movimento" EntitySet="movimento" />
+          </AssociationSet>
           <AssociationSet Name="FK_observacoes_pedido_pedido" Association="Self.FK_observacoes_pedido_pedido">
             <End Role="pedido" EntitySet="pedido" />
             <End Role="pedido_observacoes" EntitySet="pedido_observacoes" />
@@ -1466,6 +1595,10 @@
             <End Role="cliente" EntitySet="cliente" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
           </AssociationSet>
+          <AssociationSet Name="fk_pedido_otica_infoadic" Association="Self.fk_pedido_otica_infoadic">
+            <End Role="pedido_otica" EntitySet="pedido_otica" />
+            <End Role="pedido_otica_infoadic" EntitySet="pedido_otica_infoadic" />
+          </AssociationSet>
           <AssociationSet Name="FK_pedido_otica_motivo_entrega" Association="Self.FK_pedido_otica_motivo_entrega">
             <End Role="motivo_entrega" EntitySet="motivo_entrega" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
@@ -1473,6 +1606,10 @@
           <AssociationSet Name="FK_pedido_otica_parcela" Association="Self.FK_pedido_otica_parcela">
             <End Role="parcela" EntitySet="parcela" />
             <End Role="pedido_otica" EntitySet="pedido_otica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_otica_parcelas_pedido" Association="Self.FK_pedido_otica_parcelas_pedido">
+            <End Role="pedido_otica" EntitySet="pedido_otica" />
+            <End Role="pedido_otica_parcelas" EntitySet="pedido_otica_parcelas" />
           </AssociationSet>
           <AssociationSet Name="FK_pedido_otica_pedido" Association="Self.FK_pedido_otica_pedido">
             <End Role="pedido" EntitySet="pedido" />
@@ -1728,6 +1865,22 @@
           <AssociationSet Name="fk_produto_familia" Association="dbintegracaoModel.fk_produto_familia">
             <End Role="Familia_Produto" EntitySet="Familia_Produto1" />
             <End Role="Produto" EntitySet="Produtoes1" />
+          </AssociationSet>
+          <EntitySet Name="Empresas1" EntityType="dbintegracaoModel.Empresa" />
+          <EntitySet Name="Pedido_Otica_InfoAdic1" EntityType="dbintegracaoModel.Pedido_Otica_InfoAdic" />
+          <AssociationSet Name="fk_pedido_otica_infoadic" Association="dbintegracaoModel.fk_pedido_otica_infoadic">
+            <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
+            <End Role="pedido_otica_infoadic" EntitySet="Pedido_Otica_InfoAdic1" />
+          </AssociationSet>
+          <EntitySet Name="Pedido_Otica_Parcelas1" EntityType="dbintegracaoModel.Pedido_Otica_Parcelas" />
+          <AssociationSet Name="FK_pedido_otica_parcelas_pedido" Association="dbintegracaoModel.FK_pedido_otica_parcelas_pedido">
+            <End Role="Pedido_Otica" EntitySet="Pedido_Otica1" />
+            <End Role="pedido_otica_parcelas" EntitySet="Pedido_Otica_Parcelas1" />
+          </AssociationSet>
+          <EntitySet Name="Movimentoes1" EntityType="dbintegracaoModel.Movimento" />
+          <AssociationSet Name="fk_movimento_produto" Association="dbintegracaoModel.fk_movimento_produto">
+            <End Role="Produto" EntitySet="Produtoes1" />
+            <End Role="movimento" EntitySet="Movimentoes1" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ItemPedido">
@@ -2002,7 +2155,7 @@
           <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="descricao" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ean" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
-          <Property Name="ncm" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ncm" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="quantidade_estoque" Type="Decimal" />
           <Property Name="csosn_icms" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="unidade" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
@@ -2041,6 +2194,7 @@
           <Property Name="sincronizar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="id_familia" Type="Int64" />
           <NavigationProperty Name="familia_produto" Relationship="dbintegracaoModel.fk_produto_familia" FromRole="Produto" ToRole="Familia_Produto" />
+          <NavigationProperty Name="movimentacoes" Relationship="dbintegracaoModel.fk_movimento_produto" FromRole="Produto" ToRole="movimento" />
         </EntityType>
         <EntityType Name="Produto_Ibpt">
           <Key>
@@ -2192,7 +2346,7 @@
           <Property Name="logradouro" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="endereco" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="endereco_numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="complemento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="complemento" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="bairro" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="cidade" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
@@ -2207,7 +2361,7 @@
           <Property Name="fax_numero" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="homepage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="observacao" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="observacao" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
           <Property Name="inscricao_municipal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="inscricao_estadual" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="inscricao_suframa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -2489,6 +2643,8 @@
           <NavigationProperty Name="vendedor" Relationship="dbintegracaoModel.FK_pedido_otica_vendedor" FromRole="Pedido_Otica" ToRole="vendedor" />
           <NavigationProperty Name="transportadora" Relationship="dbintegracaoModel.FK_pedido_otica_transportadora" FromRole="Pedido_Otica" ToRole="Cliente" />
           <NavigationProperty Name="caixa" Relationship="dbintegracaoModel.FK_pedido_otica_caixa" FromRole="Pedido_Otica" ToRole="caixa" />
+          <NavigationProperty Name="pedido_otica_infoadic" Relationship="dbintegracaoModel.fk_pedido_otica_infoadic" FromRole="Pedido_Otica" ToRole="pedido_otica_infoadic" />
+          <NavigationProperty Name="pedido_otica_parcelas" Relationship="dbintegracaoModel.FK_pedido_otica_parcelas_pedido" FromRole="Pedido_Otica" ToRole="pedido_otica_parcelas" />
         </EntityType>
         <Association Name="FK_pedido_otica_cliente_cliente">
           <End Type="dbintegracaoModel.Cliente" Role="Cliente" Multiplicity="0..1" />
@@ -2954,6 +3110,7 @@
           <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.FK_pedido_otica_vendedor" FromRole="vendedor" ToRole="Pedido_Otica" />
           <NavigationProperty Name="vendedor_localidade" Relationship="dbintegracaoModel.FK_vendedor_localidade_vendedor" FromRole="vendedor" ToRole="vendedor_localidade" />
           <NavigationProperty Name="cliente_vendedor" Relationship="dbintegracaoModel.FK_cliente_vendedor_vendedor" FromRole="vendedor" ToRole="cliente_vendedor" />
+          <Property Name="sincronizar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           </EntityType>
         <EntityType Name="Vendedor_Localidade">
           <Key>
@@ -3098,6 +3255,129 @@
             </Principal>
             <Dependent Role="Produto">
               <PropertyRef Name="id_familia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo_empresa" Type="Int64" />
+          <Property Name="codigo_empresa_integracao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cnpj" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="razao_social" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="nome_fantasia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="logradouro" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="endereco" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="endereco_numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="complemento" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="bairro" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="cidade" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cep" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_pais" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="data_adesao_sn" Type="DateTime" />
+          <Property Name="telefone1_ddd" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="telefone1_numero" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="telefone2_ddd" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="telefone2_numero" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="fax_ddd" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="fax_numero" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="website" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cnae" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cnae_municipal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="inscricao_estadual" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="inscricao_municipal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="inscricao_suframa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="regime_tributario" Type="SByte" />
+          <Property Name="inativa" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="gera_nfse" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="optante_simples_nacional" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Pedido_Otica_InfoAdic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_pedido_otica" Type="Int64" Nullable="false" />
+          <Property Name="nome_medico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="crm_medico" Type="Int32" />
+          <Property Name="laboratorio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="telefone_laboratorio" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.fk_pedido_otica_infoadic" FromRole="pedido_otica_infoadic" ToRole="Pedido_Otica" />
+        </EntityType>
+        <Association Name="fk_pedido_otica_infoadic">
+          <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="dbintegracaoModel.Pedido_Otica_InfoAdic" Role="pedido_otica_infoadic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido_Otica">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pedido_otica_infoadic">
+              <PropertyRef Name="id_pedido_otica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pedido_Otica_Parcelas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_pedido_otica" Type="Int64" Nullable="false" />
+          <Property Name="numero_parcela" Type="Int32" />
+          <Property Name="valor" Type="Decimal" />
+          <Property Name="percentual" Type="Decimal" />
+          <Property Name="data_vencimento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="quantidade_dias" Type="Int32" />
+          <Property Name="pago" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_pagamento" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.FK_pedido_otica_parcelas_pedido" FromRole="pedido_otica_parcelas" ToRole="Pedido_Otica" />
+          <Property Name="data_pagamento" Type="DateTime" />
+          <Property Name="forma_pagamento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_pedido_otica_parcelas_pedido">
+          <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="dbintegracaoModel.Pedido_Otica_Parcelas" Role="pedido_otica_parcelas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido_Otica">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pedido_otica_parcelas">
+              <PropertyRef Name="Id_pedido_otica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Movimento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_produto" Type="Int64" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="quantidade" Type="Decimal" Nullable="false" />
+          <Property Name="valor_unitario" Type="Decimal" Nullable="false" />
+          <Property Name="valor_total" Type="Decimal" Nullable="false" />
+          <Property Name="observacao" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="produto" Relationship="dbintegracaoModel.fk_movimento_produto" FromRole="movimento" ToRole="Produto" />
+        </EntityType>
+        <Association Name="fk_movimento_produto">
+          <End Type="dbintegracaoModel.Produto" Role="Produto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="dbintegracaoModel.Movimento" Role="movimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movimento">
+              <PropertyRef Name="id_produto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3873,6 +4153,7 @@
           <EntitySetMapping Name="Vendedors1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Vendedor">
               <MappingFragment StoreEntitySet="vendedor">
+                <ScalarProperty Name="sincronizar" ColumnName="sincronizar" />
                 <ScalarProperty Name="inativo" ColumnName="inativo" />
                 <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="codInt" ColumnName="codInt" />
@@ -3945,6 +4226,88 @@
                 <ScalarProperty Name="codFamilia" ColumnName="codFamilia" />
                 <ScalarProperty Name="codInt" ColumnName="codInt" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresas1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Empresa">
+              <MappingFragment StoreEntitySet="empresa">
+                <ScalarProperty Name="optante_simples_nacional" ColumnName="optante_simples_nacional" />
+                <ScalarProperty Name="gera_nfse" ColumnName="gera_nfse" />
+                <ScalarProperty Name="inativa" ColumnName="inativa" />
+                <ScalarProperty Name="regime_tributario" ColumnName="regime_tributario" />
+                <ScalarProperty Name="inscricao_suframa" ColumnName="inscricao_suframa" />
+                <ScalarProperty Name="inscricao_municipal" ColumnName="inscricao_municipal" />
+                <ScalarProperty Name="inscricao_estadual" ColumnName="inscricao_estadual" />
+                <ScalarProperty Name="cnae_municipal" ColumnName="cnae_municipal" />
+                <ScalarProperty Name="cnae" ColumnName="cnae" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fax_numero" ColumnName="fax_numero" />
+                <ScalarProperty Name="fax_ddd" ColumnName="fax_ddd" />
+                <ScalarProperty Name="telefone2_numero" ColumnName="telefone2_numero" />
+                <ScalarProperty Name="telefone2_ddd" ColumnName="telefone2_ddd" />
+                <ScalarProperty Name="telefone1_numero" ColumnName="telefone1_numero" />
+                <ScalarProperty Name="telefone1_ddd" ColumnName="telefone1_ddd" />
+                <ScalarProperty Name="data_adesao_sn" ColumnName="data_adesao_sn" />
+                <ScalarProperty Name="codigo_pais" ColumnName="codigo_pais" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cidade" ColumnName="cidade" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
+                <ScalarProperty Name="complemento" ColumnName="complemento" />
+                <ScalarProperty Name="endereco_numero" ColumnName="endereco_numero" />
+                <ScalarProperty Name="endereco" ColumnName="endereco" />
+                <ScalarProperty Name="logradouro" ColumnName="logradouro" />
+                <ScalarProperty Name="nome_fantasia" ColumnName="nome_fantasia" />
+                <ScalarProperty Name="razao_social" ColumnName="razao_social" />
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="codigo_empresa_integracao" ColumnName="codigo_empresa_integracao" />
+                <ScalarProperty Name="codigo_empresa" ColumnName="codigo_empresa" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedido_Otica_InfoAdic1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Pedido_Otica_InfoAdic">
+              <MappingFragment StoreEntitySet="pedido_otica_infoadic">
+                <ScalarProperty Name="telefone_laboratorio" ColumnName="telefone_laboratorio" />
+                <ScalarProperty Name="laboratorio" ColumnName="laboratorio" />
+                <ScalarProperty Name="crm_medico" ColumnName="crm_medico" />
+                <ScalarProperty Name="nome_medico" ColumnName="nome_medico" />
+                <ScalarProperty Name="id_pedido_otica" ColumnName="id_pedido_otica" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedido_Otica_Parcelas1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Pedido_Otica_Parcelas">
+              <MappingFragment StoreEntitySet="pedido_otica_parcelas">
+                <ScalarProperty Name="forma_pagamento" ColumnName="forma_pagamento" />
+                <ScalarProperty Name="data_pagamento" ColumnName="data_pagamento" />
+                <ScalarProperty Name="usuario_pagamento" ColumnName="usuario_pagamento" />
+                <ScalarProperty Name="pago" ColumnName="pago" />
+                <ScalarProperty Name="quantidade_dias" ColumnName="quantidade_dias" />
+                <ScalarProperty Name="data_vencimento" ColumnName="data_vencimento" />
+                <ScalarProperty Name="percentual" ColumnName="percentual" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="numero_parcela" ColumnName="numero_parcela" />
+                <ScalarProperty Name="Id_pedido_otica" ColumnName="Id_pedido_otica" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movimentoes1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Movimento">
+              <MappingFragment StoreEntitySet="movimento">
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="valor_total" ColumnName="valor_total" />
+                <ScalarProperty Name="valor_unitario" ColumnName="valor_unitario" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="id_produto" ColumnName="id_produto" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

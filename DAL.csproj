@@ -94,10 +94,14 @@
     <Compile Include="Interface\ICliente_Vendedor.cs" />
     <Compile Include="Interface\ICNAERepositorio.cs" />
     <Compile Include="Interface\IConta_CorrenteRepositorio.cs" />
+    <Compile Include="Interface\IEmpresaRepositorio.cs" />
     <Compile Include="Interface\IFamilia_ProdutoRepositorio.cs" />
     <Compile Include="Interface\IFormasPagVendaRepositorio.cs" />
     <Compile Include="Interface\IFuncaoRepositorio.cs" />
     <Compile Include="Interface\IFuncao_PerfilRepositorio.cs" />
+    <Compile Include="Interface\IMovimentoRepositorio.cs" />
+    <Compile Include="Interface\IPedido_Otica_InfoAdicRepositorio.cs" />
+    <Compile Include="Interface\IPedido_Otica_ParcelasRepositorio.cs" />
     <Compile Include="Interface\IPerfilRepositorio.cs" />
     <Compile Include="Interface\IProduto_ImpostoRepositorio.cs" />
     <Compile Include="Interface\IRotaRepositoriocs.cs" />
@@ -139,6 +143,7 @@
     <Compile Include="Repositorio\Cliente_TransportadoraRepositorio.cs" />
     <Compile Include="Repositorio\Cliente_VendedorRepositorio.cs" />
     <Compile Include="Repositorio\CNAERepositorio.cs" />
+    <Compile Include="Repositorio\EmpresaRepositorio.cs" />
     <Compile Include="Repositorio\Familia_ProdutoRepositorio.cs" />
     <Compile Include="Repositorio\FormasPagVendaRepositorio.cs" />
     <Compile Include="Repositorio\Funcao_PerfilRepositorio.cs" />
@@ -151,6 +156,7 @@
     <Compile Include="Repositorio\ItemPedido_ProdutoRepositorio.cs" />
     <Compile Include="Interface\IUsuarioRepositorio.cs" />
     <Compile Include="Repositorio\Motivo_EntregaRepositorio.cs" />
+    <Compile Include="Repositorio\MovimentoRepositorio.cs" />
     <Compile Include="Repositorio\PaisRepositorio.cs" />
     <Compile Include="Repositorio\ParcelaRepositorio.cs" />
     <Compile Include="Repositorio\PedidoRepositorio.cs" />
@@ -160,6 +166,8 @@
     <Compile Include="Repositorio\Pedido_LenteRepositorio.cs" />
     <Compile Include="Repositorio\Pedido_ObservacoesRepositorio.cs" />
     <Compile Include="Repositorio\Pedido_OticaRepositorio.cs" />
+    <Compile Include="Repositorio\Pedido_Otica_InfoAdicRepositorio.cs" />
+    <Compile Include="Repositorio\Pedido_Otica_ParcelasRepositorio.cs" />
     <Compile Include="Repositorio\Pedido_ParcelasRepositorio.cs" />
     <Compile Include="Repositorio\Pedido_TotalRepositorio.cs" />
     <Compile Include="Repositorio\PerfilRepositorio.cs" />

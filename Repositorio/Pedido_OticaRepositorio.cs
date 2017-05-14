@@ -55,11 +55,14 @@ namespace DAL
                 
             }
 
+            
+            List<Pedido_Otica_Parcelas> remParcelas = new List<Pedido_Otica_Parcelas>();
+
             foreach (Pedido_Otica_Parcelas item in entity.pedido_otica_parcelas)
             {
                 if (item.Id > 0)
-                {
-                    Context.Entry(item).State = EntityState.Modified;
+                {                   
+                    remParcelas.Add(item);
                 }
                 else
                 {
@@ -68,17 +71,16 @@ namespace DAL
                 }
             }
 
-            Pedido_Otica_ParcelasRepositorio pop = new Pedido_Otica_ParcelasRepositorio();
-            List<Pedido_Otica_Parcelas> popList = pop.GetNT(p => p.Id_pedido_otica == entity.Id).ToList();
-
-            foreach (Pedido_Otica_Parcelas item in popList)
+            foreach (Pedido_Otica_Parcelas item in remParcelas)
             {
                 Context.Entry(item).State = EntityState.Deleted;
-                entity.pedido_otica_parcelas.Remove(item);
+                entity.pedido_otica_parcelas.Remove(item);                
             }
 
+            
             foreach (ItemPedido_Otica item in lstRemItemPedido_Otica)
             {
+                
                 entity.itempedido_otica.Remove(item);
             }
             

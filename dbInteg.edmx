@@ -843,6 +843,22 @@
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
         </EntityType>
+        <EntityType Name="tipo_armacao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="inativo" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="tipo_lente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="inativo" Type="char" MaxLength="1" />
+        </EntityType>
         <EntityType Name="unidade">
           <Key>
             <PropertyRef Name="Id" />
@@ -1483,6 +1499,8 @@
           <EntitySet Name="produto_imposto" EntityType="Self.produto_imposto" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="rota" EntityType="Self.rota" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="tag" EntityType="Self.tag" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="tipo_armacao" EntityType="Self.tipo_armacao" Schema="dbintegracao" store:Type="Tables" />
+          <EntitySet Name="tipo_lente" EntityType="Self.tipo_lente" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="unidade" EntityType="Self.unidade" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbintegracao" store:Type="Tables" />
           <EntitySet Name="vendedor" EntityType="Self.vendedor" Schema="dbintegracao" store:Type="Tables" />
@@ -1882,6 +1900,8 @@
             <End Role="Produto" EntitySet="Produtoes1" />
             <End Role="movimento" EntitySet="Movimentoes1" />
           </AssociationSet>
+          <EntitySet Name="Tipo_Armacao1" EntityType="dbintegracaoModel.Tipo_Armacao" />
+          <EntitySet Name="Tipo_Lente1" EntityType="dbintegracaoModel.Tipo_Lente" />
           </EntityContainer>
         <EntityType Name="ItemPedido">
           <Key>
@@ -3381,6 +3401,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Tipo_Armacao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="descricao" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="inativo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tipo_Lente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="descricao" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="inativo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4308,6 +4344,24 @@
                 <ScalarProperty Name="tipo" ColumnName="tipo" />
                 <ScalarProperty Name="data" ColumnName="data" />
                 <ScalarProperty Name="id_produto" ColumnName="id_produto" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Armacao1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Tipo_Armacao">
+              <MappingFragment StoreEntitySet="tipo_armacao">
+                <ScalarProperty Name="inativo" ColumnName="inativo" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Lente1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Tipo_Lente">
+              <MappingFragment StoreEntitySet="tipo_lente">
+                <ScalarProperty Name="inativo" ColumnName="inativo" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

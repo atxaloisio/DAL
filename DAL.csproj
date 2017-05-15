@@ -105,6 +105,8 @@
     <Compile Include="Interface\IPerfilRepositorio.cs" />
     <Compile Include="Interface\IProduto_ImpostoRepositorio.cs" />
     <Compile Include="Interface\IRotaRepositoriocs.cs" />
+    <Compile Include="Interface\ITipo_ArmacaoRepositorio.cs" />
+    <Compile Include="Interface\ITipo_LenteRepositorio.cs" />
     <Compile Include="Interface\IUnidadeRepositorio.cs" />
     <Compile Include="Interface\IVendedorRepositorio.cs" />
     <Compile Include="Interface\IVendedor_LocalidadeRepositorio.cs" />
@@ -177,6 +179,8 @@
     <Compile Include="Repositorio\Repositorio.cs" />
     <Compile Include="Repositorio\RotaRepositorio.cs" />
     <Compile Include="Repositorio\TagRepositorio.cs" />
+    <Compile Include="Repositorio\Tipo_ArmacaoRepositorio.cs" />
+    <Compile Include="Repositorio\Tipo_LenteRepositorio.cs" />
     <Compile Include="Repositorio\UnidadeRepositorio.cs" />
     <Compile Include="Repositorio\UsuarioRepositorio.cs" />
     <Compile Include="Repositorio\VendedorRepositorio.cs" />

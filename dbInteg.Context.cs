@@ -71,5 +71,7 @@ namespace DAL
         public virtual DbSet<Pedido_Otica_InfoAdic> Pedido_Otica_InfoAdic1 { get; set; }
         public virtual DbSet<Pedido_Otica_Parcelas> Pedido_Otica_Parcelas1 { get; set; }
         public virtual DbSet<Movimento> Movimentoes1 { get; set; }
+        public virtual DbSet<Tipo_Armacao> Tipo_Armacao1 { get; set; }
+        public virtual DbSet<Tipo_Lente> Tipo_Lente1 { get; set; }
     }
 }

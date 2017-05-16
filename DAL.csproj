@@ -68,6 +68,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dbInteg.Context.cs">
+      <DependentUpon>dbInteg.Context.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="dbInteg.Designer.cs">
+      <DependentUpon>dbInteg.edmx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="dbIntegRemote.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -77,16 +87,6 @@
       <DependentUpon>dbIntegRemote.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="dbInteg.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbInteg.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="dbInteg.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbInteg.edmx</DependentUpon>
     </Compile>
     <Compile Include="Interface\ICaixaRepositorio.cs" />
     <Compile Include="Interface\ICategoriaRepositorio.cs" />
@@ -198,18 +198,18 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbIntegRemote.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="dbIntegRemote.edmx.diagram">
-      <DependentUpon>dbIntegRemote.edmx</DependentUpon>
-    </None>
     <None Include="dbInteg.edmx.diagram">
       <DependentUpon>dbInteg.edmx</DependentUpon>
+    </None>
+    <None Include="dbIntegRemote.edmx.diagram">
+      <DependentUpon>dbIntegRemote.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="dbInteg.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbInteg.edmx</DependentUpon>
+      <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>dbInteg.Context.cs</LastGenOutput>
     </Content>
     <Content Include="dbIntegRemote.Context.tt">

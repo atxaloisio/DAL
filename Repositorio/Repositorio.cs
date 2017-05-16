@@ -13,13 +13,11 @@ namespace DAL
     {
         //Para alterar para o sqlcompact mudar aqui.
         protected MySQLEntities Context;
-        protected MySQLEntitiesRemote ContextRemote;
-
+        
         protected Repositorio()
         {
             Context = new MySQLEntities();
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            ContextRemote = new MySQLEntitiesRemote();
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);            
         }
 
         public IQueryable<T> GetTodos()

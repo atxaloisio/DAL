@@ -2202,8 +2202,8 @@
           <Property Name="peso_liq" Type="Decimal" />
           <Property Name="peso_bruto" Type="Decimal" />
           <Property Name="estoque_minimo" Type="Decimal" />
-          <Property Name="descr_detalhada" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="obs_internas" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="descr_detalhada" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="obs_internas" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="itempedido_produto" Relationship="dbintegracaoModel.FK_itempedido_produto_produto" FromRole="produto" ToRole="itempedido_produto" />
           <NavigationProperty Name="produto_ibpt" Relationship="dbintegracaoModel.FK_produto_ibpt_produto" FromRole="produto" ToRole="produto_ibpt" />
           <Property Name="inclusao" Type="DateTime" />

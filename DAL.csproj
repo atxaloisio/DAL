@@ -78,16 +78,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="dbIntegRemote.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbIntegRemote.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="dbIntegRemote.Designer.cs">
-      <DependentUpon>dbIntegRemote.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Interface\ICaixaRepositorio.cs" />
     <Compile Include="Interface\ICategoriaRepositorio.cs" />
     <Compile Include="Interface\ICliente_TransportadoraRepositorio.cs" />
@@ -194,15 +184,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbInteg.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="dbIntegRemote.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>dbIntegRemote.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="dbInteg.edmx.diagram">
       <DependentUpon>dbInteg.edmx</DependentUpon>
-    </None>
-    <None Include="dbIntegRemote.edmx.diagram">
-      <DependentUpon>dbIntegRemote.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -211,11 +194,6 @@
       <DependentUpon>dbInteg.edmx</DependentUpon>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>dbInteg.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="dbIntegRemote.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dbIntegRemote.Context.cs</LastGenOutput>
-      <DependentUpon>dbIntegRemote.edmx</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -17,7 +17,7 @@ namespace DAL
         protected Repositorio()
         {
             Context = new MySQLEntities();
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);            
+            //Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);            
         }
 
         public IQueryable<T> GetTodos()

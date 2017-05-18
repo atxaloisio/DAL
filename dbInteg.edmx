@@ -597,13 +597,13 @@
           <Property Name="od_gl_esf" Type="varchar" MaxLength="6" />
           <Property Name="od_gl_cil" Type="varchar" MaxLength="6" />
           <Property Name="od_eixo" Type="int" />
-          <Property Name="od_adicao" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="od_adicao" Type="varchar" MaxLength="6" />
           <Property Name="od_gp_esf" Type="varchar" MaxLength="6" />
           <Property Name="od_gp_cil" Type="varchar" MaxLength="6" />
           <Property Name="oe_gl_esf" Type="varchar" MaxLength="6" />
           <Property Name="oe_gl_cil" Type="varchar" MaxLength="6" />
           <Property Name="oe_eixo" Type="int" />
-          <Property Name="oe_adicao" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="oe_adicao" Type="varchar" MaxLength="6" />
           <Property Name="oe_gp_esf" Type="varchar" MaxLength="6" />
           <Property Name="oe_gp_cil" Type="varchar" MaxLength="6" />
           <Property Name="od_dnp_longe" Type="varchar" MaxLength="10" />
@@ -747,8 +747,8 @@
           <Property Name="peso_liq" Type="decimal" Precision="10" Scale="2" />
           <Property Name="peso_bruto" Type="decimal" Precision="10" Scale="2" />
           <Property Name="estoque_minimo" Type="decimal" Precision="10" Scale="0" />
-          <Property Name="descr_detalhada" Type="char" MaxLength="1" />
-          <Property Name="obs_internas" Type="char" MaxLength="1" />
+          <Property Name="descr_detalhada" Type="varchar" MaxLength="1024" />
+          <Property Name="obs_internas" Type="varchar" MaxLength="1024" />
           <Property Name="inclusao" Type="date" />
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
@@ -2620,13 +2620,13 @@
           <Property Name="od_gl_esf" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="od_gl_cil" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="od_eixo" Type="Int32" />
-          <Property Name="od_adicao" Type="Decimal" />
+          <Property Name="od_adicao" Type="String" FixedLength="false" MaxLength="6" Unicode="false" />
           <Property Name="od_gp_esf" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="od_gp_cil" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="oe_gl_esf" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="oe_gl_cil" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="oe_eixo" Type="Int32" />
-          <Property Name="oe_adicao" Type="Decimal" />
+          <Property Name="oe_adicao" Type="String" FixedLength="false" MaxLength="6" Unicode="false" />
           <Property Name="oe_gp_esf" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="oe_gp_cil" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="od_dnp_longe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />

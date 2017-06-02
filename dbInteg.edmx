@@ -643,6 +643,10 @@
           <Property Name="laboratorio" Type="varchar" MaxLength="100" />
           <Property Name="telefone_laboratorio" Type="varchar" MaxLength="14" />
           <Property Name="ordem_servico" Type="varchar" MaxLength="20" />
+          <Property Name="od_gp_eixo" Type="int" />
+          <Property Name="oe_gp_eixo" Type="int" />
+          <Property Name="od_gp_alt" Type="varchar" MaxLength="10" />
+          <Property Name="oe_gp_alt" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="pedido_otica_parcelas">
           <Key>
@@ -927,7 +931,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_cliente_tag_cliente">
-          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cliente_tag" Type="Self.cliente_tag" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cliente">
@@ -3329,6 +3335,10 @@
           <Property Name="telefone_laboratorio" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.fk_pedido_otica_infoadic" FromRole="pedido_otica_infoadic" ToRole="Pedido_Otica" />
           <Property Name="ordem_servico" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="od_gp_eixo" Type="Int32" />
+          <Property Name="oe_gp_eixo" Type="Int32" />
+          <Property Name="od_gp_alt" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="oe_gp_alt" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_pedido_otica_infoadic">
           <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="1">
@@ -4310,6 +4320,10 @@
           <EntitySetMapping Name="Pedido_Otica_InfoAdic1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Pedido_Otica_InfoAdic">
               <MappingFragment StoreEntitySet="pedido_otica_infoadic">
+                <ScalarProperty Name="oe_gp_alt" ColumnName="oe_gp_alt" />
+                <ScalarProperty Name="od_gp_alt" ColumnName="od_gp_alt" />
+                <ScalarProperty Name="oe_gp_eixo" ColumnName="oe_gp_eixo" />
+                <ScalarProperty Name="od_gp_eixo" ColumnName="od_gp_eixo" />
                 <ScalarProperty Name="ordem_servico" ColumnName="ordem_servico" />
                 <ScalarProperty Name="telefone_laboratorio" ColumnName="telefone_laboratorio" />
                 <ScalarProperty Name="laboratorio" ColumnName="laboratorio" />

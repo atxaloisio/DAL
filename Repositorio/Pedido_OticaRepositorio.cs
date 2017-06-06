@@ -60,14 +60,22 @@ namespace DAL
 
             foreach (Pedido_Otica_Parcelas item in entity.pedido_otica_parcelas)
             {
-                if (item.Id > 0)
+                if (item.state == EstadoEntidade.Deleted)
                 {                   
                     remParcelas.Add(item);
                 }
                 else
                 {
-                    Context.Entry(item).State = EntityState.Added;
-                    item.Id_pedido_otica = entity.Id;
+                    if (item.Id > 0)
+                    {
+                        Context.Entry(item).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        Context.Entry(item).State = EntityState.Added;                        
+                        item.Id_pedido_otica = entity.Id;
+                    }
+                    
                 }
             }
 

@@ -591,7 +591,7 @@
           <Property Name="condicao_pagamento" Type="bigint" />
           <Property Name="numero_pedido_cliente" Type="varchar" MaxLength="20" />
           <Property Name="date_previsao_entrega" Type="date" />
-          <Property Name="hora_previsao_entrega" Type="time" Precision="0" />
+          <Property Name="hora_previsao_entrega" Type="varchar" MaxLength="8" />
           <Property Name="id_motivo_entrega" Type="bigint" />
           <Property Name="Id_transportadora" Type="bigint" />
           <Property Name="od_gl_esf" Type="varchar" MaxLength="6" />
@@ -639,7 +639,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_pedido_otica" Type="bigint" Nullable="false" />
           <Property Name="nome_medico" Type="varchar" MaxLength="100" />
-          <Property Name="crm_medico" Type="int" />
+          <Property Name="crm_medico" Type="varchar" MaxLength="20" />
           <Property Name="laboratorio" Type="varchar" MaxLength="100" />
           <Property Name="telefone_laboratorio" Type="varchar" MaxLength="14" />
           <Property Name="ordem_servico" Type="varchar" MaxLength="20" />
@@ -2620,7 +2620,7 @@
           <Property Name="condicao_pagamento" Type="Int64" />
           <Property Name="numero_pedido_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="date_previsao_entrega" Type="DateTime" />
-          <Property Name="hora_previsao_entrega" Type="Time" />
+          <Property Name="hora_previsao_entrega" Type="String" MaxLength="8" />
           <Property Name="id_motivo_entrega" Type="Int64" />
           <Property Name="Id_transportadora" Type="Int64" />
           <Property Name="od_gl_esf" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
@@ -3330,7 +3330,7 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_pedido_otica" Type="Int64" Nullable="false" />
           <Property Name="nome_medico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="crm_medico" Type="Int32" />
+          <Property Name="crm_medico" Type="String" MaxLength="20" />
           <Property Name="laboratorio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="telefone_laboratorio" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.fk_pedido_otica_infoadic" FromRole="pedido_otica_infoadic" ToRole="Pedido_Otica" />

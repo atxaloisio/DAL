@@ -86,6 +86,8 @@
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
+          <Property Name="obsEndereco" Type="varchar" MaxLength="512" />
+          <Property Name="obsTelefonesEmail" Type="varchar" MaxLength="512" />
           <Property Name="sincronizar" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="cliente_parcela">
@@ -2402,6 +2404,8 @@
           <NavigationProperty Name="pedidoes" Relationship="dbintegracaoModel.FK_pedido_cliente" FromRole="cliente" ToRole="Pedido" />
           <NavigationProperty Name="cliente_parcela" Relationship="dbintegracaoModel.FK_cliente_parcela_cliente" FromRole="Cliente" ToRole="cliente_parcela" />
           <Property Name="cnae" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="obsEndereco" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="obsTelefonesEmail" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="inclusao" Type="DateTime" />
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="alteracao" Type="DateTime" />
@@ -3755,6 +3759,8 @@
           <EntitySetMapping Name="Clientes1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Cliente">
               <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="obsTelefonesEmail" ColumnName="obsTelefonesEmail" />
+                <ScalarProperty Name="obsEndereco" ColumnName="obsEndereco" />
                 <ScalarProperty Name="nascimento" ColumnName="nascimento" />
                 <ScalarProperty Name="cnae" ColumnName="cnae" />
                 <ScalarProperty Name="sincronizar" ColumnName="sincronizar" />

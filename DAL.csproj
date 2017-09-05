@@ -78,6 +78,7 @@
     <Compile Include="Interface\IConta_CorrenteRepositorio.cs" />
     <Compile Include="Interface\IEmpresaRepositorio.cs" />
     <Compile Include="Interface\IFamilia_ProdutoRepositorio.cs" />
+    <Compile Include="Interface\IFilialRepositorio.cs" />
     <Compile Include="Interface\IFormasPagVendaRepositorio.cs" />
     <Compile Include="Interface\IFuncaoRepositorio.cs" />
     <Compile Include="Interface\IFuncao_PerfilRepositorio.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Repositorio\CNAERepositorio.cs" />
     <Compile Include="Repositorio\EmpresaRepositorio.cs" />
     <Compile Include="Repositorio\Familia_ProdutoRepositorio.cs" />
+    <Compile Include="Repositorio\FilialRepositorio.cs" />
     <Compile Include="Repositorio\FormasPagVendaRepositorio.cs" />
     <Compile Include="Repositorio\Funcao_PerfilRepositorio.cs" />
     <Compile Include="Repositorio\FuncaoRepositorio.cs" />

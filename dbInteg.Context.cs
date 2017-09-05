@@ -73,5 +73,6 @@ namespace DAL
         public virtual DbSet<Movimento> Movimentoes1 { get; set; }
         public virtual DbSet<Tipo_Armacao> Tipo_Armacao1 { get; set; }
         public virtual DbSet<Tipo_Lente> Tipo_Lente1 { get; set; }
+        public virtual DbSet<Filial> Filials1 { get; set; }
     }
 }

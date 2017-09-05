@@ -92,6 +92,8 @@
         <AssociationConnector Association="dbintegracaoModel.fk_movimento_produto" />
         <EntityTypeShape EntityType="dbintegracaoModel.Tipo_Armacao" Width="1.5" PointX="13.375" PointY="16.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.Tipo_Lente" Width="1.5" PointX="15.375" PointY="16.75" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Filial" Width="1.5" PointX="21.375" PointY="22.75" />
+        <AssociationConnector Association="dbintegracaoModel.FK_filial_empresa" />
         </Diagram>
       <Diagram DiagramId="4e59f3d5d0b5427fa5bc47a1ed72db6a" Name="controle_acesso" ZoomLevel="84" >
         <EntityTypeShape EntityType="dbintegracaoModel.Perfil" Width="1.5" PointX="0.75" PointY="0.75" />

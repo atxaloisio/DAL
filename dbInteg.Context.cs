@@ -13,7 +13,7 @@ namespace DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using Model;
-    
+
     public partial class MySQLEntities : DbContext
     {
         public MySQLEntities()
@@ -50,7 +50,6 @@ namespace DAL
         public virtual DbSet<Pedido_Otica> Pedido_Otica1 { get; set; }
         public virtual DbSet<Funcao> Funcaos1 { get; set; }
         public virtual DbSet<Perfil> Perfils1 { get; set; }
-        public virtual DbSet<Usuario> Usuarios1 { get; set; }
         public virtual DbSet<Conta_Corrente> Conta_Corrente1 { get; set; }
         public virtual DbSet<Funcao_Perfil> Funcao_Perfil1 { get; set; }
         public virtual DbSet<Pedido_InfoAdic> Pedido_InfoAdic1 { get; set; }
@@ -74,5 +73,6 @@ namespace DAL
         public virtual DbSet<Tipo_Armacao> Tipo_Armacao1 { get; set; }
         public virtual DbSet<Tipo_Lente> Tipo_Lente1 { get; set; }
         public virtual DbSet<Filial> Filials1 { get; set; }
+        public virtual DbSet<Usuario> Usuarios1 { get; set; }
     }
 }

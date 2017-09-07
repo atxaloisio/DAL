@@ -17,7 +17,7 @@ namespace DAL
         protected Repositorio()
         {
             Context = new MySQLEntities();
-            //Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);            
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);            
         }
 
         public IQueryable<T> GetTodos()
@@ -36,6 +36,20 @@ namespace DAL
             else
             {
                 return Context.Set<T>().AsNoTracking().OrderBy(ordem).Skip(page).Take(pageSize);
+            }
+        }
+
+        public IQueryable<T> GetTodos(Expression<Func<T, bool>> predicate, Expression<Func<T, string>> ordem, bool desc, int page, int pageSize)
+        {
+            //int skipRows = (page - 1) * pageSize;
+
+            if (desc)
+            {
+                return Context.Set<T>().Where(predicate).AsNoTracking().OrderByDescending(ordem).Skip(page).Take(pageSize);
+            }
+            else
+            {
+                return Context.Set<T>().Where(predicate).AsNoTracking().OrderBy(ordem).Skip(page).Take(pageSize);
             }
         }
 

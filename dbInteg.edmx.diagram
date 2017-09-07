@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="sistema" ZoomLevel="73">
+      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="sistema" ZoomLevel="100">
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido" Width="1.5" PointX="1.75" PointY="9.25" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_Imposto" Width="1.5" PointX="0.5" PointY="13.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_InfoAdic" Width="2.125" PointX="3.75" PointY="13.375" />
@@ -94,16 +94,14 @@
         <EntityTypeShape EntityType="dbintegracaoModel.Tipo_Lente" Width="1.5" PointX="15.375" PointY="16.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.Filial" Width="1.5" PointX="21.375" PointY="22.75" />
         <AssociationConnector Association="dbintegracaoModel.FK_filial_empresa" />
-        </Diagram>
-      <Diagram DiagramId="4e59f3d5d0b5427fa5bc47a1ed72db6a" Name="controle_acesso" ZoomLevel="84" >
-        <EntityTypeShape EntityType="dbintegracaoModel.Perfil" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Usuario" Width="1.5" PointX="6.75" PointY="4.25" />
-        <AssociationConnector Association="dbintegracaoModel.FK_usuario_perfil" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Funcao" Width="1.5" PointX="6.5" PointY="1.5" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Funcao_Perfil" Width="1.5" PointX="4.25" PointY="0.75" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Perfil" Width="1.5" PointX="21.375" PointY="36.5" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Funcao" Width="1.5" PointX="13.375" PointY="19.75" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Funcao_Perfil" Width="1.5" PointX="23.625" PointY="29.5" />
         <AssociationConnector Association="dbintegracaoModel.FK_funcao_perfil_funcao" />
         <AssociationConnector Association="dbintegracaoModel.FK_funcao_perfil_perfil" />
-      </Diagram>
+        <EntityTypeShape EntityType="dbintegracaoModel.Usuario" Width="1.5" PointX="23.625" PointY="36.125" />
+        <AssociationConnector Association="dbintegracaoModel.FK_usuario_perfil" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

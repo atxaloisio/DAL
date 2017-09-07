@@ -89,6 +89,8 @@
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
           <Property Name="sincronizar" Type="char" MaxLength="1" />
+          <Property Name="Id_empresa" Type="bigint" />
+          <Property Name="Id_filial" Type="bigint" />
         </EntityType>
         <EntityType Name="cliente_parcela">
           <Key>
@@ -673,6 +675,8 @@
           <Property Name="cancelado" Type="char" MaxLength="1" />
           <Property Name="motivo_cancelamento" Type="varchar" MaxLength="256" />
           <Property Name="data_cancelamento" Type="date" />
+          <Property Name="Id_empresa" Type="bigint" />
+          <Property Name="Id_filial" Type="bigint" />
         </EntityType>
         <EntityType Name="pedido_otica_infoadic">
           <Key>
@@ -928,6 +932,8 @@
           <Property Name="alteracao" Type="date" />
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
           <Property Name="inativo" Type="char" MaxLength="1" />
+          <Property Name="Id_empresa" Type="bigint" />
+          <Property Name="Id_filial" Type="bigint" />
         </EntityType>
         <EntityType Name="vendedor">
           <Key>
@@ -939,6 +945,8 @@
           <Property Name="nome" Type="varchar" MaxLength="120" Nullable="false" />
           <Property Name="inativo" Type="char" MaxLength="1" />
           <Property Name="sincronizar" Type="char" MaxLength="1" />
+          <Property Name="Id_empresa" Type="bigint" />
+          <Property Name="Id_filial" Type="bigint" />
         </EntityType>
         <EntityType Name="vendedor_localidade">
           <Key>
@@ -1859,11 +1867,6 @@
           </AssociationSet>
           <EntitySet Name="Funcaos1" EntityType="dbintegracaoModel.Funcao" />
           <EntitySet Name="Perfils1" EntityType="dbintegracaoModel.Perfil" />
-          <EntitySet Name="Usuarios1" EntityType="dbintegracaoModel.Usuario" />
-          <AssociationSet Name="FK_usuario_perfil" Association="dbintegracaoModel.FK_usuario_perfil">
-            <End Role="perfil" EntitySet="Perfils1" />
-            <End Role="usuario" EntitySet="Usuarios1" />
-          </AssociationSet>
           <EntitySet Name="Conta_Corrente1" EntityType="dbintegracaoModel.Conta_Corrente" />
           <EntitySet Name="Funcao_Perfil1" EntityType="dbintegracaoModel.Funcao_Perfil" />
           <AssociationSet Name="FK_funcao_perfil_funcao" Association="dbintegracaoModel.FK_funcao_perfil_funcao">
@@ -1974,6 +1977,11 @@
           <AssociationSet Name="FK_filial_empresa" Association="dbintegracaoModel.FK_filial_empresa">
             <End Role="Empresa" EntitySet="Empresas1" />
             <End Role="filial" EntitySet="Filials1" />
+          </AssociationSet>
+          <EntitySet Name="Usuarios1" EntityType="dbintegracaoModel.Usuario" />
+          <AssociationSet Name="FK_usuario_perfil" Association="dbintegracaoModel.FK_usuario_perfil">
+            <End Role="Perfil" EntitySet="Perfils1" />
+            <End Role="usuario" EntitySet="Usuarios1" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ItemPedido">
@@ -2480,6 +2488,8 @@
           <NavigationProperty Name="cliente_vendedor" Relationship="dbintegracaoModel.FK_cliente_vendedor_cliente" FromRole="Cliente" ToRole="cliente_vendedor" />
           <NavigationProperty Name="pedido_otica1" Relationship="dbintegracaoModel.FK_pedido_otica_transportadora" FromRole="Cliente" ToRole="Pedido_Otica" />
           <Property Name="sincronizar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Id_empresa" Type="Int64" />
+          <Property Name="Id_filial" Type="Int64" />
         </EntityType>
         <EntityType Name="Cliente_Tag">
           <Key>
@@ -2741,6 +2751,8 @@
           <NavigationProperty Name="caixa" Relationship="dbintegracaoModel.FK_pedido_otica_caixa" FromRole="Pedido_Otica" ToRole="caixa" />
           <NavigationProperty Name="pedido_otica_infoadic" Relationship="dbintegracaoModel.fk_pedido_otica_infoadic" FromRole="Pedido_Otica" ToRole="pedido_otica_infoadic" />
           <NavigationProperty Name="pedido_otica_parcelas" Relationship="dbintegracaoModel.FK_pedido_otica_parcelas_pedido" FromRole="Pedido_Otica" ToRole="pedido_otica_parcelas" />
+          <Property Name="Id_empresa" Type="Int64" />
+          <Property Name="Id_filial" Type="Int64" />
         </EntityType>
         <Association Name="FK_pedido_otica_cliente_cliente">
           <End Type="dbintegracaoModel.Cliente" Role="Cliente" Multiplicity="0..1" />
@@ -2843,42 +2855,14 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descricao" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="usuarios" Relationship="dbintegracaoModel.FK_usuario_perfil" FromRole="perfil" ToRole="usuario" />
           <Property Name="nome" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="inclusao" Type="DateTime" />
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" />
           <Property Name="alteracao" Type="DateTime" />
           <Property Name="usuario_alteracao" Type="String" MaxLength="40" />
           <NavigationProperty Name="funcao_perfil" Relationship="dbintegracaoModel.FK_funcao_perfil_perfil" FromRole="Perfil" ToRole="funcao_perfil" />
+          <NavigationProperty Name="usuarios" Relationship="dbintegracaoModel.FK_usuario_perfil" FromRole="Perfil" ToRole="usuario" />
         </EntityType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="nome" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Id_perfil" Type="Int64" />
-          <NavigationProperty Name="perfil" Relationship="dbintegracaoModel.FK_usuario_perfil" FromRole="usuario" ToRole="perfil" />
-          <Property Name="inclusao" Type="DateTime" />
-          <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="alteracao" Type="DateTime" />
-          <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="inativo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FK_usuario_perfil">
-          <End Type="dbintegracaoModel.Perfil" Role="perfil" Multiplicity="0..1" />
-          <End Type="dbintegracaoModel.Usuario" Role="usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="perfil">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="usuario">
-              <PropertyRef Name="Id_perfil" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Conta_Corrente">
           <Key>
             <PropertyRef Name="Id" />
@@ -3207,6 +3191,8 @@
           <NavigationProperty Name="vendedor_localidade" Relationship="dbintegracaoModel.FK_vendedor_localidade_vendedor" FromRole="vendedor" ToRole="vendedor_localidade" />
           <NavigationProperty Name="cliente_vendedor" Relationship="dbintegracaoModel.FK_cliente_vendedor_vendedor" FromRole="vendedor" ToRole="cliente_vendedor" />
           <Property Name="sincronizar" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Id_empresa" Type="Int64" />
+          <Property Name="Id_filial" Type="Int64" />
           </EntityType>
         <EntityType Name="Vendedor_Localidade">
           <Key>
@@ -3553,6 +3539,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Id_perfil" Type="Int64" />
+          <Property Name="inclusao" Type="DateTime" />
+          <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="alteracao" Type="DateTime" />
+          <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="inativo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Id_empresa" Type="Int64" />
+          <Property Name="Id_filial" Type="Int64" />
+          <NavigationProperty Name="perfil" Relationship="dbintegracaoModel.FK_usuario_perfil" FromRole="usuario" ToRole="Perfil" />
+        </EntityType>
+        <Association Name="FK_usuario_perfil">
+          <End Type="dbintegracaoModel.Perfil" Role="Perfil" Multiplicity="0..1" />
+          <End Type="dbintegracaoModel.Usuario" Role="usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="Id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3877,6 +3893,8 @@
           <EntitySetMapping Name="Clientes1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Cliente">
               <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="Id_filial" ColumnName="Id_filial" />
+                <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
                 <ScalarProperty Name="obsTelefonesEmail" ColumnName="obsTelefonesEmail" />
                 <ScalarProperty Name="obsEndereco" ColumnName="obsEndereco" />
                 <ScalarProperty Name="nascimento" ColumnName="nascimento" />
@@ -4046,6 +4064,8 @@
           <EntitySetMapping Name="Pedido_Otica1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Pedido_Otica">
               <MappingFragment StoreEntitySet="pedido_otica">
+                <ScalarProperty Name="Id_filial" ColumnName="Id_filial" />
+                <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
                 <ScalarProperty Name="Id_caixa" ColumnName="Id_caixa" />
                 <ScalarProperty Name="motivo_cancelamento" ColumnName="motivo_cancelamento" />
                 <ScalarProperty Name="data_cancelamento" ColumnName="data_cancelamento" />
@@ -4118,22 +4138,6 @@
                 <ScalarProperty Name="inclusao" ColumnName="inclusao" />
                 <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios1">
-            <EntityTypeMapping TypeName="dbintegracaoModel.Usuario">
-              <MappingFragment StoreEntitySet="usuario">
-                <ScalarProperty Name="inativo" ColumnName="inativo" />
-                <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
-                <ScalarProperty Name="alteracao" ColumnName="alteracao" />
-                <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
-                <ScalarProperty Name="inclusao" ColumnName="inclusao" />
-                <ScalarProperty Name="Id_perfil" ColumnName="Id_perfil" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="nome" ColumnName="nome" />
-                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -4328,6 +4332,8 @@
           <EntitySetMapping Name="Vendedors1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Vendedor">
               <MappingFragment StoreEntitySet="vendedor">
+                <ScalarProperty Name="Id_filial" ColumnName="Id_filial" />
+                <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
                 <ScalarProperty Name="sincronizar" ColumnName="sincronizar" />
                 <ScalarProperty Name="inativo" ColumnName="inativo" />
                 <ScalarProperty Name="nome" ColumnName="nome" />
@@ -4546,6 +4552,24 @@
                 <ScalarProperty Name="codigo_filial_integracao" ColumnName="codigo_filial_integracao" />
                 <ScalarProperty Name="codigo_filial" ColumnName="codigo_filial" />
                 <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="Id_filial" ColumnName="Id_filial" />
+                <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
+                <ScalarProperty Name="inativo" ColumnName="inativo" />
+                <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
+                <ScalarProperty Name="alteracao" ColumnName="alteracao" />
+                <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
+                <ScalarProperty Name="inclusao" ColumnName="inclusao" />
+                <ScalarProperty Name="Id_perfil" ColumnName="Id_perfil" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

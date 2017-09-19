@@ -82,6 +82,7 @@
     <Compile Include="Interface\IFormasPagVendaRepositorio.cs" />
     <Compile Include="Interface\IFuncaoRepositorio.cs" />
     <Compile Include="Interface\IFuncao_PerfilRepositorio.cs" />
+    <Compile Include="Interface\ILivroCaixaRepositorio.cs" />
     <Compile Include="Interface\IMovimentoRepositorio.cs" />
     <Compile Include="Interface\IPedido_Otica_InfoAdicRepositorio.cs" />
     <Compile Include="Interface\IPedido_Otica_ParcelasRepositorio.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Repositorio\ItemPedido_OticaRepositorio.cs" />
     <Compile Include="Repositorio\ItemPedido_ProdutoRepositorio.cs" />
     <Compile Include="Interface\IUsuarioRepositorio.cs" />
+    <Compile Include="Repositorio\Livro_CaixaRepositorio.cs" />
     <Compile Include="Repositorio\Motivo_EntregaRepositorio.cs" />
     <Compile Include="Repositorio\MovimentoRepositorio.cs" />
     <Compile Include="Repositorio\PaisRepositorio.cs" />

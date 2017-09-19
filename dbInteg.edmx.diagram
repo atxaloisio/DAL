@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="sistema" ZoomLevel="100">
+      <Diagram DiagramId="cd551435402e46628d70e3490437f739" Name="sistema" ZoomLevel="80">
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido" Width="1.5" PointX="1.75" PointY="9.25" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_Imposto" Width="1.5" PointX="0.5" PointY="13.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.ItemPedido_InfoAdic" Width="2.125" PointX="3.75" PointY="13.375" />
@@ -101,6 +101,14 @@
         <AssociationConnector Association="dbintegracaoModel.FK_funcao_perfil_perfil" />
         <EntityTypeShape EntityType="dbintegracaoModel.Usuario" Width="1.5" PointX="23.625" PointY="36.125" />
         <AssociationConnector Association="dbintegracaoModel.FK_usuario_perfil" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Contas_Pagar" Width="1.5" PointX="15.375" PointY="19.75" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Item_Livro_Caixa" Width="1.5" PointX="28.75" PointY="7.5" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Livro_Caixa" Width="1.5" PointX="26.125" PointY="7.5" />
+        <AssociationConnector Association="dbintegracaoModel.FK_item_livro_livro" />
+        <AssociationConnector Association="dbintegracaoModel.fk_item_livro_caixa_empresa" />
+        <AssociationConnector Association="dbintegracaoModel.fk_livro_caixa_empresa" />
+        <AssociationConnector Association="dbintegracaoModel.fk_item_livro_caixa_filial" />
+        <AssociationConnector Association="dbintegracaoModel.fk_livro_caixa_filial" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

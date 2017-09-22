@@ -315,7 +315,7 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_livro" Type="bigint" Nullable="false" />
-          <Property Name="tipo" Type="date" />
+          <Property Name="tipo" Type="char" MaxLength="1" />
           <Property Name="descricao" Type="varchar" MaxLength="80" />
           <Property Name="documento" Type="varchar" MaxLength="20" />
           <Property Name="valor" Type="decimal" Precision="10" Scale="0" />
@@ -493,6 +493,7 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="data" Type="date" />
+          <Property Name="status" Type="char" MaxLength="1" />
           <Property Name="saldo_inicial" Type="decimal" Precision="10" Scale="0" />
           <Property Name="saldo_final" Type="decimal" Precision="10" Scale="0" />
           <Property Name="inclusao" Type="date" />
@@ -3753,7 +3754,7 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Id_livro" Type="Int64" Nullable="false" />
-          <Property Name="tipo" Type="DateTime" />
+          <Property Name="tipo" Type="String" />
           <Property Name="descricao" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="documento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="valor" Type="Decimal" />
@@ -3773,6 +3774,7 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="data" Type="DateTime" />
+          <Property Name="status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="saldo_inicial" Type="Decimal" />
           <Property Name="saldo_final" Type="Decimal" />
           <NavigationProperty Name="item_livro_caixa" Relationship="dbintegracaoModel.FK_item_livro_livro" FromRole="livro_caixa" ToRole="item_livro_caixa" />
@@ -4895,6 +4897,7 @@
           <EntitySetMapping Name="Livro_Caixa1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Livro_Caixa">
               <MappingFragment StoreEntitySet="livro_caixa">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="Id_filial" ColumnName="Id_filial" />
                 <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />

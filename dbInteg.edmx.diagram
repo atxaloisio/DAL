@@ -101,7 +101,6 @@
         <AssociationConnector Association="dbintegracaoModel.FK_funcao_perfil_perfil" />
         <EntityTypeShape EntityType="dbintegracaoModel.Usuario" Width="1.5" PointX="23.625" PointY="36.125" />
         <AssociationConnector Association="dbintegracaoModel.FK_usuario_perfil" />
-        <EntityTypeShape EntityType="dbintegracaoModel.Contas_Pagar" Width="1.5" PointX="15.375" PointY="19.75" />
         <EntityTypeShape EntityType="dbintegracaoModel.Item_Livro_Caixa" Width="1.5" PointX="28.75" PointY="7.5" />
         <EntityTypeShape EntityType="dbintegracaoModel.Livro_Caixa" Width="1.5" PointX="26.125" PointY="7.5" />
         <AssociationConnector Association="dbintegracaoModel.FK_item_livro_livro" />
@@ -109,6 +108,9 @@
         <AssociationConnector Association="dbintegracaoModel.fk_livro_caixa_empresa" />
         <AssociationConnector Association="dbintegracaoModel.fk_item_livro_caixa_filial" />
         <AssociationConnector Association="dbintegracaoModel.fk_livro_caixa_filial" />
+        <AssociationConnector Association="dbintegracaoModel.fk_parcela" />
+        <EntityTypeShape EntityType="dbintegracaoModel.Contas_Pagar" Width="1.5" PointX="15.375" PointY="20" />
+        <AssociationConnector Association="dbintegracaoModel.fk_contapagar" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

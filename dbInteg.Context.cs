@@ -74,8 +74,8 @@ namespace DAL
         public virtual DbSet<Tipo_Lente> Tipo_Lente1 { get; set; }
         public virtual DbSet<Filial> Filials1 { get; set; }
         public virtual DbSet<Usuario> Usuarios1 { get; set; }
-        public virtual DbSet<Contas_Pagar> Contas_Pagar1 { get; set; }
         public virtual DbSet<Item_Livro_Caixa> Item_Livro_Caixa { get; set; }
         public virtual DbSet<Livro_Caixa> Livro_Caixa1 { get; set; }
+        public virtual DbSet<Contas_Pagar> Contas_Pagar1 { get; set; }
     }
 }

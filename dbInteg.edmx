@@ -176,7 +176,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="ubigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_fornecedor" Type="bigint" />
           <Property Name="Documento" Type="varchar" MaxLength="20" />
           <Property Name="valor" Type="decimal" Precision="10" Scale="0" />
@@ -325,6 +325,8 @@
           <Property Name="usuario_alteracao" Type="varchar" MaxLength="40" />
           <Property Name="Id_empresa" Type="bigint" />
           <Property Name="Id_filial" Type="bigint" />
+          <Property Name="Id_parcela" Type="bigint" />
+          <Property Name="Id_contaspagar" Type="bigint" />
         </EntityType>
         <EntityType Name="itempedido">
           <Key>
@@ -801,6 +803,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nome" Type="varchar" MaxLength="40" />
           <Property Name="descricao" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="administrativo" Type="char" MaxLength="1" />
           <Property Name="inclusao" Type="date" />
           <Property Name="usuario_inclusao" Type="varchar" MaxLength="40" />
           <Property Name="alteracao" Type="date" />
@@ -1104,6 +1107,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_contapagar">
+          <End Role="contas_pagar" Type="Self.contas_pagar" Multiplicity="0..1" />
+          <End Role="item_livro_caixa" Type="Self.item_livro_caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contas_pagar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="item_livro_caixa">
+              <PropertyRef Name="Id_contaspagar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_empresa">
+          <End Role="empresa" Type="Self.empresa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="item_livro_caixa" Type="Self.item_livro_caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="item_livro_caixa">
+              <PropertyRef Name="Id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_filial">
+          <End Role="filial" Type="Self.filial" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="item_livro_caixa" Type="Self.item_livro_caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="filial">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="item_livro_caixa">
+              <PropertyRef Name="Id_filial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_filial_empresa">
           <End Role="empresa" Type="Self.empresa" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1139,48 +1182,6 @@
             </Principal>
             <Dependent Role="funcao_perfil">
               <PropertyRef Name="Id_perfil" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_item_livro_caixa_empresa">
-          <End Role="empresa" Type="Self.empresa" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="item_livro_caixa" Type="Self.item_livro_caixa" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="empresa">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="item_livro_caixa">
-              <PropertyRef Name="Id_empresa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_item_livro_caixa_filial">
-          <End Role="filial" Type="Self.filial" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="item_livro_caixa" Type="Self.item_livro_caixa" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="filial">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="item_livro_caixa">
-              <PropertyRef Name="Id_filial" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_item_livro_livro">
-          <End Role="livro_caixa" Type="Self.livro_caixa" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="item_livro_caixa" Type="Self.item_livro_caixa" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="livro_caixa">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="item_livro_caixa">
-              <PropertyRef Name="Id_livro" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1278,6 +1279,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_livro">
+          <End Role="livro_caixa" Type="Self.livro_caixa" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="item_livro_caixa" Type="Self.item_livro_caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="livro_caixa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="item_livro_caixa">
+              <PropertyRef Name="Id_livro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_livro_caixa_empresa">
           <End Role="empresa" Type="Self.empresa" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -1331,6 +1346,18 @@
             </Principal>
             <Dependent Role="pedido_observacoes">
               <PropertyRef Name="Id_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_parcela">
+          <End Role="pedido_otica_parcelas" Type="Self.pedido_otica_parcelas" Multiplicity="0..1" />
+          <End Role="item_livro_caixa" Type="Self.item_livro_caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedido_otica_parcelas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="item_livro_caixa">
+              <PropertyRef Name="Id_parcela" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1728,6 +1755,18 @@
             <End Role="vendedor" EntitySet="vendedor" />
             <End Role="cliente_vendedor" EntitySet="cliente_vendedor" />
           </AssociationSet>
+          <AssociationSet Name="fk_contapagar" Association="Self.fk_contapagar">
+            <End Role="contas_pagar" EntitySet="contas_pagar" />
+            <End Role="item_livro_caixa" EntitySet="item_livro_caixa" />
+          </AssociationSet>
+          <AssociationSet Name="fk_empresa" Association="Self.fk_empresa">
+            <End Role="empresa" EntitySet="empresa" />
+            <End Role="item_livro_caixa" EntitySet="item_livro_caixa" />
+          </AssociationSet>
+          <AssociationSet Name="fk_filial" Association="Self.fk_filial">
+            <End Role="filial" EntitySet="filial" />
+            <End Role="item_livro_caixa" EntitySet="item_livro_caixa" />
+          </AssociationSet>
           <AssociationSet Name="FK_filial_empresa" Association="Self.FK_filial_empresa">
             <End Role="empresa" EntitySet="empresa" />
             <End Role="filial" EntitySet="filial" />
@@ -1739,18 +1778,6 @@
           <AssociationSet Name="FK_funcao_perfil_perfil" Association="Self.FK_funcao_perfil_perfil">
             <End Role="perfil" EntitySet="perfil" />
             <End Role="funcao_perfil" EntitySet="funcao_perfil" />
-          </AssociationSet>
-          <AssociationSet Name="fk_item_livro_caixa_empresa" Association="Self.fk_item_livro_caixa_empresa">
-            <End Role="empresa" EntitySet="empresa" />
-            <End Role="item_livro_caixa" EntitySet="item_livro_caixa" />
-          </AssociationSet>
-          <AssociationSet Name="fk_item_livro_caixa_filial" Association="Self.fk_item_livro_caixa_filial">
-            <End Role="filial" EntitySet="filial" />
-            <End Role="item_livro_caixa" EntitySet="item_livro_caixa" />
-          </AssociationSet>
-          <AssociationSet Name="FK_item_livro_livro" Association="Self.FK_item_livro_livro">
-            <End Role="livro_caixa" EntitySet="livro_caixa" />
-            <End Role="item_livro_caixa" EntitySet="item_livro_caixa" />
           </AssociationSet>
           <AssociationSet Name="FK_itempedido_imposto_itempedido" Association="Self.FK_itempedido_imposto_itempedido">
             <End Role="itempedido" EntitySet="itempedido" />
@@ -1780,6 +1807,10 @@
             <End Role="produto" EntitySet="produto" />
             <End Role="itempedido_produto" EntitySet="itempedido_produto" />
           </AssociationSet>
+          <AssociationSet Name="fk_livro" Association="Self.fk_livro">
+            <End Role="livro_caixa" EntitySet="livro_caixa" />
+            <End Role="item_livro_caixa" EntitySet="item_livro_caixa" />
+          </AssociationSet>
           <AssociationSet Name="fk_livro_caixa_empresa" Association="Self.fk_livro_caixa_empresa">
             <End Role="empresa" EntitySet="empresa" />
             <End Role="livro_caixa" EntitySet="livro_caixa" />
@@ -1795,6 +1826,10 @@
           <AssociationSet Name="FK_observacoes_pedido_pedido" Association="Self.FK_observacoes_pedido_pedido">
             <End Role="pedido" EntitySet="pedido" />
             <End Role="pedido_observacoes" EntitySet="pedido_observacoes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_parcela" Association="Self.fk_parcela">
+            <End Role="pedido_otica_parcelas" EntitySet="pedido_otica_parcelas" />
+            <End Role="item_livro_caixa" EntitySet="item_livro_caixa" />
           </AssociationSet>
           <AssociationSet Name="FK_pedido_armacao_pedido_otica" Association="Self.FK_pedido_armacao_pedido_otica">
             <End Role="pedido_otica" EntitySet="pedido_otica" />
@@ -2122,7 +2157,6 @@
             <End Role="Perfil" EntitySet="Perfils1" />
             <End Role="usuario" EntitySet="Usuarios1" />
           </AssociationSet>
-          <EntitySet Name="Contas_Pagar1" EntityType="dbintegracaoModel.Contas_Pagar" />
           <EntitySet Name="Item_Livro_Caixa" EntityType="dbintegracaoModel.Item_Livro_Caixa" />
           <EntitySet Name="Livro_Caixa1" EntityType="dbintegracaoModel.Livro_Caixa" />
           <AssociationSet Name="FK_item_livro_livro" Association="dbintegracaoModel.FK_item_livro_livro">
@@ -2144,6 +2178,15 @@
           <AssociationSet Name="fk_livro_caixa_filial" Association="dbintegracaoModel.fk_livro_caixa_filial">
             <End Role="Filial" EntitySet="Filials1" />
             <End Role="Livro_Caixa" EntitySet="Livro_Caixa1" />
+          </AssociationSet>
+          <AssociationSet Name="fk_parcela" Association="dbintegracaoModel.fk_parcela">
+            <End Role="Pedido_Otica_Parcelas" EntitySet="Pedido_Otica_Parcelas1" />
+            <End Role="Item_Livro_Caixa" EntitySet="Item_Livro_Caixa" />
+          </AssociationSet>
+          <EntitySet Name="Contas_Pagar1" EntityType="dbintegracaoModel.Contas_Pagar" />
+          <AssociationSet Name="fk_contapagar" Association="dbintegracaoModel.fk_contapagar">
+            <End Role="contas_pagar" EntitySet="Contas_Pagar1" />
+            <End Role="Item_Livro_Caixa" EntitySet="Item_Livro_Caixa" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ItemPedido">
@@ -3016,8 +3059,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="descricao" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="nome" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="administrativo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="inclusao" Type="DateTime" />
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" />
           <Property Name="alteracao" Type="DateTime" />
@@ -3590,6 +3634,7 @@
           <NavigationProperty Name="pedido_otica" Relationship="dbintegracaoModel.FK_pedido_otica_parcelas_pedido" FromRole="pedido_otica_parcelas" ToRole="Pedido_Otica" />
           <Property Name="data_pagamento" Type="DateTime" />
           <Property Name="forma_pagamento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="item_livro_caixa" Relationship="dbintegracaoModel.fk_parcela" FromRole="Pedido_Otica_Parcelas" ToRole="Item_Livro_Caixa" />
         </EntityType>
         <Association Name="FK_pedido_otica_parcelas_pedido">
           <End Type="dbintegracaoModel.Pedido_Otica" Role="Pedido_Otica" Multiplicity="1">
@@ -3735,19 +3780,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Contas_Pagar">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Decimal" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_fornecedor" Type="Int64" />
-          <Property Name="Documento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="valor" Type="Decimal" />
-          <Property Name="vencimento" Type="DateTime" />
-          <Property Name="categoria" Type="Int32" />
-          <Property Name="previsao" Type="DateTime" />
-          <Property Name="pago" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Item_Livro_Caixa">
           <Key>
             <PropertyRef Name="Id" />
@@ -3767,6 +3799,10 @@
           <Property Name="Id_filial" Type="Int64" />
           <NavigationProperty Name="empresa" Relationship="dbintegracaoModel.fk_item_livro_caixa_empresa" FromRole="Item_Livro_Caixa" ToRole="Empresa" />
           <NavigationProperty Name="filial" Relationship="dbintegracaoModel.fk_item_livro_caixa_filial" FromRole="Item_Livro_Caixa" ToRole="Filial" />
+          <Property Name="Id_parcela" Type="Int64" />
+          <Property Name="Id_contaspagar" Type="Int64" />
+          <NavigationProperty Name="pedido_otica_parcelas" Relationship="dbintegracaoModel.fk_parcela" FromRole="Item_Livro_Caixa" ToRole="Pedido_Otica_Parcelas" />
+          <NavigationProperty Name="contas_pagar" Relationship="dbintegracaoModel.fk_contapagar" FromRole="Item_Livro_Caixa" ToRole="contas_pagar" />
         </EntityType>
         <EntityType Name="Livro_Caixa">
           <Key>
@@ -3854,6 +3890,44 @@
             </Principal>
             <Dependent Role="Livro_Caixa">
               <PropertyRef Name="Id_filial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_parcela">
+          <End Type="dbintegracaoModel.Pedido_Otica_Parcelas" Role="Pedido_Otica_Parcelas" Multiplicity="0..1" />
+          <End Type="dbintegracaoModel.Item_Livro_Caixa" Role="Item_Livro_Caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido_Otica_Parcelas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Livro_Caixa">
+              <PropertyRef Name="Id_parcela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Contas_Pagar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_fornecedor" Type="Int64" />
+          <Property Name="Documento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="valor" Type="Decimal" />
+          <Property Name="vencimento" Type="DateTime" />
+          <Property Name="categoria" Type="Int32" />
+          <Property Name="previsao" Type="DateTime" />
+          <Property Name="pago" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="item_livro_caixa" Relationship="dbintegracaoModel.fk_contapagar" FromRole="contas_pagar" ToRole="Item_Livro_Caixa" />
+        </EntityType>
+        <Association Name="fk_contapagar">
+          <End Type="dbintegracaoModel.Contas_Pagar" Role="contas_pagar" Multiplicity="0..1" />
+          <End Type="dbintegracaoModel.Item_Livro_Caixa" Role="Item_Livro_Caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contas_pagar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Livro_Caixa">
+              <PropertyRef Name="Id_contaspagar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4420,6 +4494,7 @@
           <EntitySetMapping Name="Perfils1">
             <EntityTypeMapping TypeName="dbintegracaoModel.Perfil">
               <MappingFragment StoreEntitySet="perfil">
+                <ScalarProperty Name="administrativo" ColumnName="administrativo" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
                 <ScalarProperty Name="usuario_inclusao" ColumnName="usuario_inclusao" />
@@ -4862,23 +4937,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Contas_Pagar1">
-            <EntityTypeMapping TypeName="dbintegracaoModel.Contas_Pagar">
-              <MappingFragment StoreEntitySet="contas_pagar">
-                <ScalarProperty Name="pago" ColumnName="pago" />
-                <ScalarProperty Name="previsao" ColumnName="previsao" />
-                <ScalarProperty Name="categoria" ColumnName="categoria" />
-                <ScalarProperty Name="vencimento" ColumnName="vencimento" />
-                <ScalarProperty Name="valor" ColumnName="valor" />
-                <ScalarProperty Name="Documento" ColumnName="Documento" />
-                <ScalarProperty Name="Id_fornecedor" ColumnName="Id_fornecedor" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Item_Livro_Caixa">
             <EntityTypeMapping TypeName="dbintegracaoModel.Item_Livro_Caixa">
               <MappingFragment StoreEntitySet="item_livro_caixa">
+                <ScalarProperty Name="Id_contaspagar" ColumnName="Id_contaspagar" />
+                <ScalarProperty Name="Id_parcela" ColumnName="Id_parcela" />
                 <ScalarProperty Name="Id_filial" ColumnName="Id_filial" />
                 <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
@@ -4907,6 +4970,20 @@
                 <ScalarProperty Name="saldo_final" ColumnName="saldo_final" />
                 <ScalarProperty Name="saldo_inicial" ColumnName="saldo_inicial" />
                 <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contas_Pagar1">
+            <EntityTypeMapping TypeName="dbintegracaoModel.Contas_Pagar">
+              <MappingFragment StoreEntitySet="contas_pagar">
+                <ScalarProperty Name="pago" ColumnName="pago" />
+                <ScalarProperty Name="previsao" ColumnName="previsao" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="vencimento" ColumnName="vencimento" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="Id_fornecedor" ColumnName="Id_fornecedor" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

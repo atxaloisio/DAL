@@ -75,6 +75,7 @@
     <Compile Include="Interface\ICliente_TransportadoraRepositorio.cs" />
     <Compile Include="Interface\ICliente_Vendedor.cs" />
     <Compile Include="Interface\ICNAERepositorio.cs" />
+    <Compile Include="Interface\IContas_Pagar.cs" />
     <Compile Include="Interface\IConta_CorrenteRepositorio.cs" />
     <Compile Include="Interface\IEmpresaRepositorio.cs" />
     <Compile Include="Interface\IFamilia_ProdutoRepositorio.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Repositorio\Cliente_TransportadoraRepositorio.cs" />
     <Compile Include="Repositorio\Cliente_VendedorRepositorio.cs" />
     <Compile Include="Repositorio\CNAERepositorio.cs" />
+    <Compile Include="Repositorio\Contas_PagarRepositorio.cs" />
     <Compile Include="Repositorio\EmpresaRepositorio.cs" />
     <Compile Include="Repositorio\Familia_ProdutoRepositorio.cs" />
     <Compile Include="Repositorio\FilialRepositorio.cs" />

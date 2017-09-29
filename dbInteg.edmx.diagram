@@ -111,6 +111,9 @@
         <AssociationConnector Association="dbintegracaoModel.fk_parcela" />
         <EntityTypeShape EntityType="dbintegracaoModel.Contas_Pagar" Width="1.5" PointX="15.375" PointY="20" />
         <AssociationConnector Association="dbintegracaoModel.fk_contapagar" />
+        <AssociationConnector Association="dbintegracaoModel.fk_contas_pagar_fornecedor" />
+        <AssociationConnector Association="dbintegracaoModel.fk_contas_pagar_empresa" />
+        <AssociationConnector Association="dbintegracaoModel.fk_contas_pagar_filial" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
